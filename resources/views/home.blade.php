@@ -1,9 +1,19 @@
-@extends('layouts.app')
+@extends('layouts.starlight')
+
+@section('title')
+    Category Page
+@endsection
+
+@section('breadcrumb')
+    <nav class="breadcrumb sl-breadcrumb">
+        <span class="breadcrumb-item active">Dashbroad</span>
+    </nav>
+@endsection
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 

@@ -1,18 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.starlight')
+
+@section('title') Edit 
+@endsection
+
+@section('breadcrumb')
+    <nav class="breadcrumb sl-breadcrumb">
+        <a class="breadcrumb-item" href=" {{route('home')}} ">Dashbroad</a>
+        <a class="breadcrumb-item" href=" {{route('category')}} ">Category</a>
+        <span class="breadcrumb-item active">{{$category_info->category_name}}</span>
+    </nav>
+@endsection
+
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-lg-6 m-auto">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href=" {{url('category')}} ">Category</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">{{$category_info->category_name}}</li>
-                    </ol>
-                </nav>
                 <div class="card">
                     <div class="card-header text-white bg-secondary">Edit Categroy</div>
                     <div class="card-body">
-                        <form action=" {{url('category/post/edit')}} " method="post">
+                        <form action=" {{route('category_post_edit')}} " method="post">
                             @csrf
                             <div class="form-group">
                                 <input type="hidden" value="{{$category_info->id}}" name="category_id">

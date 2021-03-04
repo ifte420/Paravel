@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Starlight Responsive Bootstrap 4 Admin Template</title>
+    <title>@yield('title')</title>
 
     <!-- vendor css -->
     <link href="{{ asset('starlight_asset/lib/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
@@ -333,11 +333,7 @@
 
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
-      <nav class="breadcrumb sl-breadcrumb">
-        <a class="breadcrumb-item" href="index.html">Starlight</a>
-        <a class="breadcrumb-item" href="index.html">Pages</a>
-        <span class="breadcrumb-item active">Blank Page</span>
-      </nav>
+        @yield('breadcrumb')
 
       <div class="sl-pagebody">
         @yield('content')
@@ -346,6 +342,7 @@
     <!-- ########## END: MAIN PANEL ########## -->
 
     <script src="{{asset('starlight_asset/lib/jquery/jquery.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="{{asset('starlight_asset/lib/popper.js/popper.js')}}"></script>
     <script src="{{asset('starlight_asset/lib/bootstrap/bootstrap.js')}}"></script>
     <script src="{{asset('starlight_asset/lib/jquery-ui/jquery-ui.js')}}"></script>
@@ -362,6 +359,8 @@
     <script src="{{asset('starlight_asset/js/starlight.js')}}"></script>
     <script src="{{asset('starlight_asset/js/ResizeSensor.js')}}"></script>
     <script src="{{asset('starlight_asset/js/dashboard.js')}}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    @yield('footer_script')
   </body>
 
   </body>

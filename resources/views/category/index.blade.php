@@ -1,5 +1,16 @@
 @extends('layouts.starlight')
 
+@section('title')
+    Category Page
+@endsection
+
+@section('breadcrumb')
+    <nav class="breadcrumb sl-breadcrumb">
+        <a class="breadcrumb-item" href=" {{route('home')}} ">Dashbroad</a>
+        <span class="breadcrumb-item active">Category Page</span>
+    </nav>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -67,8 +78,8 @@
                                     <td> {{$category->created_at->format('d/m/Y h:i:s')}} </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href=" {{url('category/edit')}}/{{$category->id}}" type="button" class="btn btn-info text-white">Edit</a>
-                                            <a href=" {{url('category/delete')}}/{{$category->id}}" type="button" class="btn btn-danger">Delete</a>
+                                            <a href=" {{route('categoryedit',$category->id)}}" type="button" class="btn btn-info text-white">Edit</a>
+                                            <a href=" {{route('categorydelete',$category->id)}}" type="button" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
@@ -96,7 +107,7 @@
             <div class="card">
                 <div class="card-header text-white bg-secondary">Add Categroy</div>
                 <div class="card-body">
-                    <form action=" {{url ('category/post')}} " method="post">
+                    <form action=" {{route('categorypost')}} " method="post">
                         @csrf
                         <div class="form-group">
                         @if (session('category_insert_status'))
@@ -173,8 +184,8 @@
                                 <td> {{$deleted_category->created_at->format('d/m/Y h:i:s')}} </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href=" {{url('category/restore')}}/{{$deleted_category->id}}" type="button" class="btn btn-success text-white">Restore</a>
-                                        <a href=" {{url('category/forcedelete')}}/{{$deleted_category->id}}" type="button" class="btn btn-danger">Delete</a>
+                                        <a href=" {{route('category_restore',$deleted_category->id)}}" type="button" class="btn btn-success text-white">Restore</a>
+                                        <a href=" {{route('categoryforce',$deleted_category->id)}}" type="button" class="btn btn-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>
@@ -205,7 +216,7 @@
                     confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href ="category/all/delete";
+                        window.location.href ="route('categoryalldelete')";
                     }
                 })
             });
@@ -220,7 +231,7 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{{url('category/all/forcedelete')}}";
+                        window.location.href = "{{route('category_force_delete_all')}}";
                     }
                 })
             });
@@ -235,7 +246,7 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{{url('category/all/restore')}}";
+                        window.location.href = "{{route('category_restore_all')}}";
                     }
                 })
             });

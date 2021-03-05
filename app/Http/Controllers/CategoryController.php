@@ -32,7 +32,9 @@ class CategoryController extends Controller
         return back()->with('category_insert_status', 'Category '. $request->category_name .' Added Successfully');
     }
     function categorydelete($category_id){
-        Category::find($category_id)->delete();
+        if(Category::where('id', $category_id)->exists()){
+            Category::findOrFail($category_id)->delete();
+        }
         return back()->with('category_delete_status', 'Category Soft Deleted Successfully');
     }
     function categoryalldelete(){

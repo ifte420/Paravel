@@ -1,6 +1,10 @@
 @extends('layouts.starlight')
 
-@section('title') Edit 
+@section('title')
+    Edit {{$category_info->category_name}}
+@endsection
+@section('category')
+    active
 @endsection
 
 @section('breadcrumb')

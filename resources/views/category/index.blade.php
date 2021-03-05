@@ -3,6 +3,9 @@
 @section('title')
     Category Page
 @endsection
+@section('category')
+    active
+@endsection
 
 @section('breadcrumb')
     <nav class="breadcrumb sl-breadcrumb">
@@ -216,7 +219,7 @@
                     confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href ="route('categoryalldelete')";
+                        window.location.href ="{{route('categoryalldelete')}}";
                     }
                 })
             });

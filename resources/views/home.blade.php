@@ -3,7 +3,9 @@
 @section('title')
     Category Page
 @endsection
-
+@section('dashboard')
+    active
+@endsection
 @section('breadcrumb')
     <nav class="breadcrumb sl-breadcrumb">
         <span class="breadcrumb-item active">Dashbroad</span>

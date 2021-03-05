@@ -88,8 +88,8 @@ class CategoryController extends Controller
         if(isset($request->restore)){
             if(isset($request->delete_id)){
                 foreach($request->delete_id as $delete_id){
-                    Category::find($delete_id)->restore();
-                    // Category::where('id', $delete_id)->restore();
+                    // Category::find($delete_id)->restore();
+                    Category::where('id', $delete_id)->restore();
                 }
                 return back()->with('check_restore','Check Delete Successfully');
             }

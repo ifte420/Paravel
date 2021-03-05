@@ -91,12 +91,22 @@ class CategoryController extends Controller
                     // Category::find($delete_id)->restore();
                     Category::where('id', $delete_id)->restore();
                 }
-                return back()->with('check_restore','Check Delete Successfully');
+                return back()->with('check_restore','Check Restore Successfully');
             }
             else {
                 return back()->with('check_no_select_data','You have no data selected');
             }
         }
-
+        if(isset($request->force_delete)){
+            if(isset($request->delete_id)){
+                foreach($request->delete_id as $delete_id){
+                    Category::where('id', $delete_id)->forceDelete();
+                }
+                return back()->with('check_force_delete','Check Force Delete Successfully');
+            }
+            else {
+                return back()->with('check_no_select_data','You have no data selected');
+            }
+        }
     }
 }

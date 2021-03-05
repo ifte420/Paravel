@@ -172,6 +172,11 @@
                             {{session('check_restore')}}
                         </div>
                         @endif
+                        @if (session('check_force_delete'))
+                        <div class="alert alert-danger text-center">
+                            {{session('check_force_delete')}}
+                        </div>
+                        @endif
                         @if (session('check_no_select_data'))
                         <div class="alert alert-danger text-center">
                             {{session('check_no_select_data')}}
@@ -218,7 +223,7 @@
                                 </div>
                                 <div class="btn-group d-block mt-2" role="group" aria-label="Basic example">
                                     <button type="submit" class="btn btn-sm btn-success" name="restore" value="1">Check Restore</button>
-                                    {{-- <button type="submit" class="btn btn-sm btn-danger">Check Delete</button> --}} 
+                                    <button type="submit" class="btn btn-sm btn-danger" name="force_delete" value="2">Check Delete</button> 
                                 </div>
                             @endif
                         </form>

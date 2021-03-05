@@ -28,3 +28,4 @@ Route::get('category/forcedelete/{category_id}', [CategoryController::class, 'ca
 Route::get('category/all/forcedelete', [CategoryController::class, 'category_force_delete_all'])->name('category_force_delete_all');
 Route::get('category/all/restore', [CategoryController::class, 'category_restore_all'])->name('category_restore_all');
 Route::post('category/check/delete', [CategoryController::class, 'category_check_delete'])->name('category_check_delete');
+Route::post('category/soft/check', [CategoryController::class, 'category_soft_check'])->name('category_soft_check');

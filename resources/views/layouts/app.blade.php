@@ -41,7 +41,6 @@
                             <a class="nav-link" href=" {{ url('category') }} ">Category</a>
                         </li>
                         @endauth
-                        
                     </ul>
 
                     <!-- Right Side Of Navbar -->

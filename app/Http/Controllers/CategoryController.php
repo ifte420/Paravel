@@ -13,8 +13,8 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
     function category(){
-        $deleted_categories = Category::onlyTrashed()->get();
         $categories = category::all();
+        $deleted_categories = Category::onlyTrashed()->get();
         return view('category.index', compact('categories', 'deleted_categories'));
     }
     function categorypost(Request $request){

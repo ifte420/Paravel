@@ -34,6 +34,12 @@
             <span class="menu-item-label">Category</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{route('product')}}" class="sl-menu-link @yield('product')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <span class="menu-item-label">Product</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
@@ -60,7 +66,7 @@
           <div class="dropdown">
             <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
               <span class="logged-name">{{Auth::user()->name}}</span></span>
-              <img src="{{asset('starlight_asset/img/img3.jpg')}}" class="wd-32 rounded-circle" alt="">
+              <img src="{{asset('starlight_asset/img/img5.jpg')}}" class="wd-32 rounded-circle" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">

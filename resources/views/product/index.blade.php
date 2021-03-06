@@ -31,6 +31,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         @if (session('category_delete_status'))
                             <div class="alert alert-danger">
@@ -57,33 +58,43 @@
                                 {{session('check_soft_delete')}}
                             </div>
                         @endif
-                        {{-- <div class="alert alert-success text-center">
-                            Total Product
-                        </div> --}}
+                        <div class="alert alert-success text-center">
+                            Total Product {{$products->count()}}
+                        </div>
                         <thead>
                             <tr>
-                                <th>checked</th>
+                                {{-- <th>checked</th> --}}
                                 <th>Serial No</th>
-                                <th>Category Name</th>
-                                <th>Created at</th>
+                                <th>Product Name</th>
+                                <th>Category Id</th>
+                                <th>Product Price</th>
+                                <th>Product Quantity</th>
+                                <th>Product Short Description</th>
+                                <th>Product Short Description</th>
+                                <th>Product Alert Quantitiy</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <form action=" {{route('category_check_delete')}} " method="POST">
-                                @csrf
-                                {{-- @forelse ($categories as $category)
+                            <tbody>
+                            {{-- <form action=" {{route('category_check_delete')}} " method="POST"> --}}
+                                {{-- @csrf --}}
+                                @forelse ($products as $product)
                                 <tr>
-                                    <td>
+                                    {{-- <td>
                                         <input type="checkbox" class="delete_checkbox" name="category_id[]" value=" {{$category->id}} ">
-                                    </td>
+                                    </td> --}}
                                     <td> {{$loop->index+1}} </td>
-                                    <td> {{Str::title($category->category_name)}} </td>
-                                    <td> {{$category->created_at->format('d/m/Y h:i:s')}} </td>
+                                    <td> {{Str::title($product->product_name)}} </td>
+                                    <td>{{App\Models\Category::find($product->category_id)->category_name }}</td>
+                                    <td>{{$product->product_price}}</td>
+                                    <td>{{$product->product_quantity}}</td>
+                                    <td>{{$product->product_short_description}}</td>
+                                    <td>{{$product->product_long_description}}</td>
+                                    <td>{{$product->product_alert_quantity}}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href=" {{route('categoryedit',$category->id)}}" type="button" class="btn btn-info text-white">Edit</a>
-                                            <a href=" {{route('categorydelete',$category->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                            <a href="" type="button" class="btn btn-info text-white">Edit</a>
+                                            {{-- <a href=" {{route('categorydelete',$category->id)}}" type="button" class="btn btn-danger">Delete</a> --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -91,9 +102,10 @@
                                 <tr>
                                     <td colspan="5" class="text-center text-danger">No Data To Show</td>
                                 </tr>
-                                @endforelse --}}
+                                @endforelse
                             </tbody>
                         </table>
+                        </div>
                         {{-- @if ($categories->count() != 0 ) --}}
                         {{-- <div class="btn-group" role="group" aria-label="Basic example">
                             <div type="button" class="btn btn-sm bg-info text-white" id="all_check_btn">Check All</div>
@@ -101,7 +113,7 @@
                         </div>
                         <button type="submit" class="btn btn-sm btn-danger">Check Delete</button> --}}
                         {{-- @endif --}}
-                    </form>
+                    {{-- </form> --}}
                 </div>
             </div>
         </div>
@@ -118,10 +130,15 @@
                         @csrf
                         <div class="form-group">
                             <label>Category Name</label>
-                            <select class="form-control">
+                            <select class="form-control" name="category_id">
                                 <option value="">-Choose One-</option>
-                                <option value="">spots</option>
+                                @foreach ($categorys as $category)
+                                    <option value="{{$category->id}}">{{$category->category_name}}</option>
+                                @endforeach
                             </select>
+                            @error('category_id')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Product Name</label>

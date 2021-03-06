@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Carbon\Carbon;
+use App\Models\Category;
+
+
 class ProductController extends Controller {
+
     public function __construct() {
         $this->middleware('auth');
     }
     function product(){
-        return view('product.index');
+        $categorys = Category::all();
+        $products = Product::all();
+        return view('product.index', compact('categorys', 'products'));
     }
     function productpost(Request $request){
         $request->validate([
+            'category_id' => 'integer',
             'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',
             'product_price' => 'required | integer',
             'product_quantity' => 'required | integer',

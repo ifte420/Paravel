@@ -109,8 +109,20 @@
             <div class="card">
                 <div class="card-header text-white bg-secondary">Add Categroy</div>
                 <div class="card-body">
+                    @if (session('product_added'))
+                        <div class="alert alert-success">
+                            {{session('product_added')}}
+                        </div>
+                    @endif
                     <form action=" {{route('productpost')}} " method="post">
                         @csrf
+                        <div class="form-group">
+                            <label>Category Name</label>
+                            <select class="form-control">
+                                <option value="">-Choose One-</option>
+                                <option value="">spots</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label>Product Name</label>
                             <input type="text" class="form-control" placeholder="Enter product Name" name="product_name">
@@ -127,7 +139,7 @@
                         </div>
                         <div class="form-group">
                             <label>Product quantity</label>
-                            <input type="number" class="form-control" placeholder="Enter Categroy Name" name="product_quantity">
+                            <input type="number" class="form-control" placeholder="Product quantity" name="product_quantity">
                             @error('product_quantity')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror

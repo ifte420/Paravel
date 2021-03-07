@@ -16,7 +16,8 @@ class ProductController extends Controller {
     function product(){
         $categorys = Category::all();
         $products = Product::all();
-        return view('product.index', compact('categorys', 'products'));
+        $product_trashed = Product::onlyTrashed()->get();
+        return view('product.index', compact('categorys', 'products', 'product_trashed'));
     }
     function productpost(Request $request){
         $request->validate([
@@ -32,5 +33,22 @@ class ProductController extends Controller {
             'created_at'=> Carbon::now(),
         ]);
         return back()->with('product_added', 'Product Added successfully');
+    }
+    function productsoftdelete($product_id){
+        $product_name =  Product::find($product_id)->product_name;
+        if(Product::where('id', $product_id)->exists()){
+            Product::findOrFail($product_id)->delete();
+        }
+        return back()->with('single_soft_delete', 'Your '.$product_name.' Product Sorft Delete');
+    }
+    function product_restore($product_id){
+        $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
+        Product::onlyTrashed()->where('id', $product_id)->restore();
+        return back()->with('single_restore', 'Your '.$product_name.' Product Restore');
+    }
+    function productforce($product_id){
+        $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
+        Product::onlyTrashed()->where('id', $product_id)->forceDelete();
+        return back()->with('single_force', 'Your '.$product_name.' Product permanent Delete');
     }
 }

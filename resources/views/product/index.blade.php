@@ -33,29 +33,9 @@
                 <div class="card-body">
                     <div class="table-responsive">
                     <table class="table table-bordered">
-                        @if (session('category_delete_status'))
-                            <div class="alert alert-danger">
-                                {{session('category_delete_status')}}
-                            </div>
-                        @endif
-                        @if (session('Category_all_delete_status'))
-                            <div class="alert alert-danger">
-                                {{session('Category_all_delete_status')}}
-                            </div>
-                        @endif
-                        @if (session('check_no_data'))
-                            <div class="alert alert-danger">
-                                {{session('check_no_data')}}
-                            </div>
-                        @endif
-                        @if (session('category_edit'))
-                            <div class="alert alert-success">
-                                {{session('category_edit')}}
-                            </div>
-                        @endif
-                        @if (session('check_soft_delete'))
-                            <div class="alert alert-success">
-                                {{session('check_soft_delete')}}
+                        @if (session('single_soft_delete'))
+                            <div class="alert alert-danger text-center">
+                                {{session('single_soft_delete')}}
                             </div>
                         @endif
                         <div class="alert alert-success text-center">
@@ -69,8 +49,6 @@
                                 <th>Category Id</th>
                                 <th>Product Price</th>
                                 <th>Product Quantity</th>
-                                <th>Product Short Description</th>
-                                <th>Product Short Description</th>
                                 <th>Product Alert Quantitiy</th>
                                 <th>Action</th>
                             </tr>
@@ -88,19 +66,17 @@
                                     <td>{{App\Models\Category::find($product->category_id)->category_name }}</td>
                                     <td>{{$product->product_price}}</td>
                                     <td>{{$product->product_quantity}}</td>
-                                    <td>{{$product->product_short_description}}</td>
-                                    <td>{{$product->product_long_description}}</td>
                                     <td>{{$product->product_alert_quantity}}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="" type="button" class="btn btn-info text-white">Edit</a>
-                                            {{-- <a href=" {{route('categorydelete',$category->id)}}" type="button" class="btn btn-danger">Delete</a> --}}
+                                            {{-- <a href="" type="button" class="btn btn-info text-white">Edit</a> --}}
+                                            <a href=" {{route('productsoftdelete',$product->id)}}" type="button" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-danger">No Data To Show</td>
+                                    <td colspan="8" class="text-center text-danger">No Data To Show</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -188,14 +164,14 @@
             </div>
         </div>
     </div>
-    {{-- <div class="row mt-5">
+    <div class="row mt-5">
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header bg-warning">
                     <div class="row">
                         <div class="col-lg-6 pt-1 text-white">Total Soft Category List</div>
                             <div class="col-lg-6 text-right">
-                                @if ($deleted_categories->count() != 0 )
+                                @if ($product_trashed->count() != 0 )
                                     <button class="btn btn-success" id="restore_all">Restore All</button>
                                     <button class="btn btn-danger" id="delete_force_all">Delete All</button>
                                 @endif
@@ -205,78 +181,58 @@
                 <div class="card-body">
                     <table class="table table-bordered">
                         <div class="alert alert-success text-center">
-                            Category List{{$deleted_categories->count()}}
+                            Category List {{$product_trashed->count()}}
                         </div>
-                        @if (session('category_restore'))
+                        @if (session('single_restore'))
                             <div class="alert alert-success text-center">
-                                {{session('category_restore')}}
+                                {{session('single_restore')}}
                             </div>
                         @endif
-                        @if (session('restore_all'))
-                        <div class="alert alert-success text-center">
-                            {{session('restore_all')}}
-                        </div>
-                        @endif
-                        @if (session('force_delete'))
-                        <div class="alert alert-danger text-center">
-                            {{session('force_delete')}}
-                        </div>
-                        @endif
-                        @if (session('force_all_delete'))
-                        <div class="alert alert-danger text-center">
-                            {{session('force_all_delete')}}
-                        </div>
-                        @endif
-                        @if (session('check_restore'))
-                        <div class="alert alert-success text-center">
-                            {{session('check_restore')}}
-                        </div>
-                        @endif
-                        @if (session('check_force_delete'))
-                        <div class="alert alert-danger text-center">
-                            {{session('check_force_delete')}}
-                        </div>
-                        @endif
-                        @if (session('check_no_select_data'))
-                        <div class="alert alert-danger text-center">
-                            {{session('check_no_select_data')}}
-                        </div>
+                        @if (session('single_force'))
+                            <div class="alert alert-danger text-center">
+                                {{session('single_force')}}
+                            </div>
                         @endif
                         <thead>
                             <tr>
-                                <th>Checked</th>
                                 <th>Serial No</th>
-                                <th>Category Name</th>
-                                <th>Created at</th>
+                                <th>Product Name</th>
+                                <th>Category Id</th>
+                                <th>Product Price</th>
+                                <th>Product Quantity</th>
+                                <th>Product Alert Quantitiy</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <form action=" {{route('category_soft_check')}} " method="POST">
-                            @csrf
+                        {{-- <form action=" {{route('category_soft_check')}} " method="POST">
+                            @csrf --}}
                             <tbody>
-                                @forelse ($deleted_categories as $deleted_category)
+                                @forelse ($product_trashed as $product_trash)
                                 <tr>
-                                    <td>
-                                        <input type="checkbox" class="checked_button" name="delete_id[]" value="{{$deleted_category->id}}">
-                                    </td>
+                                    {{-- <td>
+                                        <input type="checkbox" class="checked_button" name="delete_id[]" value="{{$product_trash->id}}">
+                                    </td> --}}
                                     <td> {{$loop->index+1}} </td>
-                                    <td> {{Str::title($deleted_category->category_name)}} </td>
-                                    <td> {{$deleted_category->created_at->format('d/m/Y h:i:s')}} </td>
+                                    <td> {{Str::title($product_trash->product_name)}} </td>
+                                    <td>{{App\Models\Category::find($product_trash->category_id)->category_name }}</td>
+                                    <td>{{$product_trash->product_price}}</td>
+                                    <td>{{$product_trash->product_quantity}}</td>
+                                    <td>{{$product_trash->product_alert_quantity}}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href=" {{route('category_restore',$deleted_category->id)}}" type="button" class="btn btn-success text-white">Restore</a>
-                                            <a href=" {{route('categoryforce',$deleted_category->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                            <a href=" {{route('product_restore',$product_trash->id)}}" type="button" class="btn btn-success text-white">Restore</a>
+                                            <a href=" {{route('productforce',$product_trash->id)}}" type="button" class="btn btn-danger">Delete</a>
                                         </div>
                                     </td>
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-danger">No Data To Show</td>
+                                    <td colspan="8" class="text-center text-danger">No Data To Show</td>
                                 </tr>
                                 @endforelse
                             </tbody>
                     </table>
-                            @if ($deleted_categories->count() != 0 )
+                            {{-- @if ($deleted_categories->count() != 0 )
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <div type="button" class="btn btn-sm bg-info text-white" id="all_checked">Check All</div>
                                     <div type="button" class="btn btn-sm bg-success text-white" id="all_unchecked">UnCheck All</div>
@@ -285,16 +241,16 @@
                                     <button type="submit" class="btn btn-sm btn-success" name="restore" value="1">Check Restore</button>
                                     <button type="submit" class="btn btn-sm btn-danger" name="force_delete" value="2">Check Delete</button> 
                                 </div>
-                            @endif
-                        </form>
+                            @endif --}}
+                        {{-- </form> --}}
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 
 
-@section('footer_script')
+{{-- @section('footer_script')
     <script>
         $(document).ready(function(){
             $('#delete_soft_all').click(function(){
@@ -359,6 +315,6 @@
             });
         });
     </script>
-@endsection
+@endsection --}}
 
 @endsection

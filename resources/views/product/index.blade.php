@@ -20,13 +20,13 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="card">
-                <div class="card-header text-white bg-secondary">
+                <div class="card-header">
                     <div class="row">
-                        <div class="col-lg-6 pt-1">Category List</div>
+                        <div class="col-lg-6 pt-1">Product List</div>
                         <div class="col-lg-6 text-right">
-                            {{-- @if ($categories->count() != 0 ) --}}
-                            {{-- <div id="delete_soft_all" class="btn btn-danger">Delete All</div> --}}
-                            {{-- @endif --}}
+                            @if ($products->count() != 0 )
+                                <div id="delete_soft_all" class="btn btn-danger">Delete All</div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -36,6 +36,16 @@
                         @if (session('single_soft_delete'))
                             <div class="alert alert-danger text-center">
                                 {{session('single_soft_delete')}}
+                            </div>
+                        @endif
+                        @if (session('delete_all_soft'))
+                            <div class="alert alert-danger text-center">
+                                {{session('delete_all_soft')}}
+                            </div>
+                        @endif
+                        @if (session('edit_success'))
+                            <div class="alert alert-success text-center">
+                                {{session('edit_success')}}
                             </div>
                         @endif
                         <div class="alert alert-success text-center">
@@ -56,29 +66,37 @@
                             <tbody>
                             {{-- <form action=" {{route('category_check_delete')}} " method="POST"> --}}
                                 {{-- @csrf --}}
-                                @forelse ($products as $product)
-                                <tr>
-                                    {{-- <td>
-                                        <input type="checkbox" class="delete_checkbox" name="category_id[]" value=" {{$category->id}} ">
-                                    </td> --}}
-                                    <td> {{$loop->index+1}} </td>
-                                    <td> {{Str::title($product->product_name)}} </td>
-                                    <td>{{App\Models\Category::find($product->category_id)->category_name }}</td>
-                                    <td>{{$product->product_price}}</td>
-                                    <td>{{$product->product_quantity}}</td>
-                                    <td>{{$product->product_alert_quantity}}</td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            {{-- <a href="" type="button" class="btn btn-info text-white">Edit</a> --}}
-                                            <a href=" {{route('productsoftdelete',$product->id)}}" type="button" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="8" class="text-center text-danger">No Data To Show</td>
-                                </tr>
-                                @endforelse
+                                {{-- @if (App\Models\Category::WhereNull('deleted_at'))
+                                    
+                                @endif --}}
+                                {{-- {{App\Models\Category::WhereNull('deleted_at')->get()}} --}}
+                                {{-- @if (App\Models\Category::WhereNull('deleted_at')) --}}
+                                        @forelse ($products as $product)
+                                            <tr>
+                                                {{-- <td>
+                                                    <input type="checkbox" class="delete_checkbox" name="category_id[]" value=" {{$category->id}} ">
+                                                </td> --}}
+                                                <td> {{$loop->index+1}} </td>
+                                                <td> {{Str::title($product->product_name)}} </td>
+                                                <td>{{App\Models\Category::find($product->category_id)->category_name}}</td>
+                                                <td>{{$product->product_price}}</td>
+                                                <td>{{$product->product_quantity}}</td>
+                                                <td>{{$product->product_alert_quantity}}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a href="{{route('product_edit',$product->id)}}" type="button" class="btn btn-info text-white">Edit</a>
+                                                        <a href=" {{route('productsoftdelete',$product->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center text-danger">No Data To Show</td>
+                                            </tr>
+                                        @endforelse
+                                    {{-- @else
+                                    nai
+                                @endif --}}
                             </tbody>
                         </table>
                         </div>
@@ -95,7 +113,7 @@
         </div>
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header text-white bg-secondary">Add Categroy</div>
+                <div class="card-header">Add Product</div>
                 <div class="card-body">
                     @if (session('product_added'))
                         <div class="alert alert-success">
@@ -188,9 +206,19 @@
                                 {{session('single_restore')}}
                             </div>
                         @endif
+                        @if (session('all_restore'))
+                            <div class="alert alert-success text-center">
+                                {{session('all_restore')}}
+                            </div>
+                        @endif
                         @if (session('single_force'))
                             <div class="alert alert-danger text-center">
                                 {{session('single_force')}}
+                            </div>
+                        @endif
+                        @if (session('all_force_delete'))
+                            <div class="alert alert-danger text-center">
+                                {{session('all_force_delete')}}
                             </div>
                         @endif
                         <thead>
@@ -250,7 +278,7 @@
 </div>
 
 
-{{-- @section('footer_script')
+@section('footer_script')
     <script>
         $(document).ready(function(){
             $('#delete_soft_all').click(function(){
@@ -263,7 +291,7 @@
                     confirmButtonText: 'Yes, delete it!'
                     }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href ="{{route('categoryalldelete')}}";
+                        window.location.href ="{{route('product_all_soft_delete')}}";
                     }
                 })
             });
@@ -278,7 +306,7 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{{route('category_force_delete_all')}}";
+                        window.location.href = "{{route('product_force_delete_all')}}";
                     }
                 })
             });
@@ -293,7 +321,7 @@
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "{{route('category_restore_all')}}";
+                        window.location.href = "{{route('product_restore_all')}}";
                     }
                 })
             });
@@ -315,6 +343,6 @@
             });
         });
     </script>
-@endsection --}}
+@endsection
 
 @endsection

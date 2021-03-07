@@ -42,24 +42,24 @@ class CategoryController extends Controller
         return back()->with('Category_all_delete_status', 'Your All Category Soft Deleted');
     }
     function categoryedit($category_id){
-        $category_info = Category::find($category_id);
+        $category_info = Category::findOrFail($category_id);
         return view('category.edit', compact('category_info'));
     }
     function category_post_edit(Request $request){
-        if($request->category_name == Category::find($request->category_id)->category_name){
+        if($request->category_name == Category::findOrFail($request->category_id)->category_name){
             return back()->withErrors("It's the same as before");
         }
         $request->validate([
             'category_name' => 'required | max:20 | min:3 | unique:categories,category_name',
         ]);
-        Category::find($request->category_id)->update([
+        Category::findOrFail($request->category_id)->update([
             'category_name' => $request->category_name,
         ]);
         return redirect('category')->with('category_edit', 'Category' . $request->category_name . ' Edit Successfully');
     }
     function category_restore($category_id){
         Category::onlyTrashed()->where('id', $category_id)->restore();
-        $category_name = Category::find($category_id)->category_name;
+        $category_name = Category::findOrFail($category_id)->category_name;
         return back()->with('category_restore', Str::title($category_name) . ' Category Restore Successfully');
     }
     function categoryforce($category_id){
@@ -72,12 +72,12 @@ class CategoryController extends Controller
     }
     function category_restore_all(){
         Category::onlyTrashed()->restore();
-        return back()->with('restore_all', 'Your Category Already Force Delete');
+        return back()->with('restore_all', 'Your All Category Restore Successfully');
     }
     function category_check_delete(Request $request){
         if(isset($request->category_id)){
             foreach($request->category_id as $category_id){
-            Category::find($category_id)->delete();
+            Category::findOrFail($category_id)->delete();
             }
             return back()->with('check_soft_delete','Check Delete Successfully');
         }
@@ -90,7 +90,7 @@ class CategoryController extends Controller
         if(isset($request->restore)){
             if(isset($request->delete_id)){
                 foreach($request->delete_id as $delete_id){
-                    // Category::find($delete_id)->restore();
+                    // Category::findOrFail($delete_id)->restore();
                     Category::where('id', $delete_id)->restore();
                 }
                 return back()->with('check_restore','Check Restore Successfully');

@@ -12,7 +12,7 @@ Auth::routes();
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index']);
 Route::get('about', [FontendController::class, 'about']);
-Route::get('dashbroad',[FontendController::class, 'dashbroad']);
+Route::get('contact', [FontendController::class, 'contact'])->name('contact');
 
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');

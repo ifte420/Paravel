@@ -86,8 +86,8 @@
                 <div class="row">
                     <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                         <div class="logo">
-                            <a href="index.html">
-                        <img src="{{'tohoney_assets'}}/images/logo.png" alt="logo">
+                            <a href="{{route('tohoney_home')}}">
+                        <img src="{{asset('tohoney_assets')}}/images/logo.png" alt="logo">
                         </a>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                         <nav class="mainmenu">
                             <ul class="d-flex">
                                 <li class="active"><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About</a></li>
+                                <li><a href="{{route('about')}}">About</a></li>
                                 <li>
                                     <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
@@ -109,7 +109,6 @@
                                 <li>
                                     <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
-                                        <li><a href="about.html">About Page</a></li>
                                         <li><a href="single-product.html">Product Details</a></li>
                                         <li><a href="cart.html">Shopping cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
@@ -136,7 +135,7 @@
                                 <ul class="cart-wrap dropdown_style">
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{'tohoney_assets'}}/images/cart/1.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/1.jpg" alt="">
                                         </div>
                                         <div class="cart-content">
                                             <a href="cart.html">Pure Nature Product</a>
@@ -147,7 +146,7 @@
                                     </li>
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{'tohoney_assets'}}/images/cart/3.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/3.jpg" alt="">
                                         </div>
                                         <div class="cart-content">
                                             <a href="cart.html">Pure Nature Product</a>
@@ -167,7 +166,7 @@
                                 <ul class="cart-wrap dropdown_style">
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{'tohoney_assets'}}/images/cart/1.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/1.jpg" alt="">
                                         </div>
                                         <div class="cart-content">
                                             <a href="cart.html">Pure Nature Product</a>
@@ -178,7 +177,7 @@
                                     </li>
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{'tohoney_assets'}}/images/cart/3.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/3.jpg" alt="">
                                         </div>
                                         <div class="cart-content">
                                             <a href="cart.html">Pure Nature Product</a>
@@ -189,7 +188,8 @@
                                     </li>
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{'tohoney_assets'}}/images/cart/2.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/2.jpg" alt="">
+                                            <img src="{{asset('tohoney_assets')}}/images/cart/2.jpg" alt="">
                                         </div>
                                         <div class="cart-content">
                                             <a href="cart.html">Pure Nature Product</a>
@@ -253,7 +253,7 @@
                                         <li><a href="blog-details.html">Blog Details</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </div>
                     </div>
@@ -356,7 +356,7 @@
                 </button>
                 <div class="modal-body d-flex">
                     <div class="product-single-img w-50">
-                        <img src="{{'tohoney_assets'}}/images/product/product-details.jpg" alt="">
+                        <img src="{{asset('tohoney_assets')}}/images/product/product-details.jpg" alt="">
                     </div>
                     <div class="product-single-content w-50">
                         <h3>Pure Nature Hohey</h3>

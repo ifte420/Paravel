@@ -10,8 +10,8 @@ use App\Http\Controllers\ProductController;
 Auth::routes();
   
 // Fontend Controller Routes
-Route::get('/', [FontendController::class, 'index']);
-Route::get('about', [FontendController::class, 'about']);
+Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
+Route::get('about', [FontendController::class, 'about'])->name('about');
 Route::get('contact', [FontendController::class, 'contact'])->name('contact');
 
 // Home Controller Routes

@@ -104,15 +104,6 @@
                                         <li><a href="cart.html">Shopping cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);">Pages <i class="fa fa-angle-down"></i></a>
-                                    <ul class="dropdown_style">
-                                        <li><a href="single-product.html">Product Details</a></li>
-                                        <li><a href="cart.html">Shopping cart</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="faq.html">FAQ</a></li>
                                     </ul>
                                 </li>
@@ -223,8 +214,8 @@
                     <div class="row">
                         <div class="col-12 d-block d-lg-none">
                             <ul class="metismenu">
-                                <li><a href="index.html">Home</a></li>
-                                <li><a href="about.html">About</a></li>
+                                <li><a href="{{route('tohoney_home')}}">Home</a></li>
+                                <li><a href="{{route('about')}}">About</a></li>
                                 <li class="sidemenu-items">
                                     <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Shop </a>
                                     <ul aria-expanded="false">
@@ -233,17 +224,7 @@
                                         <li><a href="cart.html">Shopping cart</a></li>
                                         <li><a href="checkout.html">Checkout</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
-                                    </ul>
-                                </li>
-                                <li class="sidemenu-items">
-                                    <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Pages </a>
-                                    <ul aria-expanded="false">
-                                      <li><a href="about.html">About Page</a></li>
-                                      <li><a href="single-product.html">Product Details</a></li>
-                                      <li><a href="cart.html">Shopping cart</a></li>
-                                      <li><a href="checkout.html">Checkout</a></li>
-                                      <li><a href="wishlist.html">Wishlist</a></li>
-                                      <li><a href="faq.html">FAQ</a></li>
+                                        <li><a href="faq.html">FAQ</a></li>
                                     </ul>
                                 </li>
                                 <li class="sidemenu-items">

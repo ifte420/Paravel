@@ -71,46 +71,16 @@
             <div class="row">
                 <div class="col-12">
                     <div class="featured-active2 owl-carousel next-prev-style">
+                    @foreach ($categories as $category)
                         <div class="featured-wrap">
                             <div class="featured-img">
-                                <img src="{{'tohoney_assets'}}/images/featured/6.jpg" alt="">
+                                <img src="{{asset('tohoney_assets')}}/images/featured/6.jpg" alt="">
                                 <div class="featured-content">
-                                    <a href="shop.html">Pure Honey</a>
+                                    <a href="shop.html">{{$category->category_name}}</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="featured-wrap">
-                            <div class="featured-img">
-                                <img src="{{'tohoney_assets'}}/images/featured/7.jpg" alt="">
-                                <div class="featured-content">
-                                    <a href="shop.html">Mustard Oil</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-wrap">
-                            <div class="featured-img">
-                                <img src="{{'tohoney_assets'}}/images/featured/8.jpg" alt="">
-                                <div class="featured-content">
-                                    <a href="shop.html">Olive Oil</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-wrap">
-                            <div class="featured-img">
-                                <img src="{{'tohoney_assets'}}/images/featured/6.jpg" alt="">
-                                <div class="featured-content">
-                                    <a href="shop.html">Pure Honey</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="featured-wrap">
-                            <div class="featured-img">
-                                <img src="{{'tohoney_assets'}}/images/featured/8.jpg" alt="">
-                                <div class="featured-content">
-                                    <a href="shop.html">Olive Oil</a>
-                                </div>
-                            </div>
-                        </div>
+                    @endforeach
                     </div>
                 </div>
             </div>
@@ -145,7 +115,7 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Best Seller</h2>
-                        <img src="{{'tohoney_assets'}}/images/section-title.png" alt="">
+                        <img src="{{asset('tohoney_assets')}}/images/section-title.png" alt="">
                     </div>
                 </div>
             </div>
@@ -153,7 +123,7 @@
                 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="product-wrap">
                         <div class="product-img">
-                            <img src="{{'tohoney_assets'}}/images/product/1.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/1.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -180,7 +150,7 @@
                 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="product-wrap">
                         <div class="product-img">
-                            <img src="{{'tohoney_assets'}}/images/product/2.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/2.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -207,7 +177,7 @@
                 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="product-wrap">
                         <div class="product-img">
-                            <img src="{{'tohoney_assets'}}/images/product/3.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/3.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -234,7 +204,7 @@
                 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <div class="product-wrap">
                         <div class="product-img">
-                            <img src="{{'tohoney_assets'}}/images/product/4.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/4.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -269,7 +239,7 @@
                 <div class="col-12">
                     <div class="section-title">
                         <h2>Our Latest Product</h2>
-                        <img src="{{'tohoney_assets'}}/images/section-title.png" alt="">
+                        <img src="{{asset('tohoney_assets')}}/images/section-title.png" alt="">
                     </div>
                 </div>
             </div>
@@ -278,7 +248,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/15.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/15.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -306,7 +276,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>New</span>
-                            <img src="{{'tohoney_assets'}}/images/product/11.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/11.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -334,7 +304,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/14.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/14.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -362,7 +332,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>New</span>
-                            <img src="{{'tohoney_assets'}}/images/product/12.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/12.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -390,7 +360,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/10.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/10.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -418,7 +388,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>New</span>
-                            <img src="{{'tohoney_assets'}}/images/product/9.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/9.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -446,7 +416,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/8.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/8.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -474,7 +444,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>New</span>
-                            <img src="{{'tohoney_assets'}}/images/product/7.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/7.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -502,7 +472,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>New</span>
-                            <img src="{{'tohoney_assets'}}/images/product/4.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/4.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -530,7 +500,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/6.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/6.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -558,7 +528,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/3.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/3.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -586,7 +556,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{'tohoney_assets'}}/images/product/5.jpg" alt="">
+                            <img src="{{asset('tohoney_assets')}}/images/product/5.jpg" alt="">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>
@@ -637,7 +607,7 @@
                                 <p>CEO of Woman Fedaration</p>
                             </div>
                             <div class="test-img2">
-                                <img src="{{'tohoney_assets'}}/images/test/1.png" alt="">
+                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
                             </div>
                         </div>
                         <div class="test-items test-items2">
@@ -647,7 +617,7 @@
                                 <p>CEO of Woman Fedaration</p>
                             </div>
                             <div class="test-img2">
-                                <img src="{{'tohoney_assets'}}/images/test/1.png" alt="">
+                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
                             </div>
                         </div>
                         <div class="test-items test-items2">
@@ -657,7 +627,7 @@
                                 <p>CEO of Woman Fedaration</p>
                             </div>
                             <div class="test-img2">
-                                <img src="{{'tohoney_assets'}}/images/test/1.png" alt="">
+                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
                             </div>
                         </div>
                     </div>

@@ -222,7 +222,7 @@
     // featured-active
     $('.featured-active2').owlCarousel({
         margin: 30,
-        loop: true,
+        loop: false,
         autoplay: true,
         autoplayTimeout: 5000,
         nav: true,

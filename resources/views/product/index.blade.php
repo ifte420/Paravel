@@ -78,7 +78,7 @@
                                                 </td> --}}
                                                 <td> {{$loop->index+1}} </td>
                                                 <td> {{Str::title($product->product_name)}} </td>
-                                                <td>{{App\Models\Category::find($product->category_id)->category_name}}</td>
+                                                <td>{{App\Models\Category::find($product->category_id)->category_name ?? ''}}</td>
                                                 <td>{{$product->product_price}}</td>
                                                 <td>{{$product->product_quantity}}</td>
                                                 <td>{{$product->product_alert_quantity}}</td>

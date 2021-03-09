@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FontendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -13,6 +14,7 @@ Auth::routes();
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
 Route::get('about', [FontendController::class, 'about'])->name('about');
 Route::get('contact', [FontendController::class, 'contact'])->name('contact');
+Route::get('product/details/{product_id}', [FontendController::class, 'product_details'])->name('product_details');
 
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -42,3 +44,6 @@ Route::get('product/force/{product_id}', [ProductController::class, 'productforc
 Route::get('product/all/restore', [ProductController::class, 'product_restore_all'])->name('product_restore_all');
 Route::get('product/all/', [ProductController::class, 'product_force_delete_all'])->name('product_force_delete_all');
 Route::get('product/delete/soft/all', [ProductController::class, 'product_all_soft_delete'])->name('product_all_soft_delete');
+
+// Contact Controller
+Route::Post('contact_submit', [ContactController::class, 'contact_insert'])->name('contact_insert');

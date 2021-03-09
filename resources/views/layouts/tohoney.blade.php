@@ -94,7 +94,7 @@
                     <div class="col-lg-7 d-none d-lg-block">
                         <nav class="mainmenu">
                             <ul class="d-flex">
-                                <li class="active"><a href="index.html">Home</a></li>
+                                <li class="active"><a href="{{route('tohoney_home')}}">Home</a></li>
                                 <li><a href="{{route('about')}}">About</a></li>
                                 <li>
                                     <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
@@ -114,7 +114,7 @@
                                         <li><a href="blog-details.html">blog Details</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="contact.html">Contact</a></li>
+                                <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -281,7 +281,7 @@
                                     <li><a href="#">our story</a></li>
                                     <li><a href="#">feed shop</a></li>
                                     <li><a href="blog.html">how to eat blog</a></li>
-                                    <li><a href="contact.html">contact</a></li>
+                                    <li><a href="{{route('contact')}}">contact</a></li>
                                 </ul>
                             </div>
                         </div>

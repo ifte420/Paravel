@@ -129,7 +129,7 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header bg-warning">
                     <div class="row">

@@ -46,4 +46,6 @@ Route::get('product/all/', [ProductController::class, 'product_force_delete_all'
 Route::get('product/delete/soft/all', [ProductController::class, 'product_all_soft_delete'])->name('product_all_soft_delete');
 
 // Contact Controller
+Route::get('contact/page', [ContactController::class, 'contact'])->name('contact');
 Route::Post('contact_submit', [ContactController::class, 'contact_insert'])->name('contact_insert');
+Route::get('contact/delete/{contact_id}', [ContactController::class, 'contact_delete'])->name('contact_delete');

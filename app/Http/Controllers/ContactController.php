@@ -8,6 +8,9 @@ use Carbon\Carbon;
 
 class ContactController extends Controller
 {
+   public function __construct() {
+        $this->middleware('auth');
+    }
     function contact_insert(Request $request){
         $request->validate([
             'person_name' => 'required | max:50',
@@ -19,5 +22,15 @@ class ContactController extends Controller
             'created_at' => Carbon::now(),
         ]);
         return back()->with('contact_send_success', 'Your Messege Send Successfully');
+    }
+    function contact(){
+        // print_r(contact::all());
+        // die();
+        $contacts = Contact::all();
+        return view('contact.index', compact('contacts'));
+    }
+    function contact_delete($contact_id){
+        Contact::find($contact_id)->delete();
+        return back()->with('contact_delete', 'One Message Deleted Successfully');
     }
 }

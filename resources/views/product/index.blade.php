@@ -78,7 +78,7 @@
                                                 </td> --}}
                                                 <td> {{$loop->index+1}} </td>
                                                 <td> {{Str::title($product->product_name)}} </td>
-                                                <td>{{App\Models\Category::find($product->category_id)->category_name ?? ''}}</td>
+                                                <td>{{App\Models\Category::find($product->category_id)->category_name}}</td>
                                                 <td>{{$product->product_price}}</td>
                                                 <td>{{$product->product_quantity}}</td>
                                                 <td>{{$product->product_alert_quantity}}</td>
@@ -225,7 +225,7 @@
                             <tr>
                                 <th>Serial No</th>
                                 <th>Product Name</th>
-                                <th>Category Id</th>
+                                <th>Category Name</th>
                                 <th>Product Price</th>
                                 <th>Product Quantity</th>
                                 <th>Product Alert Quantitiy</th>
@@ -242,7 +242,8 @@
                                     </td> --}}
                                     <td> {{$loop->index+1}} </td>
                                     <td> {{Str::title($product_trash->product_name)}} </td>
-                                    <td>{{App\Models\Category::find($product_trash->category_id)->category_name }}</td>
+                                    <td>{{App\Models\Category::withTrashed()->find($product_trash->category_id)->category_name}}</td>
+                                    {{-- <td>{{$product_trash->category_id}}</td> --}}
                                     <td>{{$product_trash->product_price}}</td>
                                     <td>{{$product_trash->product_quantity}}</td>
                                     <td>{{$product_trash->product_alert_quantity}}</td>

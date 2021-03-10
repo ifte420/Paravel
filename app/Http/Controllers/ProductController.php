@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Carbon\Carbon;
 use App\Models\Category;
+use Carbon\Carbon;
 
 
 class ProductController extends Controller {
@@ -73,7 +73,11 @@ class ProductController extends Controller {
     }
 
     function product_restore($product_id){
+        $category_id = Product::onlyTrashed()->find($product_id)->category_id;
         $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
+        if (Category::onlyTrashed()->find($category_id)) {
+            Category::onlyTrashed()->find($category_id)->restore();
+        }
         Product::onlyTrashed()->where('id', $product_id)->restore();
         return back()->with('single_restore', 'Your '.$product_name.' Product Restore');
     }
@@ -83,6 +87,16 @@ class ProductController extends Controller {
         return back()->with('single_force', 'Your '.$product_name.' Product permanent Delete');
     }
     function product_restore_all(){
+        // foreach ($variable as $key => $value) {
+            // $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
+            // $category_id = Product::onlyTrashed()->find($product_id)->category_id;
+            // if (Category::onlyTrashed()->find($category_id)) {
+            //     Category::onlyTrashed()->find($category_id)->restore();
+            // }
+            // $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
+            // Product::onlyTrashed()->where('id', $product_id)->restore();
+            // return back()->with('single_restore', 'Your '.$product_name.' Product Restore');
+            // }
         Product::onlyTrashed()->restore();
         return back()->with('all_restore', 'Your All product Restore successfully');
     }

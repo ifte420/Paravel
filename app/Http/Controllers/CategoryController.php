@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -34,6 +35,7 @@ class CategoryController extends Controller
     function categorydelete($category_id){
         if(Category::where('id', $category_id)->exists()){
             Category::findOrFail($category_id)->delete();
+            Product::where('category_id', $category_id)->delete();
         }
         return back()->with('category_delete_status', 'Category Soft Deleted Successfully');
     }
@@ -60,6 +62,7 @@ class CategoryController extends Controller
     function category_restore($category_id){
         Category::onlyTrashed()->where('id', $category_id)->restore();
         $category_name = Category::findOrFail($category_id)->category_name;
+        Product::where('category_id', $category_id)->restore();
         return back()->with('category_restore', Str::title($category_name) . ' Category Restore Successfully');
     }
     function categoryforce($category_id){

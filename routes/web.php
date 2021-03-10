@@ -6,6 +6,7 @@ use App\Http\Controllers\FontendController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FaqController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -13,7 +14,7 @@ Auth::routes();
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
 Route::get('about', [FontendController::class, 'about'])->name('about');
-Route::get('contact', [FontendController::class, 'contact'])->name('contact');
+Route::get('contact', [FontendController::class, 'frontend_contact'])->name('contact');
 Route::get('product/details/{product_id}', [FontendController::class, 'product_details'])->name('product_details');
 
 // Home Controller Routes
@@ -46,6 +47,13 @@ Route::get('product/all/', [ProductController::class, 'product_force_delete_all'
 Route::get('product/delete/soft/all', [ProductController::class, 'product_all_soft_delete'])->name('product_all_soft_delete');
 
 // Contact Controller
-Route::get('contact/page', [ContactController::class, 'contact'])->name('contact');
+Route::get('page/contact', [ContactController::class, 'contact_backend'])->name('contact_backend');
 Route::Post('contact_submit', [ContactController::class, 'contact_insert'])->name('contact_insert');
 Route::get('contact/delete/{contact_id}', [ContactController::class, 'contact_delete'])->name('contact_delete');
+
+// Faq Controller
+Route::get('faq/view', [FaqController::class, 'faq'])->name('faq');
+Route::post('faq/insert', [FaqController::class, 'faq_insert'])->name('faq_insert');
+Route::get('faq/soft/delete/{faq_id}', [FaqController::class, 'faq_soft_delete'])->name('faq_soft_delete');
+Route::get('faq/force/delete/{faq_id}', [FaqController::class, 'faq_force_delete'])->name('faq_force_delete');
+Route::get('restore/faq/{faq_id}', [FaqController::class, 'faq_restore'])->name('faq_restore');

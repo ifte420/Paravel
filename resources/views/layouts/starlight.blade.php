@@ -40,10 +40,16 @@
             <span class="menu-item-label">Product</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="{{route('contact')}}" class="sl-menu-link @yield('contact')">
+        <a href="{{route('contact_backend')}}" class="sl-menu-link @yield('contact')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-grid tx-22"></i>
             <span class="menu-item-label">Contact (Message)</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <a href="{{route('faq')}}" class="sl-menu-link @yield('faq')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <span class="menu-item-label">FAQ</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link">

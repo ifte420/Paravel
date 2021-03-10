@@ -23,9 +23,7 @@ class ContactController extends Controller
         ]);
         return back()->with('contact_send_success', 'Your Messege Send Successfully');
     }
-    function contact(){
-        // print_r(contact::all());
-        // die();
+    function contact_backend(){
         $contacts = Contact::all();
         return view('contact.index', compact('contacts'));
     }

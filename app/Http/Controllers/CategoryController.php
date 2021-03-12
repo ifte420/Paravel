@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Image;
 
 class CategoryController extends Controller
 {
@@ -21,14 +22,19 @@ class CategoryController extends Controller
     function categorypost(Request $request){
         $request->validate([
             'category_name' => 'required | max:20 | min:3 | unique:categories,category_name',
+            'category_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ],
         [
             'category_name.required' => "Pleace Fill Up The Input File",
             'category_name.min' => "3 ta hoileo daw",
         ]);
+        $photo_select = $request->file('category_image');
+        $random_photo_name = str::random(10) . time() . '.' .  $request->category_image->getClientOriginalExtension();
+        Image::make($photo_select)->save(base_path('public/uploads/category/') . $random_photo_name);
         Category::insert([
             'category_name' => $request->category_name,
             'created_at' => Carbon::now(),
+            'category_image' => $random_photo_name,
         ]);
         return back()->with('category_insert_status', 'Category '. $request->category_name .' Added Successfully');
     }
@@ -67,6 +73,7 @@ class CategoryController extends Controller
     }
     function categoryforce($category_id){
         Category::onlyTrashed()->where('id', $category_id)->forceDelete();
+        Product::where('category_id', $category_id)->forceDelete();
         return back()->with('force_delete', 'Category Force Deleted Successfully');
     }
     function category_force_delete_all(){

@@ -126,9 +126,9 @@
                                 @foreach ($faqs as $faq)
                                 <div class="card">
                                     <div class="card-header" id="headingOne">
-                                        <h5><button data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{{$faq->question}}</button> </h5>
+                                        <h5><button class="{{($loop->index==0?'':'collapsed')}}" data-toggle="collapse" data-target="#collapseOne{{$faq->id}}" aria-expanded="true" aria-controls="collapseOne">{{$faq->question}}</button></h5>
                                     </div>
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                    <div id="collapseOne{{$faq->id}}" class="collapse {{($loop->index==0?'show':'')}}" aria-labelledby="headingOne" data-parent="#accordion">
                                         <div class="card-body">
                                             {{$faq->answer}}
                                         </div>

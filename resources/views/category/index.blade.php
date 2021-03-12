@@ -108,7 +108,7 @@
             <div class="card">
                 <div class="card-header text-white bg-secondary">Add Categroy</div>
                 <div class="card-body">
-                    <form action=" {{route('categorypost')}} " method="post">
+                    <form action=" {{route('categorypost')}} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                         @if (session('category_insert_status'))
@@ -119,6 +119,11 @@
                             <label for="exampleInputPassword1">Category Name</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Categroy Name" name="category_name">
                             @error('category_name')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                            <label for="exampleInputPassword1">Category Image</label>
+                            <input class="form-control form-control-sm" type="file" name="category_image">
+                            @error('category_image')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>

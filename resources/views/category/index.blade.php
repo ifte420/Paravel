@@ -65,6 +65,7 @@
                                 <th>Serial No</th>
                                 <th>Category Name</th>
                                 <th>Created at</th>
+                                <th>Category Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -79,6 +80,11 @@
                                     <td> {{$loop->index+1}} </td>
                                     <td> {{Str::title($category->category_name)}} </td>
                                     <td> {{$category->created_at->format('d/m/Y h:i:s')}} </td>
+                                    <td>
+                                        <div class="image">
+                                            <img src="{{asset('uploads/category')}}/{{$category->category_image}}" alt="Not Found" class="img-fluid">
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href=" {{route('categoryedit',$category->id)}}" type="button" class="btn btn-info text-white">Edit</a>
@@ -139,12 +145,12 @@
                 <div class="card-header bg-warning">
                     <div class="row">
                         <div class="col-lg-6 pt-1 text-white">Total Soft Category List</div>
-                            <div class="col-lg-6 text-right">
-                                @if ($deleted_categories->count() != 0 )
-                                    <button class="btn btn-success" id="restore_all">Restore All</button>
-                                    <button class="btn btn-danger" id="delete_force_all">Delete All</button>
-                                @endif
-                            </div>
+                        <div class="col-lg-6 text-right">
+                            @if ($deleted_categories->count() != 0 )
+                                <button class="btn btn-success" id="restore_all">Restore All</button>
+                                <button class="btn btn-danger" id="delete_force_all">Delete All</button>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -193,6 +199,7 @@
                                 <th>Serial No</th>
                                 <th>Category Name</th>
                                 <th>Created at</th>
+                                <th>Category Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -207,6 +214,11 @@
                                     <td> {{$loop->index+1}} </td>
                                     <td> {{Str::title($deleted_category->category_name)}} </td>
                                     <td> {{$deleted_category->created_at->format('d/m/Y h:i:s')}} </td>
+                                    <td>
+                                        <div class="image">
+                                            <img src="{{asset('uploads/category')}}/{{$deleted_category->category_image}}" alt="Not Found" class="img-fluid">
+                                        </div>
+                                    </td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href=" {{route('category_restore',$deleted_category->id)}}" type="button" class="btn btn-success text-white">Restore</a>

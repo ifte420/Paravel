@@ -78,6 +78,8 @@ class CategoryController extends Controller
     function categoryforce($category_id){
         Category::onlyTrashed()->where('id', $category_id)->forceDelete();
         Product::where('category_id', $category_id)->forceDelete();
+        $image_path = base_path('public/uploads/category/').Category::onlyTrashed()->find($category_id)->category_image;
+        unlink($image_path);
         return back()->with('force_delete', 'Category Force Deleted Successfully');
     }
     function category_force_delete_all(){

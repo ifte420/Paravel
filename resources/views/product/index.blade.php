@@ -120,7 +120,7 @@
                             {{session('product_added')}}
                         </div>
                     @endif
-                    <form action=" {{route('productpost')}} " method="post">
+                    <form action=" {{route('productpost')}} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label>Category Name</label>
@@ -173,6 +173,13 @@
                             <label>Product alert quantity</label>
                             <input type="number" class="form-control" placeholder="Enter alert quantity" name="product_alert_quantity">
                             @error('product_alert_quantity')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Product Image</label>
+                            <input class="form-control form-control-sm" type="file" placeholder="Enter Product Image" name="product_image">
+                            @error('product_image')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>

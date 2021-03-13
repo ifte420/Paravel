@@ -249,7 +249,7 @@
                     <div class="product-wrap">
                         <div class="product-img">
                             <span>Sale</span>
-                            <img src="{{asset('tohoney_assets')}}/images/product/15.jpg" alt="">
+                            <img src="{{asset('uploads/product')}}/{{ $product->product_image }}" alt="Not Found">
                             <div class="product-icon flex-style">
                                 <ul>
                                     <li><a data-toggle="modal" data-target="#exampleModalCenter" href="javascript:void(0);"><i class="fa fa-eye"></i></a></li>

@@ -76,10 +76,10 @@ class CategoryController extends Controller
         return back()->with('category_restore', Str::title($category_name) . ' Category Restore Successfully');
     }
     function categoryforce($category_id){
-        Category::onlyTrashed()->where('id', $category_id)->forceDelete();
-        Product::where('category_id', $category_id)->forceDelete();
         $image_path = base_path('public/uploads/category/').Category::onlyTrashed()->find($category_id)->category_image;
         unlink($image_path);
+        Category::onlyTrashed()->where('id', $category_id)->forceDelete();
+        Product::where('category_id', $category_id)->forceDelete();
         return back()->with('force_delete', 'Category Force Deleted Successfully');
     }
     function category_force_delete_all(){

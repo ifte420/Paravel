@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Image;
 
 
 class ProductController extends Controller {
@@ -28,10 +30,19 @@ class ProductController extends Controller {
             'product_short_description' => 'required | min:5 | max: 1000 ',
             'product_long_description' => 'required | min:10 | max: 3000',
             'product_alert_quantity' => 'required | integer',
+            'product_image' => 'required | mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ]);
-        Product::insert($request->except('_token') + [
+        // Catch Image
+        $product_image_selete = $request->file('product_image');
+        // Random Name
+        $image_random_name = Str::random(10) . time() . '.' .$request->file('product_image')->getClientOriginalExtension();
+        // Image Upload
+        Image::make($product_image_selete)->resize(400, 415)->save(base_path('public/uploads/product/') .$image_random_name, 50);
+        Product::insert($request->except('_token', 'product_image') + [
             'created_at'=> Carbon::now(),
+            'product_image'=> $image_random_name,
         ]);
+
         return back()->with('product_added', 'Product Added successfully');
     }
     function productsoftdelete($product_id){
@@ -82,6 +93,8 @@ class ProductController extends Controller {
         return back()->with('single_restore', 'Your '.$product_name.' Product Restore');
     }
     function productforce($product_id){
+        $image_path = base_path('public/uploads/product/').Product::onlyTrashed()->find($product_id)->product_image;
+        unlink($image_path);
         $product_name =  Product::onlyTrashed()->find($product_id)->product_name;
         Product::onlyTrashed()->where('id', $product_id)->forceDelete();
         return back()->with('single_force', 'Your '.$product_name.' Product permanent Delete');

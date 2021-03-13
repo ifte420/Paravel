@@ -22,6 +22,7 @@ class CreateProductsTable extends Migration
             $table->text('product_short_description');
             $table->longText('product_long_description');
             $table->integer('product_alert_quantity');
+            $table->string('product_image');
             $table->timestamps();
             $table->softDeletes();
         });

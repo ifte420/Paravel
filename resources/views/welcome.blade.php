@@ -74,7 +74,7 @@
                     @foreach ($categories as $category)
                         <div class="featured-wrap">
                             <div class="featured-img">
-                                <img src="{{asset('tohoney_assets')}}/images/featured/6.jpg" alt="">
+                                <img src="{{asset('uploads/category')}}/{{$category->category_image}}" alt="Not Found">
                                 <div class="featured-content">
                                     <a href="shop.html">{{$category->category_name}}</a>
                                 </div>

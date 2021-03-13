@@ -28,9 +28,13 @@ class CategoryController extends Controller
             'category_name.required' => "Pleace Fill Up The Input File",
             'category_name.min' => "3 ta hoileo daw",
         ]);
+        // Catch The Photo
         $photo_select = $request->file('category_image');
+        // Randomly Ganerate Name
         $random_photo_name = str::random(10) . time() . '.' .  $request->category_image->getClientOriginalExtension();
-        Image::make($photo_select)->save(base_path('public/uploads/category/') . $random_photo_name);
+        // Upload The photo
+        Image::make($photo_select)->resize(350, 275)->save(base_path('public/uploads/category/') . $random_photo_name, 50 );
+        // Insert
         Category::insert([
             'category_name' => $request->category_name,
             'created_at' => Carbon::now(),

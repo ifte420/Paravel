@@ -21,7 +21,7 @@ class CategoryController extends Controller
     }
     function categorypost(Request $request){
         $request->validate([
-            'category_name' => 'required | max:20 | min:3 | unique:categories,category_name',
+            'category_name' => 'required | max:50 | min:3 | unique:categories,category_name',
             'category_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ],
         [

@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HeaderController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -57,3 +58,9 @@ Route::post('faq/insert', [FaqController::class, 'faq_insert'])->name('faq_inser
 Route::get('faq/soft/delete/{faq_id}', [FaqController::class, 'faq_soft_delete'])->name('faq_soft_delete');
 Route::get('faq/force/delete/{faq_id}', [FaqController::class, 'faq_force_delete'])->name('faq_force_delete');
 Route::get('restore/faq/{faq_id}', [FaqController::class, 'faq_restore'])->name('faq_restore');
+
+// Header Controller
+Route::get('header/dashbroad', [HeaderController::class, 'header'])->name('header');
+Route::post('header/post', [HeaderController::class, 'header_post'])->name('header_post');
+Route::get('header/soft/{header_id}', [HeaderController::class, 'header_soft'])->name('header_soft');
+Route::get('header/all/soft/delete', [HeaderController::class, 'header_soft_all'])->name('header_soft_all');

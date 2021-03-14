@@ -59,9 +59,6 @@ class ProductController extends Controller {
         return view('product.edit', compact('product_info', 'categorys'));
     }
     function producteditpost(Request $request){
-        // if($request->product_name == Product::find($request->product_id)->product_name){
-        //     return back()->withErrors('Same Diso ken');
-        // }
         $request->validate([
             'category_id' => 'integer',
             'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',

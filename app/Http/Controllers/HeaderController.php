@@ -9,9 +9,13 @@ use Image;
 
 class HeaderController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     function header(){
         $headers_normal = Header::all();
-        return view('header.index', compact('headers_normal'));
+        $header_trased = Header::onlyTrashed()->get();
+        return view('header.index', compact('headers_normal', 'header_trased'));
     }
     function header_post(Request $request){
         // print_r($request->all());
@@ -40,5 +44,19 @@ class HeaderController extends Controller
     function header_soft_all(){
         Header::whereNull('deleted_at')->delete();
         return back()->with('all_soft', 'Header All soft Delete successfully');
+    }
+    function header_force($header_id){
+        $image_path = base_path('public/uploads/header/').Header::onlyTrashed()->find($header_id)->header_image;
+        unlink($image_path);
+        Header::onlyTrashed()->where('id', $header_id)->forceDelete();
+        return back()->with('single_force', 'One Header Froce Delete');
+    }
+    function header_restore($header_id){
+        Header::onlyTrashed()->where('id', $header_id)->restore();
+        return back()->with('single_restore', 'header restore successfully');
+    }
+    function restore_all(){
+        Header::onlyTrashed()->restore();
+        return back()->with('single_restore', 'header all restore successfully');
     }
 }

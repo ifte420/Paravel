@@ -23,9 +23,9 @@
                     <div class="row">
                         <div class="col-lg-6 pt-1">Header List</div>
                         <div class="col-lg-6 text-right">
-                            {{-- @if ($categories->count() != 0 ) --}}
+                            @if ($headers_normal->count() != 0 )
                             <a href="{{ route('header_soft_all')}}" type="button" class="btn btn-danger">Delete All</a>
-                            {{-- @endif --}}
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -117,7 +117,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="row mt-5">
         <div class="col-lg-12">
             <div class="card">
@@ -125,58 +125,62 @@
                     <div class="row">
                         <div class="col-lg-6 pt-1 text-white">Total Soft Category List</div>
                         <div class="col-lg-6 text-right">
-                            {{-- @if ($deleted_categories->count() != 0 )
-                                <button class="btn btn-success" id="restore_all">Restore All</button>
-                                <button class="btn btn-danger" id="delete_force_all">Delete All</button>
-                            @endif --}}
+                            @if ($header_trased->count() != 0 )
+                                <a href="{{ route('restore_all') }}" type="button" class="btn btn-success">Restore All</a>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
                         <div class="alert alert-success text-center">
-                            {{-- Category List{{$deleted_categories->count()}} --}}
+                            Category List{{$header_trased->count()}}
                         </div>
+                        @if (session('single_force'))
+                            <div class="alert alert-danger text-center">
+                                {{ session('single_force') }}
+                            </div>
+                        @endif
+                        @if (session('single_restore'))
+                            <div class="alert alert-success text-center">
+                                {{ session('single_restore') }}
+                            </div>
+                        @endif
                         <thead>
                             <tr>
-                                <th>Checked</th>
                                 <th>Serial No</th>
-                                <th>Category Name</th>
+                                <th>Header Title</th>
+                                <th>Header description</th>
+                                <th>Header Image</th>
                                 <th>Created at</th>
-                                <th>Category Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <form action=" {{route('category_soft_check')}} " method="POST">
-                            @csrf
-                            <tbody>
-                                {{-- @forelse ($deleted_categories as $deleted_category)
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="checked_button" name="delete_id[]" value="{{$deleted_category->id}}">
-                                    </td>
-                                    <td> {{$loop->index+1}} </td>
-                                    <td> {{Str::title($deleted_category->category_name)}} </td>
-                                    <td> {{$deleted_category->created_at->format('d/m/Y h:i:s')}} </td>
-                                    <td>
-                                        <div class="image">
-                                            <img src="{{asset('uploads/category')}}/{{$deleted_category->category_image}}" alt="Not Found" class="img-fluid">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href=" {{route('category_restore',$deleted_category->id)}}" type="button" class="btn btn-success text-white">Restore</a>
-                                            <a href=" {{route('categoryforce',$deleted_category->id)}}" type="button" class="btn btn-danger">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="5" class="text-center text-danger">No Data To Show</td>
-                                </tr>
-                                @endforelse --}}
-                            </tbody>
-                        </form>
+                        <tbody>
+                            @forelse ($header_trased as $header)
+                            <tr>
+                                <td> {{$loop->index+1}} </td>
+                                <td> {{Str::title($header->header_title)}} </td>
+                                <td>{{ $header->header_description }}</td>
+                                <td>
+                                    <div class="image">
+                                        <img src="{{asset('uploads/header')}}/{{$header->header_image}}" alt="Not Found" class="img-fluid">
+                                    </div>
+                                </td>
+                                <td> {{$header->created_at->format('d/m/Y h:i:s')}} </td>
+                                <td>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="{{ route('header_restore', $header->id)}}" type="button" class="btn btn-success text-white">Restore</a>
+                                        <a href="{{ route('header_force', $header->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td colspan="7" class="text-center text-danger">No Data To Show</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
                     </table>
                 </div>
             </div>

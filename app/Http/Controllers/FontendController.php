@@ -6,13 +6,15 @@ use Illuminate\Http\Request;
 Use App\Models\Category;
 Use App\Models\Product;
 use App\Models\Faq;
+use App\Models\Header;
 
 class FontendController extends Controller
 {
     function index(){
+        $headers = Header::all();
         $categories = Category::all();
         $products = Product::latest()->get();
-        return view('welcome', compact('categories', 'products'));
+        return view('welcome', compact('categories', 'products', 'headers'));
     }
     function about(){
         return view('about');

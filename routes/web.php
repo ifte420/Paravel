@@ -64,3 +64,6 @@ Route::get('header/dashbroad', [HeaderController::class, 'header'])->name('heade
 Route::post('header/post', [HeaderController::class, 'header_post'])->name('header_post');
 Route::get('header/soft/{header_id}', [HeaderController::class, 'header_soft'])->name('header_soft');
 Route::get('header/all/soft/delete', [HeaderController::class, 'header_soft_all'])->name('header_soft_all');
+Route::get('header/single/force/delete/{header_id}', [HeaderController::class, 'header_force'])->name('header_force');
+Route::get('header/restore/single/{header_id}', [HeaderController::class, 'header_restore'])->name('header_restore');
+Route::get('header/all/restore', [HeaderController::class, 'restore_all'])->name('restore_all');

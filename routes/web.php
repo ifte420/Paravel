@@ -17,6 +17,8 @@ Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
 Route::get('about', [FontendController::class, 'about'])->name('about');
 Route::get('contact', [FontendController::class, 'frontend_contact'])->name('contact');
 Route::get('product/details/{product_id}', [FontendController::class, 'product_details'])->name('product_details');
+Route::get('shop', [FontendController::class, 'shop'])->name('shop');
+Route::get('category/wise/shop/{category_id}', [FontendController::class, 'category_wise_shop'])->name('category_wise_shop');
 
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');

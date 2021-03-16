@@ -37,7 +37,7 @@ class ProductController extends Controller {
         // Random Name
         $image_random_name = Str::random(10) . time() . '.' .$request->file('product_image')->getClientOriginalExtension();
         // Image Upload
-        Image::make($product_image_selete)->resize(400, 415)->save(base_path('public/uploads/product/') .$image_random_name, 50);
+        Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product/') .$image_random_name, 50);
         Product::insert($request->except('_token', 'product_image') + [
             'created_at'=> Carbon::now(),
             'product_image'=> $image_random_name,

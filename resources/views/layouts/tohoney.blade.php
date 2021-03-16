@@ -96,7 +96,8 @@
                             <ul class="d-flex">
                                 <li class="active"><a href="{{route('tohoney_home')}}">Home</a></li>
                                 <li><a href="{{route('about')}}">About</a></li>
-                                <li>
+                                <li><a href="{{route('shop')}}">Shop</a></li>
+                                {{-- <li>
                                     <a href="javascript:void(0);">Shop <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
                                         <li><a href="shop.html">Shop Page</a></li>
@@ -106,7 +107,7 @@
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="faq.html">FAQ</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <a href="javascript:void(0);">Blog <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
@@ -216,7 +217,8 @@
                             <ul class="metismenu">
                                 <li><a href="{{route('tohoney_home')}}">Home</a></li>
                                 <li><a href="{{route('about')}}">About</a></li>
-                                <li class="sidemenu-items">
+                                <li><a href="{{route('shop')}}">Shop</a></li>
+                                {{-- <li class="sidemenu-items">
                                     <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Shop </a>
                                     <ul aria-expanded="false">
                                         <li><a href="shop.html">Shop Page</a></li>
@@ -226,7 +228,7 @@
                                         <li><a href="wishlist.html">Wishlist</a></li>
                                         <li><a href="faq.html">FAQ</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li class="sidemenu-items">
                                     <a class="has-arrow" aria-expanded="false" href="javascript:void(0);">Blog</a>
                                     <ul aria-expanded="false">
@@ -277,7 +279,7 @@
                         <div class="col-lg-12 col-12">
                             <div class="footer-top-text text-center">
                                 <ul>
-                                    <li><a href="home.html">home</a></li>
+                                    <li><a href="{{ route('tohoney_home') }}">home</a></li>
                                     <li><a href="#">our story</a></li>
                                     <li><a href="#">feed shop</a></li>
                                     <li><a href="blog.html">how to eat blog</a></li>

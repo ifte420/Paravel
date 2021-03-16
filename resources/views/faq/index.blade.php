@@ -9,8 +9,10 @@
 
 @section('breadcrumb')
     <nav class="breadcrumb sl-breadcrumb">
-        <a class="breadcrumb-item" href="  ">Dashbroad</a>
-        <a class="breadcrumb-item" href="  ">Category</a>
+        <a class="breadcrumb-item" href=" {{route('home')}}">Dashbroad</a>
+        <a class="breadcrumb-item" href=" {{route('category')}}">Category</a>
+        <a class="breadcrumb-item" href=" {{route('product')}} ">Product</a>
+        <a class="breadcrumb-item" href=" {{route('contact_backend')}}">Contact</a>
         <span class="breadcrumb-item active">Faq</span>
     </nav>
 @endsection

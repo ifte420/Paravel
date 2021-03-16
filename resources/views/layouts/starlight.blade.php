@@ -58,6 +58,12 @@
             <span class="menu-item-label">Header</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{ route('setting') }}" class="sl-menu-link @yield('setting')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <span class="menu-item-label">Setting</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>

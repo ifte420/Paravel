@@ -11,7 +11,7 @@
             <div class="swiper-wrapper">
                 @foreach ($headers as $header)
                 <div class="swiper-slide overlay">
-                    <div class="single-slider slide-inner slide-inner1">
+                    <div class="single-slider slide-inner" style="background: url({{asset('uploads/header')}}/{{ $header->header_image }});">
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12 col-lg-9 col-12">

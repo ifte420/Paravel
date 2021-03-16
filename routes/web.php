@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HeaderController;
+use App\Http\Controllers\SettingController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -69,3 +70,6 @@ Route::get('header/all/soft/delete', [HeaderController::class, 'header_soft_all'
 Route::get('header/single/force/delete/{header_id}', [HeaderController::class, 'header_force'])->name('header_force');
 Route::get('header/restore/single/{header_id}', [HeaderController::class, 'header_restore'])->name('header_restore');
 Route::get('header/all/restore', [HeaderController::class, 'restore_all'])->name('restore_all');
+
+// Setting Controller
+Route::get('setting', [SettingController::class, 'setting'])->name('setting');

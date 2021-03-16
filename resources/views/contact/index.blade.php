@@ -12,7 +12,7 @@
     <nav class="breadcrumb sl-breadcrumb">
         <a class="breadcrumb-item" href=" {{route('home')}} ">Dashbroad</a>
         <a class="breadcrumb-item" href=" {{route('category')}} ">Category</a>
-        <a class="breadcrumb-item" href=" {{route('product')}} ">Category</a>
+        <a class="breadcrumb-item" href=" {{route('product')}} ">Product</a>
         <span class="breadcrumb-item active">Contact</span>
     </nav>
 @endsection

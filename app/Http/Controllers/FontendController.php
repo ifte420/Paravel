@@ -35,6 +35,8 @@ class FontendController extends Controller
         return view('shop', compact('products', 'categories'));
     }
     function category_wise_shop($category_id){
-        return view('categorywiseshop');
+        $one_category = Category::find($category_id);
+        $products = Product::where('category_id', $category_id)->get();
+        return view('categorywiseshop', compact('products', 'one_category'));
     }
 }

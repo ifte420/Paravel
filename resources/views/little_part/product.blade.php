@@ -1,7 +1,6 @@
 <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
     <div class="product-wrap">
         <div class="product-img">
-            <span>Sale</span>
             <img src="{{asset('uploads/product')}}/{{ $product->product_image }}" alt="Not Found">
             <div class="product-icon flex-style">
                 <ul>

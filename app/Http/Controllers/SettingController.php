@@ -11,4 +11,12 @@ class SettingController extends Controller
         $setting = Setting::all();
         return view('setting.index', compact('setting'));
     }
+    function settingpost(Request $request){
+        foreach ($request->except('_token') as  $key => $value) {
+            Setting::where('setting_name', $key)->update([
+                'setting_value' => $value,
+            ]);
+        }
+        return back();
+    }
 }

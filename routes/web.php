@@ -73,3 +73,4 @@ Route::get('header/all/restore', [HeaderController::class, 'restore_all'])->name
 
 // Setting Controller
 Route::get('setting', [SettingController::class, 'setting'])->name('setting');
+Route::post('setting/post', [SettingController::class, 'settingpost'])->name('settingpost');

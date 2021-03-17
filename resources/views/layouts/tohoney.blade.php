@@ -59,8 +59,16 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <ul class="d-flex header-contact">
-                            <li><i class="fa fa-phone"></i> +01 123 456 789</li>
-                            <li><i class="fa fa-envelope"></i> youremail@gmail.com</li>
+                            @if ( App\Models\Setting::where('setting_name','phone_Number')->first()->setting_value )
+                            <li>
+                                <i class="fa fa-phone"></i> {{ App\Models\Setting::where('setting_name','phone_Number')->first()->setting_value }}
+                            </li>
+                            @endif
+                            @if ( App\Models\Setting::where('setting_name','email_address')->first()->setting_value )
+                            <li>
+                                <i class="fa fa-envelope"></i> {{ App\Models\Setting::where('setting_name','email_address')->first()->setting_value }}
+                            </li>
+                            @endif
                         </ul>
                     </div>
                     <div class="col-md-6 col-12">
@@ -321,7 +329,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="footer-reserved">
                             <ul>
-                                <li>Copyright © 2019 Tohoney All rights reserved.</li>
+                                <li>Copyright © {{ Carbon\Carbon::now()->format('Y') }} Tohoney All rights reserved.</li>
                             </ul>
                         </div>
                     </div>

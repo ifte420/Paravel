@@ -26,18 +26,18 @@
             <div class="card">
                 <div class="card-header">Web Setting</div>
                 <div class="card-body">
-                    <form action=" {{route('header_post')}} " method="post" enctype="multipart/form-data">
+                    <form action=" {{route('settingpost')}} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputPassword1">Header Title</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $setting->where('setting_name', 'phone_Number')->first()->setting_value }}" name="phone_number">
+                            <input type="text" class="form-control" id="exampleInputPassword1" value="{{$setting->where('setting_name', 'phone_number')->first()->setting_value }}" name="phone_number">
                             @error('header_title')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email Address</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $setting->where('setting_name', 'email_address')->first()->setting_value }}" name="email_address">
+                        <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $setting->where('setting_name', 'email_address')->first()->setting_value }}" name="email_address">
                             @error('header_title')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror

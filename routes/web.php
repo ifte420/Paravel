@@ -20,6 +20,7 @@ Route::get('contact', [FontendController::class, 'frontend_contact'])->name('con
 Route::get('product/details/{product_id}', [FontendController::class, 'product_details'])->name('product_details');
 Route::get('shop', [FontendController::class, 'shop'])->name('shop');
 Route::get('category/wise/shop/{category_id}', [FontendController::class, 'category_wise_shop'])->name('category_wise_shop');
+Route::Post('contact_submit', [FontendController::class, 'contact_insert'])->name('contact_insert');
 
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -52,7 +53,6 @@ Route::get('product/delete/soft/all', [ProductController::class, 'product_all_so
 
 // Contact Controller
 Route::get('page/contact', [ContactController::class, 'contact_backend'])->name('contact_backend');
-Route::Post('contact_submit', [ContactController::class, 'contact_insert'])->name('contact_insert');
 Route::get('contact/delete/{contact_id}', [ContactController::class, 'contact_delete'])->name('contact_delete');
 
 // Faq Controller

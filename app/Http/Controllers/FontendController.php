@@ -7,6 +7,10 @@ Use App\Models\Category;
 Use App\Models\Product;
 use App\Models\Faq;
 use App\Models\Header;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendContactMessage;
+use App\Models\Contact;
+use Carbon\Carbon;
 
 class FontendController extends Controller
 {
@@ -21,6 +25,26 @@ class FontendController extends Controller
     }
     function frontend_contact(){
         return view('contact');
+    }
+    function contact_insert(Request $request){
+        $person_name = $request->person_name;
+        $email = $request->email;
+        $subject = $request->subject;
+        $message = $request->message;
+        $all_info = [
+            $person_name, $email, $subject, $message
+        ];
+        Mail::to('ifte430@gmail.com')->send(new SendContactMessage($all_info));
+        $request->validate([
+            'person_name' => 'required | max:50',
+            'email' => 'required | unique:contacts,email', 
+            'subject' => 'required | max:500', 
+            'message' => 'required | max:2000', 
+        ]);
+        Contact::insert($request->except('_token') + [
+            'created_at' => Carbon::now(),
+        ]);
+        return back()->with('contact_send_success', 'Your Messege Send Successfully');
     }
     function product_details($product_id){
         $faqs = Faq::all();

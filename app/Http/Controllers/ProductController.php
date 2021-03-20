@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Image;
+use Image, Auth;
 
 
 class ProductController extends Controller {
@@ -17,7 +17,7 @@ class ProductController extends Controller {
     }
     function product(){
         $categorys = Category::all();
-        $products = Product::all();
+        $products = Product::where('user_id', Auth::id())->get();
         $product_trashed = Product::onlyTrashed()->get();
         return view('product.index', compact('categorys', 'products', 'product_trashed'));
     }
@@ -39,6 +39,7 @@ class ProductController extends Controller {
         // Image Upload
         Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product/') .$image_random_name, 50);
         Product::insert($request->except('_token', 'product_image') + [
+            'user_id' => Auth::id(),
             'created_at'=> Carbon::now(),
             'product_image'=> $image_random_name,
         ]);

@@ -18,100 +18,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-lg-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-lg-6 pt-1">Product List</div>
-                        <div class="col-lg-6 text-right">
-                            @if ($products->count() != 0 )
-                                <div id="delete_soft_all" class="btn btn-danger">Delete All</div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                    <table class="table table-bordered">
-                        @if (session('single_soft_delete'))
-                            <div class="alert alert-danger text-center">
-                                {{session('single_soft_delete')}}
-                            </div>
-                        @endif
-                        @if (session('delete_all_soft'))
-                            <div class="alert alert-danger text-center">
-                                {{session('delete_all_soft')}}
-                            </div>
-                        @endif
-                        @if (session('edit_success'))
-                            <div class="alert alert-success text-center">
-                                {{session('edit_success')}}
-                            </div>
-                        @endif
-                        <div class="alert alert-success text-center">
-                            Total Product {{$products->count()}}
-                        </div>
-                        <thead>
-                            <tr>
-                                {{-- <th>checked</th> --}}
-                                <th>Serial No</th>
-                                <th>Product Name</th>
-                                <th>Category Id</th>
-                                <th>Product Price</th>
-                                <th>Product Quantity</th>
-                                <th>Product Alert Quantitiy</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                            {{-- <form action=" {{route('category_check_delete')}} " method="POST"> --}}
-                                {{-- @csrf --}}
-                                {{-- @if (App\Models\Category::WhereNull('deleted_at'))
-                                    
-                                @endif --}}
-                                {{-- {{App\Models\Category::WhereNull('deleted_at')->get()}} --}}
-                                {{-- @if (App\Models\Category::WhereNull('deleted_at')) --}}
-                                        @forelse ($products as $product)
-                                            <tr>
-                                                {{-- <td>
-                                                    <input type="checkbox" class="delete_checkbox" name="category_id[]" value=" {{$category->id}} ">
-                                                </td> --}}
-                                                <td> {{$loop->index+1}} </td>
-                                                <td> {{Str::title($product->product_name)}} </td>
-                                                <td>{{App\Models\Category::find($product->category_id)->category_name}}</td>
-                                                <td>{{$product->product_price}}</td>
-                                                <td>{{$product->product_quantity}}</td>
-                                                <td>{{$product->product_alert_quantity}}</td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a href="{{route('product_edit',$product->id)}}" type="button" class="btn btn-info text-white">Edit</a>
-                                                        <a href=" {{route('productsoftdelete',$product->id)}}" type="button" class="btn btn-danger">Delete</a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            @empty
-                                            <tr>
-                                                <td colspan="8" class="text-center text-danger">No Data To Show</td>
-                                            </tr>
-                                        @endforelse
-                                    {{-- @else
-                                    nai
-                                @endif --}}
-                            </tbody>
-                        </table>
-                        </div>
-                        {{-- @if ($categories->count() != 0 ) --}}
-                        {{-- <div class="btn-group" role="group" aria-label="Basic example">
-                            <div type="button" class="btn btn-sm bg-info text-white" id="all_check_btn">Check All</div>
-                            <div type="button" class="btn btn-sm bg-success text-white" id="all_uncheck_btn">UnCheck All</div>
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-danger">Check Delete</button> --}}
-                        {{-- @endif --}}
-                    {{-- </form> --}}
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">Add Product</div>
                 <div class="card-body">
@@ -190,7 +97,104 @@
         </div>
     </div>
     <div class="row mt-5">
-        <div class="col-lg-10">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-lg-6 pt-1">Product List</div>
+                        <div class="col-lg-6 text-right">
+                            @if ($products->count() != 0 )
+                                <div id="delete_soft_all" class="btn btn-danger">Delete All</div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class="table table-bordered">
+                        @if (session('single_soft_delete'))
+                            <div class="alert alert-danger text-center">
+                                {{session('single_soft_delete')}}
+                            </div>
+                        @endif
+                        @if (session('delete_all_soft'))
+                            <div class="alert alert-danger text-center">
+                                {{session('delete_all_soft')}}
+                            </div>
+                        @endif
+                        @if (session('edit_success'))
+                            <div class="alert alert-success text-center">
+                                {{session('edit_success')}}
+                            </div>
+                        @endif
+                        <div class="alert alert-success text-center">
+                            Total Product {{$products->count()}}
+                        </div>
+                        <thead>
+                            <tr>
+                                {{-- <th>checked</th> --}}
+                                <th>Serial No</th>
+                                <th>Product Name</th>
+                                <th>Category Name</th>
+                                <th>Added By</th>
+                                <th>Product Price</th>
+                                <th>Product Quantity</th>
+                                <th>Product Alert Quantitiy</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                            {{-- <form action=" {{route('category_check_delete')}} " method="POST"> --}}
+                                {{-- @csrf --}}
+                                {{-- @if (App\Models\Category::WhereNull('deleted_at'))
+                                    
+                                @endif --}}
+                                {{-- {{App\Models\Category::WhereNull('deleted_at')->get()}} --}}
+                                {{-- @if (App\Models\Category::WhereNull('deleted_at')) --}}
+                                        @forelse ($products as $product)
+                                            <tr>
+                                                {{-- <td>
+                                                    <input type="checkbox" class="delete_checkbox" name="category_id[]" value=" {{$category->id}} ">
+                                                </td> --}}
+                                                <td> {{$loop->index+1}} </td>
+                                                <td> {{Str::title($product->product_name)}} </td>
+                                                <td>{{App\Models\Category::find($product->category_id)->category_name}}</td>
+                                                <td>{{App\Models\User::find($product->user_id)->name}}</td>
+                                                <td>{{$product->product_price}}</td>
+                                                <td>{{$product->product_quantity}}</td>
+                                                <td>{{$product->product_alert_quantity}}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a href="{{route('product_edit',$product->id)}}" type="button" class="btn btn-info text-white">Edit</a>
+                                                        <a href=" {{route('productsoftdelete',$product->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @empty
+                                            <tr>
+                                                <td colspan="8" class="text-center text-danger">No Data To Show</td>
+                                            </tr>
+                                        @endforelse
+                                    {{-- @else
+                                    nai
+                                @endif --}}
+                            </tbody>
+                        </table>
+                        </div>
+                        {{-- @if ($categories->count() != 0 ) --}}
+                        {{-- <div class="btn-group" role="group" aria-label="Basic example">
+                            <div type="button" class="btn btn-sm bg-info text-white" id="all_check_btn">Check All</div>
+                            <div type="button" class="btn btn-sm bg-success text-white" id="all_uncheck_btn">UnCheck All</div>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-danger">Check Delete</button> --}}
+                        {{-- @endif --}}
+                    {{-- </form> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-header bg-warning">
                     <div class="row">

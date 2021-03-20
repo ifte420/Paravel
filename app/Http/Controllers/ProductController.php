@@ -7,7 +7,8 @@ use App\Models\Product;
 use App\Models\Category;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
-use Image, Auth;
+use Image;
+use Auth;
 
 
 class ProductController extends Controller {
@@ -59,16 +60,39 @@ class ProductController extends Controller {
         $categorys = Category::all();
         return view('product.edit', compact('product_info', 'categorys'));
     }
-    function producteditpost(Request $request){
+    function producteditpost(Request $request, $product_id){
+        // if($request->product_name == Product::findOrFail($product_id)->product_name){
+
+        // }
+        // print_r($request->all());
+        // die();
         $request->validate([
-            'category_id' => 'integer',
-            'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',
-            'product_price' => 'required | integer',
-            'product_quantity' => 'required | integer',
-            'product_short_description' => 'required | min:5 | max: 1000 ',
-            'product_long_description' => 'required | min:10 | max: 3000',
-            'product_alert_quantity' => 'required | integer',
+            // 'category_id' => 'integer',
+            // 'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',
+            // 'product_price' => 'required | integer',
+            // 'product_quantity' => 'required | integer',
+            // 'product_short_description' => 'required | min:5 | max: 1000 ',
+            // 'product_long_description' => 'required | min:10 | max: 3000',
+            // 'product_alert_quantity' => 'required | integer',
+            'product_new_file' => 'mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ]);
+        echo "Hi ";
+        die();
+        if($request->hasfile('product_new_file')){
+            // Delete Old Photo
+            $image_path = base_path('public/uploads/product/') . Product::findorfail($product_id)->product_image;
+            unlink($image_path);
+            // Upload New Photo & Catch Image
+            $product_image_selete = $request->file('product_new_file');
+            // Random Name
+            $image_random_name = Str::random(10) . time() . '.' .$request->file('product_new_file')->getClientOriginalExtension();
+            // Image Upload
+            Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product/') .$image_random_name, 50);
+            // update the database
+            Product::find($product_id)->update([
+                'product_image' => $image_random_name,
+            ]);
+        }
         Product::findOrFail($request->product_id)->update([
             'category_id' =>$request->category_id,
             'product_name' => $request->product_name,

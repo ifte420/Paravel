@@ -43,7 +43,7 @@ Route::post('category/soft/check', [CategoryController::class, 'category_soft_ch
 Route::get('product', [ProductController::class, 'product'])->name('product');
 Route::post('product/post', [ProductController::class, 'productpost'])->name('productpost');
 Route::get('product/edit/{product_id}', [ProductController::class, 'product_edit'])->name('product_edit');
-Route::post('product/update/edit', [ProductController::class, 'producteditpost'])->name('producteditpost');
+Route::post('product/update/edit/{product_id}', [ProductController::class, 'producteditpost'])->name('producteditpost');
 Route::get('product/soft/delete/{product_id}', [ProductController::class, 'productsoftdelete'])->name('productsoftdelete');
 Route::get('product/restore/{product_id}', [ProductController::class, 'product_restore'])->name('product_restore');
 Route::get('product/force/{product_id}', [ProductController::class, 'productforce'])->name('productforce');

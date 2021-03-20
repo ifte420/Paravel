@@ -23,7 +23,7 @@
                         {{session('product_added')}}
                     </div>
                 @endif
-                <form action=" {{route('producteditpost')}} " method="post">
+                <form action=" {{route('producteditpost', $product_info->id)}} " method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <input type="hidden" name="product_id" value="{{$product_info->id}}">
@@ -79,6 +79,17 @@
                         <label>Product alert quantity</label>
                         <input type="number" class="form-control" placeholder="Enter alert quantity" name="product_alert_quantity" value="{{$product_info->product_alert_quantity}}">
                         @error('product_alert_quantity')
+                        <span class="text-danger"> {{$message}} </span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label class="d-block">Currant Photo</label>
+                        <img src="{{ asset('uploads/product/'. $product_info->product_image) }}" alt="not found" style="height: 200px; width:200px">
+                    </div>
+                    <div class="form-group">
+                        <label>New Photo</label>
+                        <input type="file" class="form-control" placeholder="Enter New Photo" name="product_new_file">
+                        @error('product_new_file')
                         <span class="text-danger"> {{$message}} </span>
                         @enderror
                     </div>

@@ -305,24 +305,49 @@
                     <div class="col-lg-2 col-md-3 col-sm-12">
                         <div class="footer-icon">
                             <ul class="d-flex">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            @if ( App\Models\Setting::where('setting_name','facebook_link')->first()->setting_value )
+                            <li>
+                                <a href="{{ App\Models\Setting::where('setting_name','facebook_link')->first()->setting_value }}"><i class="fa fa-facebook"></i></a>
+                            </li>
+                            @endif
+                            @if ( App\Models\Setting::where('setting_name','twitter_link')->first()->setting_value )
+                            <li>
+                                <a href="{{ App\Models\Setting::where('setting_name','twitter_link')->first()->setting_value }}"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            @endif
+                            @if ( App\Models\Setting::where('setting_name','linkedin_link')->first()->setting_value )
+                            <li>
+                                <a href="{{ App\Models\Setting::where('setting_name','linkedin_link')->first()->setting_value }}"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                            @endif
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-8 col-sm-12">
                         <div class="footer-content">
-                            <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure righteous indignation and dislike</p>
+                            @if ( App\Models\Setting::where('setting_name','footer_short_description')->first()->setting_value )
+                            <p>{{ App\Models\Setting::where('setting_name','footer_short_description')->first()->setting_value }}</p>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-8 col-sm-12">
                         <div class="footer-adress">
                             <ul>
-                                <li><a href="#"><span>Email:</span> domain@gmail.com</a></li>
-                                <li><a href="#"><span>Tel:</span> 0131234567</a></li>
-                                <li><a href="#"><span>Adress:</span> 52 Web Bangale , Adress line2 , ip:3105</a></li>
+                            @if ( App\Models\Setting::where('setting_name','phone_Number')->first()->setting_value )
+                            <li>
+                                <span>Email: </span>{{ App\Models\Setting::where('setting_name','phone_Number')->first()->setting_value }}
+                            </li>
+                            @endif
+                            @if ( App\Models\Setting::where('setting_name','email_address')->first()->setting_value )
+                            <li>
+                                <span>Phone Number: </span>{{ App\Models\Setting::where('setting_name','email_address')->first()->setting_value }}
+                            </li>
+                            @endif
+                            @if ( App\Models\Setting::where('setting_name','address')->first()->setting_value )
+                            <li>
+                                <span>Address: </span>{{ App\Models\Setting::where('setting_name','address')->first()->setting_value }}
+                            </li>
+                            @endif
                             </ul>
                         </div>
                     </div>
@@ -414,6 +439,7 @@
     <script src="{{asset('tohoney_assets/js/jquery-ui.min.js')}}"></script>
     <!-- main js -->
     <script src="{{asset('tohoney_assets/js/scripts.js')}}"></script>
+     @yield('tohoney_script')
 </body>
 
 

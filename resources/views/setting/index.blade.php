@@ -31,14 +31,56 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Header Title</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" value="{{$setting->where('setting_name', 'phone_number')->first()->setting_value }}" name="phone_number">
-                            @error('header_title')
+                            @error('phone_number')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Email Address</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" value="{{ $setting->where('setting_name', 'email_address')->first()->setting_value }}" name="email_address">
-                            @error('header_title')
+                            <label for="exampleInputPassword2">Email</label>
+                            <input type="text" class="form-control" id="exampleInputPassword2" value="{{ $setting->where('setting_name', 'email_address')->first()->setting_value }}" name="email_address">
+                            @error('email_address')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword3">Address</label>
+                            <input type="text" class="form-control" id="exampleInputPassword3" value="{{ $setting->where('setting_name', 'address')->first()->setting_value }}" name="address">
+                            @error('address')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword4">Footer Short description</label>
+                            <input type="text" class="form-control" id="exampleInputPassword4" value="{{ $setting->where('setting_name', 'footer_short_description')->first()->setting_value }}" name="footer_short_description">
+                            @error('footer_short_description')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword5">Facebook Link</label>
+                            <input type="text" class="form-control" id="exampleInputPassword5" value="{{ $setting->where('setting_name', 'facebook_link')->first()->setting_value }}" name="facebook_link">
+                            @error('facebook_link')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword6">Twitter Link</label>
+                            <input type="text" class="form-control" id="exampleInputPassword6" value="{{ $setting->where('setting_name', 'twitter_link')->first()->setting_value }}" name="twitter_link">
+                            @error('twitter_link')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword7">linkedin Link</label>
+                            <input type="text" class="form-control" id="exampleInputPassword7" value="{{ $setting->where('setting_name', 'linkedin_link')->first()->setting_value }}" name="linkedin_link">
+                            @error('linkedin_link')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword7">Offer Date</label>
+                            <input type="date" class="form-control" id="exampleInputPassword7" value="{{ $setting->where('setting_name', 'offer_date')->first()->setting_value }}" name="offer_date">
+                            @error('offer_date')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>

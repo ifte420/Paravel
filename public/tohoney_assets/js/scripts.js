@@ -426,16 +426,7 @@
     /*------------------------------------------
         = COUNTDOWN CLOCK
 -------------------------------------------*/
-    if ($("#clock").length) {
-        $('#clock').countdown('2020/12/25', function(event) {
-            var $this = $(this).html(event.strftime('' +
-                '<div class="box"><div>%m</div> <span>month</span> </div>' +
-                '<div class="box"><div>%D</div> <span>Days</span> </div>' +
-                '<div class="box"><div>%H</div> <span>Hours</span> </div>' +
-                '<div class="box"><div>%M</div> <span>Mins</span> </div>' +
-                '<div class="box"><div>%S</div> <span>Secs</span> </div>'));
-        });
-    }
+
 
 
 })(jQuery);

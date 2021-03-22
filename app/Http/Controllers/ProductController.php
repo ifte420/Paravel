@@ -24,22 +24,6 @@ class ProductController extends Controller {
         return view('product.index', compact('categorys', 'products', 'product_trashed'));
     }
     function productpost(Request $request){
-        $product_id = 8;
-        foreach ($request->file('feature_image') as $single_feature_photo) {
-            // Catch Image
-            $product_image_selete = $single_feature_photo;
-            // Random Name
-            $image_random_name = Str::random(10) . time() . '.' .$single_feature_photo->getClientOriginalExtension();
-            // Image Upload
-            Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product_feature/') .$image_random_name, 50);
-            Feature_photo::insert([
-                'product_id' => $product_id,
-                'feature_image' => $image_random_name,
-                'created_at' => Carbon::now(),
-            ]);
-        }
-        echo "Done";
-        die();
         $request->validate([
             'category_id' => 'integer',
             'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',
@@ -49,18 +33,36 @@ class ProductController extends Controller {
             'product_long_description' => 'required | min:10 | max: 3000',
             'product_alert_quantity' => 'required | integer',
             'product_image' => 'required | mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'feature_image.*' => 'image|mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ]);
         // Catch Image
         $product_image_selete = $request->file('product_image');
         // Random Name
-        $image_random_name = Str::random(10) . time() . '.' .$request->file('product_image')->getClientOriginalExtension();
+        $image_random_name = Str::random(10).time().'.'.$request->file('product_image')->getClientOriginalExtension();
         // Image Upload
         Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product/') .$image_random_name, 50);
-        Product::insert($request->except('_token', 'product_image') + [
+        $product_id = Product::insertGetId($request->except('_token', 'product_image', 'feature_image') + [
             'user_id' => Auth::id(),
             'created_at'=> Carbon::now(),
             'product_image'=> $image_random_name,
         ]);
+
+        // Feature Upload and insert code
+        if ($request->hasfile('feature_image')) {
+            foreach ($request->file('feature_image') as $single_feature_photo) {
+                // Catch Image
+                $product_image_selete = $single_feature_photo;
+                // Random Name
+                $image_random_name = Str::random(10).time().'.'.$single_feature_photo->getClientOriginalExtension();
+                // Image Upload
+                Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product_feature/') .$image_random_name, 50);
+                Feature_photo::insert([
+                    'product_id' => $product_id,
+                    'feature_image' => $image_random_name,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+        }
 
         return back()->with('product_added', 'Product Added successfully');
     }

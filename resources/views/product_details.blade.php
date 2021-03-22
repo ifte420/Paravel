@@ -31,47 +31,21 @@
                         <div class="item">
                             <img src="{{asset('uploads/product')}}/{{ $products->product_image }}" alt="">
                         </div>
+                        @foreach (App\Models\Feature_photo::where('product_id', $products->id)->get() as $feateure_photo)
                         <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/1.jpg" alt="">
+                            <img src="{{asset('uploads/product_feature')}}/{{ $feateure_photo->feature_image }}" alt="not found">
                         </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/2.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/3.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/4.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/5.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/6.jpg" alt="">
-                        </div>
+                        @endforeach
                     </div>
                     <div class="product-thumbnil-active owl-carousel">
                         <div class="item">
                             <img src="{{asset('uploads/product')}}/{{ $products->product_image }}" alt="">
                         </div>
+                        @foreach (App\Models\Feature_photo::where('product_id', $products->id)->get() as $feateure_photo)
                         <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/1.jpg" alt="">
+                            <img src="{{asset('uploads/product_feature')}}/{{ $feateure_photo->feature_image }}" alt="not found">
                         </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/2.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/3.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/4.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/5.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img src="{{asset('tohoney_assets')}}/images/product/product-details/6.jpg" alt="">
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

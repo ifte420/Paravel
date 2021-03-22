@@ -12,7 +12,7 @@
                     <h2>Shop Page</h2>
                     <ul>
                         <li><a href="{{ route('tohoney_home') }}">Home</a></li>
-                        <li><span>Shop</span></li>
+                        <li><span>{{ $one_category->category_name }}</span></li>
                     </ul>
                 </div>
             </div>

@@ -128,6 +128,10 @@ class ProductController extends Controller {
         return back()->with('single_restore', 'Your '.$product_name.' Product Restore');
     }
     function productforce($product_id){
+        foreach (Feature_photo::where('product_id', $product_id)->get() as $single_feature_photo) {
+            $image_path = base_path('public/uploads/product_feature/').$single_feature_photo->feature_image;
+            unlink($image_path);
+        }
         $image_path = base_path('public/uploads/product/').Product::onlyTrashed()->find($product_id)->product_image;
         unlink($image_path);
         $product_name =  Product::onlyTrashed()->find($product_id)->product_name;

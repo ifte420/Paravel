@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Feature_photo;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Image;
@@ -23,6 +24,22 @@ class ProductController extends Controller {
         return view('product.index', compact('categorys', 'products', 'product_trashed'));
     }
     function productpost(Request $request){
+        $product_id = 8;
+        foreach ($request->file('feature_image') as $single_feature_photo) {
+            // Catch Image
+            $product_image_selete = $single_feature_photo;
+            // Random Name
+            $image_random_name = Str::random(10) . time() . '.' .$single_feature_photo->getClientOriginalExtension();
+            // Image Upload
+            Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product_feature/') .$image_random_name, 50);
+            Feature_photo::insert([
+                'product_id' => $product_id,
+                'feature_image' => $image_random_name,
+                'created_at' => Carbon::now(),
+            ]);
+        }
+        echo "Done";
+        die();
         $request->validate([
             'category_id' => 'integer',
             'product_name' => 'required | min:2 | max: 50 | unique:products,product_name',

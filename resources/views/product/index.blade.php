@@ -90,6 +90,13 @@
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label>Feature Product Image</label>
+                            <input class="form-control form-control-sm" type="file" placeholder="Feature Product Image" name="feature_image[]" multiple>
+                            @error('feature_image')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-outline-secondary">Submit</button>
                     </form>
                 </div>
@@ -140,6 +147,7 @@
                                 <th>Product Price</th>
                                 <th>Product Quantity</th>
                                 <th>Product Alert Quantitiy</th>
+                                <th>Product Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -163,6 +171,7 @@
                                                 <td>{{$product->product_price}}</td>
                                                 <td>{{$product->product_quantity}}</td>
                                                 <td>{{$product->product_alert_quantity}}</td>
+                                                <td><img src="{{ asset('uploads/product/'. $product->product_image) }}" alt="not found" style="height: 200px; width:200px"></td>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <a href="{{route('product_edit',$product->id)}}" type="button" class="btn btn-info text-white">Edit</a>
@@ -240,6 +249,7 @@
                                 <th>Product Price</th>
                                 <th>Product Quantity</th>
                                 <th>Product Alert Quantitiy</th>
+                                <th>Product Image</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -258,6 +268,7 @@
                                     <td>{{$product_trash->product_price}}</td>
                                     <td>{{$product_trash->product_quantity}}</td>
                                     <td>{{$product_trash->product_alert_quantity}}</td>
+                                    <td><img src="{{ asset('uploads/product/'. $product_trash->product_image) }}" alt="not found" style="height: 200px; width:200px"></td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Basic example">
                                             <a href=" {{route('product_restore',$product_trash->id)}}" type="button" class="btn btn-success text-white">Restore</a>

@@ -42,6 +42,10 @@ Route::post('category/soft/check', [CategoryController::class, 'category_soft_ch
 
 // Sub Category Controller
 Route::get('subcategory', [SubcategoryController::class, 'subcategory'])->name('subcategory');
+Route::post('subcategory/post', [SubcategoryController::class, 'subcategory_post'])->name('subcategory_post');
+Route::get('subcategory/soft/delete/{sub_category_id}', [SubcategoryController::class, 'subcategorydelete'])->name('subcategorydelete');
+Route::get('subcategory/restore/{sub_category_id}', [SubcategoryController::class, 'subcategoryrestore'])->name('subcategoryrestore');
+Route::get('subcategory/force/delete/{sub_category_id}', [SubcategoryController::class, 'subcategoryfocedelete'])->name('subcategoryfocedelete');
 
 // Product Controller
 Route::get('product', [ProductController::class, 'product'])->name('product');

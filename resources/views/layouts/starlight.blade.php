@@ -34,6 +34,12 @@
             <span class="menu-item-label">Category</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{route('subcategory')}}" class="sl-menu-link @yield('subcategory')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-image tx-22"></i>
+            <span class="menu-item-label">Sub Category</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         <a href="{{route('product')}}" class="sl-menu-link @yield('product')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-grid tx-22"></i>

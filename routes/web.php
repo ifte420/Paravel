@@ -9,6 +9,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SubcategoryController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -38,6 +39,9 @@ Route::get('category/all/forcedelete', [CategoryController::class, 'category_for
 Route::get('category/all/restore', [CategoryController::class, 'category_restore_all'])->name('category_restore_all');
 Route::post('category/check/delete', [CategoryController::class, 'category_check_delete'])->name('category_check_delete');
 Route::post('category/soft/check', [CategoryController::class, 'category_soft_check'])->name('category_soft_check');
+
+// Sub Category Controller
+Route::get('subcategory', [SubcategoryController::class, 'subcategory'])->name('subcategory');
 
 // Product Controller
 Route::get('product', [ProductController::class, 'product'])->name('product');

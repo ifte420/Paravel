@@ -24,9 +24,9 @@
                     <div class="row">
                         <div class="col-lg-6 pt-1">Category List</div>
                         <div class="col-lg-6 text-right">
-                            {{-- @if ($categories->count() != 0 )
-                            <div id="delete_soft_all" class="btn btn-danger">Delete All</div>
-                            @endif --}}
+                            @if ($subcategorys->count() != 0 )
+                            <a href="{{ route('allsoftdelete') }}" class="btn btn-danger">Delete All</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -35,6 +35,16 @@
                         <div class="alert alert-success text-center">
                             Total Sub Category {{ $subcategorys->count() }}
                         </div>
+                        @if (session('soft_delete'))
+                            <div class="alert alert-danger">
+                                {{ session('soft_delete') }}
+                            </div>
+                        @endif
+                        @if (session('softall'))
+                            <div class="alert alert-danger">
+                                {{ session('softall') }}
+                            </div>
+                        @endif
                         <thead>
                             <tr>
                                 <th>Serial No</th>
@@ -55,7 +65,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href=" {{route('categoryedit',$subcategory->id)}}" type="button" class="btn btn-info text-white">Edit</a>
+                                        {{-- <a href=" {{route('categoryedit',$subcategory->id)}}" type="button" class="btn btn-info text-white">Edit</a> --}}
                                         <a href=" {{route('subcategorydelete',$subcategory->id)}}" type="button" class="btn btn-danger">Delete</a>
                                     </div>
                                 </td>
@@ -72,8 +82,13 @@
         </div>
         <div class="col-lg-4">
             <div class="card">
-                <div class="card-header text-white bg-secondary">Add Categroy</div>
+                <div class="card-header text-white bg-secondary">Add Sub Categroy</div>
                 <div class="card-body">
+                    @if (session('insert_success'))
+                        <div class="alert alert-danger">
+                            {{ session('insert_success') }}
+                        </div>
+                    @endif
                     <form action="{{ route('subcategory_post') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -113,14 +128,34 @@
                     <div class="row">
                         <div class="col-lg-6 pt-1 text-white">Total Soft Category List</div>
                         <div class="col-lg-6 text-right">
-                            {{-- @if ($deleted_categories->count() != 0 )
-                                <button class="btn btn-success" id="restore_all">Restore All</button>
-                                <button class="btn btn-danger" id="delete_force_all">Delete All</button>
-                            @endif --}}
+                            @if ($subcategorys_trashed->count() != 0 )
+                                <a href="{{ route('subcategoryallrestore') }}" class="btn btn-success">Restore All</a>
+                                <a href="{{ route('subcategoryallforcedelete') }}" class="btn btn-danger">Delete All</a>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                    @if (session('single_restore'))
+                        <div class="alert alert-success">
+                            {{ session('single_restore') }}
+                        </div>
+                    @endif
+                    @if (session('single_force_delete'))
+                        <div class="alert alert-danger">
+                            {{ session('single_force_delete') }}
+                        </div>
+                    @endif
+                    @if (session('restore_all'))
+                        <div class="alert alert-success">
+                            {{ session('restore_all') }}
+                        </div>
+                    @endif
+                    @if (session('forcedelete'))
+                        <div class="alert alert-danger">
+                            {{ session('forcedelete') }}
+                        </div>
+                    @endif
                     <table class="table table-bordered">
                         <div class="alert alert-success text-center">
                             Category List

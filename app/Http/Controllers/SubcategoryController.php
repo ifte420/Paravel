@@ -33,20 +33,32 @@ class SubcategoryController extends Controller
             'subcategory_image' => $random_photo_name,
             'created_at' => Carbon::now(),
         ]);
-        return back();
+        return back()->with('insert_success', 'Sub Category insert Successfully');
     }
     function subcategorydelete($sub_category_id){
         Subcategory::find($sub_category_id)->delete();
-        return back();
+        return back()->with('soft_delete', 'Sub Category soft delete successfully');
     }
     function subcategoryrestore($sub_category_id){
         Subcategory::onlyTrashed($sub_category_id)->restore();
-        return back();
+        return back()->with('single_restore', 'Sub Category Restore Successfully');
     }
     function subcategoryfocedelete($sub_category_id){
         $image_path = base_path('public/uploads/sub_category/').Subcategory::onlyTrashed()->find($sub_category_id)->subcategory_image;
         unlink($image_path);
         Subcategory::onlyTrashed($sub_category_id)->forceDelete();
-        return back();
+        return back()->with('single_force_delete', 'Sub Category Force Delete Successfuly');
+    }
+    function allsoftdelete(){
+        Subcategory::whereNull('deleted_at')->delete();
+        return back()->with('softall', 'Sub category soft');
+    }
+    function subcategoryallrestore(){
+        Subcategory::onlyTrashed()->restore();
+        return back()->with('restore_all', 'Sub category all restore');
+    }
+    function subcategoryallforcedelete(){
+        Subcategory::onlyTrashed()->forceDelete();
+        return back()->with('forcedelete', 'Sub category all force delete');
     }
 }

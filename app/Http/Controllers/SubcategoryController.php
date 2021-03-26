@@ -20,7 +20,7 @@ class SubcategoryController extends Controller
     function subcategory_post(Request $request){
         $request->validate([
             'category_id' => 'required | integer',
-            'subcategory_name' => 'required | max:50 | min:3 | unique:categories,category_name',
+            'subcategory_name' => 'required | max:50 | min:3 | unique:subcategories,subcategory_name',
             'subcategory_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ]);
         // Catch The Photo

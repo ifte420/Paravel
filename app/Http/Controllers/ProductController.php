@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Subcategory;
 use App\Models\Feature_photo;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -20,8 +21,9 @@ class ProductController extends Controller {
     function product(){
         $categorys = Category::all();
         $products = Product::where('user_id', Auth::id())->get();
+        $subcategorys = Subcategory::all();
         $product_trashed = Product::onlyTrashed()->get();
-        return view('product.index', compact('categorys', 'products', 'product_trashed'));
+        return view('product.index', compact('categorys', 'products', 'product_trashed', 'subcategorys'));
     }
     function productpost(Request $request){
         $request->validate([

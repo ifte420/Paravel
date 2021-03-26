@@ -127,9 +127,19 @@
                             @error('category_name')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
-                            <label for="exampleInputPassword1">Category Image</label>
+                            <label>Category Image</label>
                             <input class="form-control form-control-sm" type="file" name="category_image">
                             @error('category_image')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                            <label >Sub Category Name</label>
+                            <input type="text" class="form-control" placeholder="Enter Categroy Name" name="subcategory_name">
+                            @error('subcategory_name')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                            <label>Sub Category Image</label>
+                            <input class="form-control form-control-sm" type="file" name="subcategory_image">
+                            @error('subcategory_image')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>

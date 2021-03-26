@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subcategory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Image;
@@ -23,6 +24,8 @@ class CategoryController extends Controller
         $request->validate([
             'category_name' => 'required | max:50 | min:3 | unique:categories,category_name',
             'category_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'subcategory_name' => 'required | max:50 | min:3 | unique:subcategories,subcategory_name',
+            'subcategory_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
         ],
         [
             'category_name.required' => "Pleace Fill Up The Input File",
@@ -35,10 +38,22 @@ class CategoryController extends Controller
         // Upload The photo
         Image::make($photo_select)->resize(350, 275)->save(base_path('public/uploads/category/') . $random_photo_name, 50 );
         // Insert
-        Category::insert([
+        $category_id = Category::insertGetId([
             'category_name' => $request->category_name,
             'created_at' => Carbon::now(),
             'category_image' => $random_photo_name,
+        ]);
+        // Catch The Photo
+        $sub_photo_select = $request->file('subcategory_image');
+        // Randomly Ganerate Name
+        $random_sub_photo_name = str::random(10).time().'.'.$request->subcategory_image->getClientOriginalExtension();
+        // Upload The photo
+        Image::make($sub_photo_select)->resize(350, 275)->save(base_path('public/uploads/sub_category/') . $random_sub_photo_name, 50 );
+        Subcategory::insert([
+            'category_id' => $category_id,
+            'subcategory_name' => $request->subcategory_name,
+            'subcategory_image' => $random_sub_photo_name,
+            'created_at' => Carbon::now(),
         ]);
         return back()->with('category_insert_status', 'Category '. $request->category_name .' Added Successfully');
     }

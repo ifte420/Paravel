@@ -85,7 +85,7 @@
                 <div class="card-header text-white bg-secondary">Add Sub Categroy</div>
                 <div class="card-body">
                     @if (session('insert_success'))
-                        <div class="alert alert-danger">
+                        <div class="alert alert-success">
                             {{ session('insert_success') }}
                         </div>
                     @endif

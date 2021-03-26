@@ -42,6 +42,18 @@
                             @enderror
                         </div>
                         <div class="form-group">
+                            <label>Sub Category Name</label>
+                            <select class="form-control" name="subcategory_id">
+                                <option value="">-Choose One-</option>
+                                @foreach ($subcategorys as $subcategory)
+                                    <option value="{{$subcategory->id}}"> {{ App\Models\Category::find($subcategory->category_id)->category_name }} > {{$subcategory->subcategory_name}}</option>
+                                @endforeach
+                            </select>
+                            @error('category_id')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
                             <label>Product Name</label>
                             <input type="text" class="form-control" placeholder="Enter product Name" name="product_name">
                             @error('product_name')

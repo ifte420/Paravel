@@ -10,6 +10,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\Cartcontroller;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -85,3 +86,6 @@ Route::get('header/all/restore', [HeaderController::class, 'restore_all'])->name
 // Setting Controller
 Route::get('setting', [SettingController::class, 'setting'])->name('setting');
 Route::post('setting/post', [SettingController::class, 'settingpost'])->name('settingpost');
+
+// Cart Controller
+Route::post('add/to/cart/{product_id}', [Cartcontroller::class, 'cartpost'])->name('cartpost');

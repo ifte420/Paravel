@@ -64,13 +64,18 @@
                         </ul>
                     </div>
                     <p>{{$products->product_short_description}}</p>
-                    <form action="{{ route('') }}">
+                    <form action="{{ route('cartpost', $products->id) }}" method="POST">
                         @csrf
                         <ul class="input-style">
                             <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
+                                <input type="text" value="1" name="quantity"/>
                             </li>
-                            <li><button type="submit" style="background: #EF4836;" class="btn text-white ml-2">Add to Cart</button></li>
+                            <li>
+                                <button style="background: #EF4836;" class="btn text-white ml-2">Add to Cart</button>
+                            </li>
+                            @error('quantity')
+                                <small class="alert text-danger">{{ $message }}</small>
+                            @enderror
                         </ul>
                     </form>
                     <ul class="cetagory">

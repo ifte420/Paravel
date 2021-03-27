@@ -162,42 +162,24 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>3</span></a>
+                                @php
+                                    $carts = App\Models\Cart::all()
+                                @endphp
+                                <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ $carts->count() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
+                                    @foreach ($carts as $cart)
                                     <li class="cart-items">
                                         <div class="cart-img">
-                                            <img src="{{asset('tohoney_assets')}}/images/cart/1.jpg" alt="">
+                                            <img src="{{asset('uploads/product')}}/{{ App\Models\Product::find($cart->product_id)->product_image }}" alt="not-found" style="width: 70px">
                                         </div>
                                         <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
+                                            <a href="cart.html">{{ App\Models\Product::find($cart->product_id)->product_name }}</a>
+                                            <span>QTY : {{ $cart->quantity }}</span>
                                             <p>$35.00</p>
                                             <i class="fa fa-times"></i>
                                         </div>
                                     </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{asset('tohoney_assets')}}/images/cart/3.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{asset('tohoney_assets')}}/images/cart/2.jpg" alt="">
-                                            <img src="{{asset('tohoney_assets')}}/images/cart/2.jpg" alt="">
-                                        </div>
-                                        <div class="cart-content">
-                                            <a href="cart.html">Pure Nature Product</a>
-                                            <span>QTY : 1</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
-                                        </div>
-                                    </li>
+                                    @endforeach
                                     <li>Subtotol: <span class="pull-right">$70.00</span></li>
                                     <li>
                                         <button>Check Out</button>

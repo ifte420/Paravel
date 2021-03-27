@@ -123,22 +123,22 @@
                             </div>
                         @endif
                             <label for="exampleInputPassword1">Category Name</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Categroy Name" name="category_name">
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Categroy Name" name="category_name" value="{{ old('category_name') }}">
                             @error('category_name')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                             <label>Category Image</label>
-                            <input class="form-control form-control-sm" type="file" name="category_image">
+                            <input class="form-control form-control-sm" type="file" name="category_image" value="{{ old('category_image') }}">
                             @error('category_image')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                             <label >Sub Category Name</label>
-                            <input type="text" class="form-control" placeholder="Enter Categroy Name" name="subcategory_name">
+                            <input type="text" class="form-control" placeholder="Enter Categroy Name" name="subcategory_name" value="{{ old('subcategory_name') }}">
                             @error('subcategory_name')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                             <label>Sub Category Image</label>
-                            <input class="form-control form-control-sm" type="file" name="subcategory_image">
+                            <input class="form-control form-control-sm" type="file" name="subcategory_image" value="{{ old('subcategory_image') }}">
                             @error('subcategory_image')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror

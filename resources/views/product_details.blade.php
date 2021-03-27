@@ -11,7 +11,7 @@
                 <div class="breadcumb-wrap text-center">
                     <h2>Shop Page</h2>
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{ route('tohoney_home') }}">Home</a></li>
                         <li><span>Shop</span></li>
                     </ul>
                 </div>
@@ -64,12 +64,15 @@
                         </ul>
                     </div>
                     <p>{{$products->product_short_description}}</p>
-                    <ul class="input-style">
-                        <li class="quantity cart-plus-minus">
-                            <input type="text" value="1" />
-                        </li>
-                        <li><a href="cart.html">Add to Cart</a></li>
-                    </ul>
+                    <form action="{{ route('') }}">
+                        @csrf
+                        <ul class="input-style">
+                            <li class="quantity cart-plus-minus">
+                                <input type="text" value="1" />
+                            </li>
+                            <li><button type="submit" style="background: #EF4836;" class="btn text-white ml-2">Add to Cart</button></li>
+                        </ul>
+                    </form>
                     <ul class="cetagory">
                         <li>Categories:</li>
                         <li><a href="#">{{App\Models\Category::find($products->category_id)->category_name}}</a></li>

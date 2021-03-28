@@ -7,6 +7,7 @@ Use App\Models\Category;
 Use App\Models\Product;
 use App\Models\Faq;
 use App\Models\Header;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendContactMessage;
 use App\Models\Contact;
@@ -62,5 +63,9 @@ class FontendController extends Controller
         $one_category = Category::find($category_id);
         $products = Product::where('category_id', $category_id)->get();
         return view('categorywiseshop', compact('products', 'one_category'));
+    }
+    function cart(){
+        $carts = Cart::where('ip_address', request()->ip())->get();
+        return view('cart');
     }
 }

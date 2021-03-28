@@ -163,7 +163,8 @@
                             </li>
                             <li>
                                 @php
-                                    $carts = App\Models\Cart::all()
+                                    $carts = App\Models\Cart::where('ip_address', request()->ip())->get();
+                                    $subtotal = 0;
                                 @endphp
                                 <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ $carts->count() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
@@ -171,18 +172,25 @@
                                     <li class="cart-items">
                                         <div class="cart-img">
                                             <img src="{{asset('uploads/product')}}/{{ App\Models\Product::find($cart->product_id)->product_image }}" alt="not-found" style="width: 70px">
-                                        </div>
+                                        </div> 
                                         <div class="cart-content">
-                                            <a href="cart.html">{{ App\Models\Product::find($cart->product_id)->product_name }}</a>
+                                            <a href="{{route('product_details', $cart->product_id)}}">{{ App\Models\Product::find($cart->product_id)->product_name }}</a>
+
                                             <span>QTY : {{ $cart->quantity }}</span>
-                                            <p>$35.00</p>
-                                            <i class="fa fa-times"></i>
+
+                                            <p>${{ App\Models\Product::find($cart->product_id)->product_price * $cart->quantity}}</p>
+                                            @php
+                                                $subtotal += App\Models\Product::find($cart->product_id)->product_price * $cart->quantity;
+                                            @endphp
+                                            <a href="{{ route('cartdelete', $cart->id) }}">
+                                                <i class="fa fa-times"></i>
+                                            </a>
                                         </div>
                                     </li>
                                     @endforeach
-                                    <li>Subtotol: <span class="pull-right">$70.00</span></li>
+                                    <li>Subtotol: <span class="pull-right">${{ $subtotal }}</span></li>
                                     <li>
-                                        <button>Check Out</button>
+                                        <a href="{{ route('cart') }}" class="btn btn-danger">Go Cart Page</a>
                                     </li>
                                 </ul>
                             </li>

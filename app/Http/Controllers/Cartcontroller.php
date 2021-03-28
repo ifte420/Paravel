@@ -14,12 +14,22 @@ class Cartcontroller extends Controller
         $request->validate([
             'quantity' => 'required | integer',
         ]);
+
+        if(Cart::where('product_id', $product_id)->where('ip_address', request()->ip())->exists()){
+            Cart::where('product_id', $product_id)->where('ip_address', request()->ip())->increment('quantity', $request->quantity);
+        }
+        else{
         Cart::insert([
             'product_id' => $product_id,
             'ip_address' => request()->ip(),
             'quantity' => $request->quantity,
             'created_at' => Carbon::now(),
         ]);
+        }
+        return back();
+    }
+    function cartdelete($cart_id){
+        Cart::find($cart_id)->delete();
         return back();
     }
 }

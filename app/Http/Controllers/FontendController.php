@@ -65,7 +65,8 @@ class FontendController extends Controller
         return view('categorywiseshop', compact('products', 'one_category'));
     }
     function cart(){
-        $carts = Cart::where('ip_address', request()->ip())->get();
-        return view('cart');
+        return view('cart',[
+        'carts' => Cart::where('ip_address', request()->ip())->get(),
+        ]);
     }
 }

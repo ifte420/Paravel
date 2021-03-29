@@ -38,36 +38,43 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $flag = false;
+                            @endphp
+                            @forelse ($carts as $cart)
                             <tr>
-                                <td class="images"><img src="assets/images/cart/1.jpg" alt=""></td>
-                                <td class="product"><a href="single-product.html">Neture Honey</a></td>
-                                <td class="ptice">$139.00</td>
-                                <td class="quantity cart-plus-minus">
-                                    <input type="text" value="1" />
+                                <td class="images"><img src="{{ asset('uploads/product')}}/{{$cart->relation_product->product_image}}" alt="not found"></td>
+                                <td class="product">
+                                    <a href="{{route('product_details', $cart->relation_product->id)}}">
+                                        {{ $cart->relation_product->product_name }}
+                                    </a>
+                                    @if ($cart->relation_product->product_quantity < $cart->quantity)
+                                        <div class="badge badge-danger">Stock Available: {{ $cart->relation_product->product_quantity }}</div>
+                                    @php
+                                        $flag = true;
+                                    @endphp
+                                    @endif
                                 </td>
-                                <td class="total">$139.00</td>
-                                <td class="remove"><i class="fa fa-times"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="images"><img src="assets/images/cart/2.jpg" alt=""></td>
-                                <td class="product"><a href="single-product.html">Pure Olive Oil</a></td>
-                                <td class="ptice">$684.47</td>
+                                <td class="price">${{ $cart->relation_product->product_price }}</td>
                                 <td class="quantity cart-plus-minus">
-                                    <input type="text" value="1" />
+                                    <input type="text" value="{{ $cart->quantity }}"/>
                                 </td>
-                                <td class="total">$684.47</td>
-                                <td class="remove"><i class="fa fa-times"></i></td>
-                            </tr>
-                            <tr>
-                                <td class="images"><img src="assets/images/cart/3.jpg" alt=""></td>
-                                <td class="product"><a href="single-product.html">Pure Coconut Oil</a></td>
-                                <td class="ptice">$145.80</td>
-                                <td class="quantity cart-plus-minus">
-                                    <input type="text" value="1" />
+                                <td class="total">
+                                    ${{ $cart->relation_product->product_price * $cart->quantity }}
                                 </td>
-                                <td class="total">$145.80</td>
-                                <td class="remove"><i class="fa fa-times"></i></td>
+                                <td class="remove">
+                                    <a href="{{ route('cartdelete', $cart->id) }}">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </td>
                             </tr>
+                            @empty
+                            <tr class="text-danger flex-row">
+                                <td colspan="100">
+                                    No Product Show
+                                </td>
+                            </tr>
+                            @endforelse
                         </tbody>
                     </table>
                     <div class="row mt-60">
@@ -77,7 +84,7 @@
                                     <li>
                                         <button>Update Cart</button>
                                     </li>
-                                    <li><a href="shop.html">Continue Shopping</a></li>
+                                    <li><a href="{{ route('shop') }}">Continue Shopping</a></li>
                                 </ul>
                                 <h3>Cupon</h3>
                                 <p>Enter Your Cupon Code if You Have One</p>
@@ -94,7 +101,11 @@
                                     <li><span class="pull-left">Subtotal </span>$380.00</li>
                                     <li><span class="pull-left"> Total </span> $380.00</li>
                                 </ul>
-                                <a href="checkout.html">Proceed to Checkout</a>
+                                @if ($flag)
+                                    <a href="checkout.html">There Are Some Problem</a>
+                                @else
+                                    <a href="checkout.html">Proceed to Checkout</a>
+                                @endif
                             </div>
                         </div>
                     </div>

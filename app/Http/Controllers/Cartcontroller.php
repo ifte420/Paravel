@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Product;
 use Carbon\Carbon;
 
 
@@ -14,6 +15,10 @@ class Cartcontroller extends Controller
         $request->validate([
             'quantity' => 'required | integer',
         ]);
+
+        if($request->quantity > Product::find($product_id)->product_quantity){
+            return back()->with('stock_not', 'Stock Not Available');
+        }
 
         if(Cart::where('product_id', $product_id)->where('ip_address', request()->ip())->exists()){
             Cart::where('product_id', $product_id)->where('ip_address', request()->ip())->increment('quantity', $request->quantity);

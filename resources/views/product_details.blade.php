@@ -64,6 +64,7 @@
                         </ul>
                     </div>
                     <p>{{$products->product_short_description}}</p>
+                    <div class="badge badge-success">Avaliable Stock: {{$products->product_quantity}}</div>
                     <form action="{{ route('cartpost', $products->id) }}" method="POST">
                         @csrf
                         <ul class="input-style">
@@ -78,6 +79,9 @@
                             @enderror
                         </ul>
                     </form>
+                    @if (session('stock_not'))
+                        <small class="alert text-danger">{{ session('stock_not') }}</small>
+                    @endif
                     <ul class="cetagory">
                         <li>Categories:</li>
                         <li><a href="#">{{App\Models\Category::find($products->category_id)->category_name}}</a></li>

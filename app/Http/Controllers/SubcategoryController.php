@@ -59,16 +59,18 @@ class SubcategoryController extends Controller
             // Random Name
             $image_random_name = Str::random(10) . time() . '.' .$request->file('subcategory_image')->getClientOriginalExtension();
             // Image Upload
-            Image::make($subcategory_image_selete)->resize(600, 550)->save(base_path('public/uploads/product/') .$image_random_name, 50);
+            Image::make($subcategory_image_selete)->resize(600, 550)->save(base_path('public/uploads/sub_category/') .$image_random_name, 50);
             // update the database
             Subcategory::find($sub_category_id)->update([
                 'subcategory_image' => $image_random_name,
             ]);
         }
-        Subcategory::findOrFail($request->$sub_category_id)::Update($request->except('_token', 'subcategory_image')+[
-
+        Subcategory::find($sub_category_id)->Update([
+            'category_id' => $request->category_id,
+            'subcategory_name' => $request->subcategory_name,
         ]);
         return back();
+        // echo "Hello ";
     }
     function subcategoryrestore($sub_category_id){
         Subcategory::onlyTrashed($sub_category_id)->restore();

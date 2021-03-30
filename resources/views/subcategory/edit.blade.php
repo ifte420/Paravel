@@ -46,8 +46,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputPassword3">Sub Category Current Image</label>
-                                <img src="{{ asset('uploads/sub_category')}}/{{ $subcategor_info->subcategory_image }}" alt="not found">
+                                <label for="exampleInputPassword3" class="d-block">Sub Category Current Image</label>
+                                <img src="{{ asset('uploads/sub_category')}}/{{ $subcategor_info->subcategory_image }}" alt="not found" width="150px">
                             </div>
                             <div class="form-group">
                                 <label>Sub Category Image</label>

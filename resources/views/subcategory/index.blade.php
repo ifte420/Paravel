@@ -65,8 +65,8 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        {{-- <a href=" {{route('categoryedit',$subcategory->id)}}" type="button" class="btn btn-info text-white">Edit</a> --}}
-                                        <a href=" {{route('subcategorydelete',$subcategory->id)}}" type="button" class="btn btn-danger">Delete</a>
+                                        <a href=" {{route('subcategoryedit',$subcategory->id)}}" type="button" class="btn btn-outline-info">Edit</a>
+                                        <a href=" {{route('subcategorydelete',$subcategory->id)}}" type="button" class="btn btn-outline-danger">Delete</a>
                                     </div>
                                 </td>
                             </tr>

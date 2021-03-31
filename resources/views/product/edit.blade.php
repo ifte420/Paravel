@@ -14,7 +14,7 @@
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-lg-6 m-auto">
+    <div class="col-lg-8 m-left">
         <div class="card">
             <div class="card-header">Add Categroy</div>
             <div class="card-body">
@@ -95,6 +95,49 @@
                     </div>
                     <button type="submit" class="btn btn-outline-secondary">Submit</button>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 m-left">
+        <div class="card">
+            <div class="card-header">Product Wise Feature Photo</div>
+            <div class="card-body">
+                <div class="row">
+                    @foreach ($feature_photos as $feature_photo)
+                    <div class="col-lg-6">
+                        <form action="{{ route('update_feature_photo', $feature_photo->id) }}" method="post" enctype="multipart/form-data" >
+                            @csrf
+                            <div class="form-group d-inline">
+                                <p>Currant Photo</p>
+                                <img src="{{ asset('uploads/product_feature/'. $feature_photo->feature_image) }}" alt="not found" class="img-fluid w-100 mb-1">
+                                <input type="file" class="form-control" placeholder="Enter New Photo" name="feature_image">
+                                @error('feature_image')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                                <div class="btn-group mt-1">
+                                    <button type="submit" class="btn btn-info">Update Feature</button>
+                                    <a href="{{ route('update_feature_delete', $feature_photo->id) }}" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    @endforeach
+                </div>
+
+                <form action="{{ route('add_feature_photo', $feature_photo->product_id) }}" method="post" enctype="multipart/form-data" class="mt-2">
+                @csrf
+                <div class="form-group d-inline">
+                    <div class="form-group">
+                        <label>Add Feature Product Image</label>
+                        <input class="form-control form-control-sm" type="file" placeholder="Feature Product Image" name="add_feature_image[]" multiple>
+                        @error('add_feature_image')
+                        <span class="text-danger"> {{$message}} </span>
+                        @enderror
+                    </div>
+                    <button type="submit" class="btn btn-outline-secondary">Submit</button>
+                </div>
+                </form>
+
             </div>
         </div>
     </div>

@@ -65,6 +65,9 @@ Route::get('product/force/{product_id}', [ProductController::class, 'productforc
 Route::get('product/all/restore', [ProductController::class, 'product_restore_all'])->name('product_restore_all');
 Route::get('product/all/', [ProductController::class, 'product_force_delete_all'])->name('product_force_delete_all');
 Route::get('product/delete/soft/all', [ProductController::class, 'product_all_soft_delete'])->name('product_all_soft_delete');
+Route::post('update/feature/photo/{feature_id}', [ProductController::class, 'update_feature_photo'])->name('update_feature_photo');
+Route::get('update/delete/feature/{feature_id}', [ProductController::class, 'update_feature_delete'])->name('update_feature_delete');
+Route::post('add/feature/photo/{product_id}', [ProductController::class, 'add_feature_photo'])->name('add_feature_photo');
 
 // Contact Controller
 Route::get('page/contact', [ContactController::class, 'contact_backend'])->name('contact_backend');

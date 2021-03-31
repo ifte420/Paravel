@@ -34,8 +34,8 @@ class ProductController extends Controller {
             'product_short_description' => 'required | min:5 | max: 1000 ',
             'product_long_description' => 'required | min:10 | max: 3000',
             'product_alert_quantity' => 'required | integer',
-            'product_image' => 'required | mimes:jpg, jpeg, png, bmp, gif, svg, webp',
-            'feature_image.*' => 'image|mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'product_image' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+            'feature_image.*' => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp',
         ]);
         // Catch Image
         $product_image_selete = $request->file('product_image');
@@ -79,8 +79,10 @@ class ProductController extends Controller {
     function product_edit($product_id){
         $product_info = Product::findOrFail($product_id);
         $categorys = Category::all();
-        return view('product.edit', compact('product_info', 'categorys'));
+        $feature_photos = Feature_photo::where('product_id', $product_id)->get();
+        return view('product.edit', compact('product_info', 'categorys', 'feature_photos'));
     }
+
     function producteditpost(Request $request, $product_id){
         // if($request->product_name == Product::findOrFail($product_id)->product_name){}
         $request->validate([
@@ -91,7 +93,7 @@ class ProductController extends Controller {
             'product_short_description' => 'required | min:5 | max: 1000 ',
             'product_long_description' => 'required | min:10 | max: 3000',
             'product_alert_quantity' => 'required | integer',
-            'product_new_file' => 'mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'product_new_file' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp',
         ]);
         if($request->hasfile('product_new_file')){
             // Delete Old Photo
@@ -162,4 +164,59 @@ class ProductController extends Controller {
         Product::WhereNull('deleted_at')->Delete();
         return back()->with('delete_all_soft', 'Your All product soft delete successfully');
     }
+
+    // Feture Photo
+    function update_feature_photo(Request $request, $feature_id){
+        $request->validate([
+            'feature_image' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+        ]);
+        if ($request->hasfile('feature_image')) {
+            // Delete Old Photo
+            $image_path = base_path('public/uploads/product_feature/') . Feature_photo::findorfail($feature_id)->feature_image;
+            unlink($image_path);
+            // Upload New Photo & Catch Image
+            $product_image_selete = $request->file('feature_image');
+            // Random Name
+            $image_random_name = Str::random(10) . time() . '.' .$request->file('feature_image')->getClientOriginalExtension();
+            // Image Upload
+            Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product_feature/') .$image_random_name, 50);
+            // update the database
+            Feature_photo::find($feature_id)->update([
+                'feature_image' => $image_random_name,
+            ]);
+        }
+        return back();
+    }
+
+    function update_feature_delete($feature_id){
+        $image_path = base_path('public/uploads/product_feature/') . Feature_photo::findorfail($feature_id)->feature_image;
+        unlink($image_path);
+        Feature_photo::find($feature_id)->delete();
+        return back();
+    }
+
+    function add_feature_photo(Request $request, $product_id){
+        $request->validate([
+            'add_feature_image.*' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+        ]);
+        // Feature Upload and insert code
+        if ($request->hasfile('add_feature_image')) {
+            foreach ($request->file('add_feature_image') as $single_feature_photo) {
+                // Catch Image
+                $product_image_selete = $single_feature_photo;
+                // Random Name
+                $image_random_name = Str::random(10).time().'.'.$single_feature_photo->getClientOriginalExtension();
+                // Image Upload
+                Image::make($product_image_selete)->resize(600, 550)->save(base_path('public/uploads/product_feature/') .$image_random_name, 50);
+                Feature_photo::insert([
+                    'product_id' => $product_id,
+                    'feature_image' => $image_random_name,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+        }
+        return back();
+    }
+
+
 }

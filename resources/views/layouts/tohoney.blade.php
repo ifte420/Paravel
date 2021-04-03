@@ -169,24 +169,45 @@
                                 <a href="javascript:void(0);"><i class="flaticon-shop"></i> <span>{{ $carts->count() }}</span></a>
                                 <ul class="cart-wrap dropdown_style">
                                     @foreach ($carts as $cart)
-                                    <li class="cart-items">
-                                        <div class="cart-img">
-                                            <img src="{{asset('uploads/product')}}/{{ App\Models\Product::find($cart->product_id)->product_image }}" alt="not-found" style="width: 70px">
-                                        </div> 
-                                        <div class="cart-content">
-                                            <a href="{{route('product_details', $cart->product_id)}}">{{ App\Models\Product::find($cart->product_id)->product_name }}</a>
+                                        @if (isset(App\Models\Product::find($cart->product_id)->id))
+                                        <li class="cart-items">
+                                            <div class="cart-img">
+                                                <img src="{{asset('uploads/product')}}/{{ App\Models\Product::find($cart->product_id)->product_image }}" alt="not-found" style="width: 70px">
+                                            </div> 
+                                            <div class="cart-content">
+                                                <a href="{{route('product_details', $cart->product_id)}}">{{ App\Models\Product::find($cart->product_id)->product_name }}</a>
 
-                                            <span>QTY : {{ $cart->quantity }}</span>
+                                                <span>QTY : {{ $cart->quantity }}</span>
 
-                                            <p>${{ App\Models\Product::find($cart->product_id)->product_price * $cart->quantity}}</p>
-                                            @php
-                                                $subtotal += App\Models\Product::find($cart->product_id)->product_price * $cart->quantity;
-                                            @endphp
-                                            <a href="{{ route('cartdelete', $cart->id) }}">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </div>
-                                    </li>
+                                                <p>${{ App\Models\Product::find($cart->product_id)->product_price * $cart->quantity}}</p>
+                                                @php
+                                                    $subtotal += App\Models\Product::find($cart->product_id)->product_price * $cart->quantity;
+                                                @endphp
+                                                <a href="{{ route('cartdelete', $cart->id) }}">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @else
+                                        <li class="cart-items">
+                                            <div class="cart-img">
+                                                <img src="" alt="not-found" style="width: 70px">
+                                            </div> 
+                                            <div class="cart-content">
+                                                <h6>Product Deleted</h6>
+
+                                                <span>QTY : Null</span>
+
+                                                <p>$0</p>
+                                                @php
+                                                    $subtotal += 0
+                                                @endphp
+                                                <a href="{{ route('cartdelete', $cart->id) }}">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        @endif
                                     @endforeach
                                     <li>Subtotol: <span class="pull-right">${{ $subtotal }}</span></li>
                                     <li>

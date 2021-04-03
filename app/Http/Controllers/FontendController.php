@@ -49,7 +49,7 @@ class FontendController extends Controller
     }
     function product_details($product_id){
         $faqs = Faq::all();
-        $product_category_id = Product::find($product_id)->category_id;
+        $product_category_id = Product::findOrFail($product_id)->category_id;
         $related_product = Product::where('category_id', $product_category_id)->where('id', '!=', $product_id)->get();
         $products = Product::find($product_id);
         return view('product_details', compact('products', 'faqs', 'related_product'));

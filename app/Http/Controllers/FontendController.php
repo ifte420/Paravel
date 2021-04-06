@@ -69,4 +69,18 @@ class FontendController extends Controller
         'carts' => Cart::where('ip_address', request()->ip())->get(),
         ]);
     }
+    function update_cart(Request $req){
+        foreach ($req->quantity as $cart_id => $quantity) {
+            if(Product::find(Cart::find($cart_id)->product_id)->product_quantity >= $quantity){
+                Cart::findOrFail($cart_id)->update([
+                    'quantity' => $quantity,
+                ]);
+            }
+            else{
+                $error_cart_id = $cart_id;
+                return back()->with('quantity_error', 'Decrease product quantity.', compact('error_cart_id'));
+            }
+        }
+        return back();
+    }
 }

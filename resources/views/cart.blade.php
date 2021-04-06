@@ -25,7 +25,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form action="http://themepresss.com/tf/html/tohoney/cart">
+                <form action="{{ route('update_cart') }}" method="POST">
+                    @csrf
                     <table class="table-responsive cart-wrap">
                         <thead>
                             <tr>
@@ -40,33 +41,65 @@
                         <tbody>
                             @php
                                 $flag = false;
+                                $sub_total = 0;
                             @endphp
                             @forelse ($carts as $cart)
                             <tr>
-                                <td class="images"><img src="{{ asset('uploads/product')}}/{{$cart->relation_product->product_image}}" alt="not found"></td>
-                                <td class="product">
-                                    <a href="{{route('product_details', $cart->relation_product->id)}}">
-                                        {{ $cart->relation_product->product_name }}
-                                    </a>
-                                    @if ($cart->relation_product->product_quantity < $cart->quantity)
-                                        <div class="badge badge-danger">Stock Available: {{ $cart->relation_product->product_quantity }}</div>
-                                    @php
-                                        $flag = true;
-                                    @endphp
-                                    @endif
-                                </td>
-                                <td class="price">${{ $cart->relation_product->product_price }}</td>
-                                <td class="quantity cart-plus-minus">
-                                    <input type="text" value="{{ $cart->quantity }}"/>
-                                </td>
-                                <td class="total">
-                                    ${{ $cart->relation_product->product_price * $cart->quantity }}
-                                </td>
-                                <td class="remove">
-                                    <a href="{{ route('cartdelete', $cart->id) }}">
-                                        <i class="fa fa-times"></i>
-                                    </a>
-                                </td>
+                                @if (isset(App\Models\Product::find($cart->product_id)->id))
+                                    <td class="images"><img src="{{ asset('uploads/product')}}/{{$cart->relation_product->product_image}}" alt="not found"></td>
+                                    <td class="product">
+                                        <a href="{{route('product_details', $cart->relation_product->id)}}">
+                                            {{ $cart->relation_product->product_name }}
+                                        </a>
+                                        {{-- @if ($error_cart_id == $cart->id) --}}
+                                            @if (session('quantity_error'))
+                                                <small class="text-danger d-block">
+                                                    {{ session('quantity_error') }}
+                                                </small>
+                                            @endif
+                                        {{-- @endif --}}
+                                        @if ($cart->relation_product->product_quantity < $cart->quantity)
+                                            <div class="badge badge-danger">Stock Available: {{ $cart->relation_product->product_quantity }}</div>
+                                        @php
+                                            $flag = true;
+                                        @endphp
+                                        @endif
+                                    </td>
+                                    <td class="price">${{ $cart->relation_product->product_price }}</td>
+                                    <td class="quantity cart-plus-minus">
+                                        <input type="text" value="{{ $cart->quantity }}" name="quantity[{{ $cart->id }}]"/>
+                                    </td>
+                                    <td class="total">
+                                        ${{ $cart->relation_product->product_price * $cart->quantity }}
+                                        @php
+                                            $sub_total += $cart->relation_product->product_price * $cart->quantity;
+                                        @endphp
+                                    </td>
+                                    <td class="remove">
+                                        <a href="{{ route('cartdelete', $cart->id) }}">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                @else
+                                    <td class="images">Stock Out</td>
+                                    <td class="product">
+                                        <p>
+                                            Stock Out
+                                        </p>
+                                    </td>
+                                    <td class="price">$0</td>
+                                    <td class="quantity cart-plus-minus">
+                                        <input type="text" value="{{ $cart->quantity }}"/>
+                                    </td>
+                                    <td class="total">
+                                        $0
+                                    </td>
+                                    <td class="remove">
+                                        <a href="{{ route('cartdelete', $cart->id) }}">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </td>
+                                @endif
                             </tr>
                             @empty
                             <tr class="text-danger flex-row">
@@ -98,7 +131,7 @@
                             <div class="cart-total text-right">
                                 <h3>Cart Totals</h3>
                                 <ul>
-                                    <li><span class="pull-left">Subtotal </span>$380.00</li>
+                                    <li><span class="pull-left">Subtotal </span>${{ $sub_total }}</li>
                                     <li><span class="pull-left"> Total </span> $380.00</li>
                                 </ul>
                                 @if ($flag)

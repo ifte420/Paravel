@@ -11,6 +11,7 @@ use App\Http\Controllers\HeaderController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Cartcontroller;
+use App\Http\Controllers\CuponController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -97,3 +98,6 @@ Route::post('setting/post', [SettingController::class, 'settingpost'])->name('se
 // Cart Controller
 Route::post('add/to/cart/{product_id}', [Cartcontroller::class, 'cartpost'])->name('cartpost');
 Route::get('cart/delete/{cart_id}', [Cartcontroller::class, 'cartdelete'])->name('cartdelete');
+
+// Cupon Controller
+Route::resource('cupon', CuponController::class);

@@ -51,13 +51,16 @@
                                         <a href="{{route('product_details', $cart->relation_product->id)}}">
                                             {{ $cart->relation_product->product_name }}
                                         </a>
-                                        {{-- @if ($error_cart_id == $cart->id) --}}
-                                            @if (session('quantity_error'))
-                                                <small class="text-danger d-block">
-                                                    {{ session('quantity_error') }}
-                                                </small>
-                                            @endif
-                                        {{-- @endif --}}
+                                        @if (isset($_SESSION['quantity_'.$cart->id]))
+                                            <small class="text-danger d-block">
+                                                @php
+                                                    echo $_SESSION['quantity_'.$cart->id];
+                                                @endphp
+                                            </small>
+                                            @php
+                                                unset($_SESSION['quantity_'.$cart->id])
+                                            @endphp
+                                        @endif
                                         @if ($cart->relation_product->product_quantity < $cart->quantity)
                                             <div class="badge badge-danger">Stock Available: {{ $cart->relation_product->product_quantity }}</div>
                                         @php

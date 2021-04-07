@@ -24,12 +24,12 @@ class Cartcontroller extends Controller
             Cart::where('product_id', $product_id)->where('ip_address', request()->ip())->increment('quantity', $request->quantity);
         }
         else{
-        Cart::insert([
-            'product_id' => $product_id,
-            'ip_address' => request()->ip(),
-            'quantity' => $request->quantity,
-            'created_at' => Carbon::now(),
-        ]);
+            Cart::insert([
+                'product_id' => $product_id,
+                'ip_address' => request()->ip(),
+                'quantity' => $request->quantity,
+                'created_at' => Carbon::now(),
+            ]);
         }
         return back();
     }

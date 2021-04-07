@@ -70,7 +70,7 @@
             <span class="menu-item-label">Setting</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        <a href="{{ route('cupon') }}" class="sl-menu-link @yield('cupon')">
+        <a href="{{ route('cupon.index') }}" class="sl-menu-link @yield('cupon')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-grid tx-22"></i>
             <span class="menu-item-label">Cupon</span>

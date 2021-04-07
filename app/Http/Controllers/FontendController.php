@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+session_start();
 
 use Illuminate\Http\Request;
-Use App\Models\Category;
 Use App\Models\Product;
+Use App\Models\Category;
 use App\Models\Faq;
 use App\Models\Header;
 use App\Models\Cart;
@@ -77,8 +78,7 @@ class FontendController extends Controller
                 ]);
             }
             else{
-                $error_cart_id = $cart_id;
-                return back()->with('quantity_error', 'Decrease product quantity.', compact('error_cart_id'));
+                $_SESSION['quantity_'.$cart_id] = "Please Decrease product quantity";
             }
         }
         return back();

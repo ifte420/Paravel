@@ -12,6 +12,7 @@ use App\Models\Cart;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendContactMessage;
 use App\Models\Contact;
+use App\Models\Cupon;
 use Carbon\Carbon;
 
 class FontendController extends Controller
@@ -65,9 +66,32 @@ class FontendController extends Controller
         $products = Product::where('category_id', $category_id)->get();
         return view('categorywiseshop', compact('products', 'one_category'));
     }
-    function cart(){
+    function cart($cupon_name="cupon nai"){
+        $cupon_discount = 0;
+        if($cupon_name == "cupon nai"){
+            $cupon_discount = 0;
+        }
+        else{
+            if(Cupon::where('cupon_name', $cupon_name)->exists()){
+                if(Cupon::where('cupon_name', $cupon_name)->first()->expire_date >= Carbon::now()->format('Y-m-d')){
+                    if(Cupon::where('cupon_name', $cupon_name)->first()->uses_limit > 0){
+                        $cupon_discount = Cupon::where('cupon_name', $cupon_name)->first()->discount_amount;
+                    }
+                    else{
+                        return back()->with('limit_finish', 'The limit is over');
+                    }
+                }
+                else {
+                    return back()->with('expire', 'The date has passed');
+                }
+            }
+            else {
+                return back()->with('invalid', 'Invalid cupon name');
+            }
+        }
         return view('cart',[
         'carts' => Cart::where('ip_address', request()->ip())->get(),
+        'cupon_discount' => $cupon_discount,
         ]);
     }
     function update_cart(Request $req){

@@ -37,7 +37,6 @@ class CuponController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->all());
         $request->validate([
             'cupon_name' => 'required', 
             'discount_amount' => 'required | integer | max:99',
@@ -67,7 +66,7 @@ class CuponController extends Controller
      */
     public function edit(Cupon $cupon)
     {
-        // 
+        return view('cupon.edit',compact('cupon'));
     }
 
     /**
@@ -79,7 +78,14 @@ class CuponController extends Controller
      */
     public function update(Request $request, Cupon $cupon)
     {
-        // 
+        $request->validate([
+            'cupon_name' => 'required', 
+            'discount_amount' => 'required | integer | max:99',
+            'expire_date' => 'required', 
+            'uses_limit' => 'required | integer', 
+        ]);
+        $cupon->update($request->except('_token', '_method'));
+        return redirect('cupon');
     }
 
     /**
@@ -93,4 +99,9 @@ class CuponController extends Controller
         $cupon->delete();
         return back();
     }
+    function delete_all(){
+        Cupon::truncate();
+        return back();
+    }
+
 }

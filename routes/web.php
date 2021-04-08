@@ -25,6 +25,7 @@ Route::get('shop', [FontendController::class, 'shop'])->name('shop');
 Route::get('category/wise/shop/{category_id}', [FontendController::class, 'category_wise_shop'])->name('category_wise_shop');
 Route::Post('contact_submit', [FontendController::class, 'contact_insert'])->name('contact_insert');
 Route::get('cart/page', [FontendController::class, 'cart'])->name('cart');
+Route::get('cart/page/{cupon}', [FontendController::class, 'cart'])->name('cart_cupon');
 Route::post('update/cart', [FontendController::class, 'update_cart'])->name('update_cart');
 
 // Home Controller Routes
@@ -101,3 +102,4 @@ Route::get('cart/delete/{cart_id}', [Cartcontroller::class, 'cartdelete'])->name
 
 // Cupon Controller
 Route::resource('cupon', CuponController::class);
+Route::get('cupon/delete/all', [CuponController::class, 'delete_all'])->name('cart.delete.all');

@@ -126,7 +126,22 @@
                                 <p>Enter Your Cupon Code if You Have One</p>
                                 <div class="cupon-wrap">
                                     <input type="text" placeholder="Cupon Code">
-                                    <button>Apply Cupon</button>
+                                    <button type="button">Apply Cupon</button>
+                                    @if (session('limit_finish'))
+                                        <small class="text-danger">
+                                            {{ session('limit_finish') }}
+                                        </small>
+                                    @endif
+                                    @if (session('expire'))
+                                        <small class="text-danger">
+                                            {{ session('expire') }}
+                                        </small>
+                                    @endif
+                                    @if (session('invalid'))
+                                        <small class="text-danger">
+                                            {{ session('invalid') }}
+                                        </small>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -135,6 +150,7 @@
                                 <h3>Cart Totals</h3>
                                 <ul>
                                     <li><span class="pull-left">Subtotal </span>${{ $sub_total }}</li>
+                                    <li><span class="pull-left">Discount% </span>{{ $cupon_discount }}%</li>
                                     <li><span class="pull-left"> Total </span> $380.00</li>
                                 </ul>
                                 @if ($flag)

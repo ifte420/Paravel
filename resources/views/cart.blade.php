@@ -125,8 +125,8 @@
                                 <h3>Cupon</h3>
                                 <p>Enter Your Cupon Code if You Have One</p>
                                 <div class="cupon-wrap">
-                                    <input type="text" placeholder="Cupon Code">
-                                    <button type="button">Apply Cupon</button>
+                                    <input type="text" placeholder="Cupon Code" id="apply_add_input" value="{{ $cupon_name }}">
+                                    <button id="apply_add_btn" type="button">Apply Cupon</button>
                                     @if (session('limit_finish'))
                                         <small class="text-danger">
                                             {{ session('limit_finish') }}
@@ -151,12 +151,20 @@
                                 <ul>
                                     <li><span class="pull-left">Subtotal </span>${{ $sub_total }}</li>
                                     <li><span class="pull-left">Discount% </span>{{ $cupon_discount }}%</li>
-                                    <li><span class="pull-left"> Total </span> $380.00</li>
+                                    <li><span class="pull-left">Total</span>${{ $sub_total - (($cupon_discount/100)*$sub_total) }}</li>
                                 </ul>
+                                @php
+                                    session([
+                                        'session_sub_total' => $sub_total,
+                                        'session_cupon_name' => $cupon_name,
+                                        'session_cupon_discount' => $cupon_discount,
+                                        'session_total' => $sub_total - (($cupon_discount/100)*$sub_total),
+                                    ]);
+                                @endphp
                                 @if ($flag)
-                                    <a href="checkout.html">There Are Some Problem</a>
+                                    <a href="">There Are Some Problem</a>
                                 @else
-                                    <a href="checkout.html">Proceed to Checkout</a>
+                                    <a href="{{ route('checkout') }}">Proceed to Checkout</a>
                                 @endif
                             </div>
                         </div>
@@ -167,4 +175,16 @@
     </div>
 </div>
 <!-- cart-area end -->
+@endsection
+
+@section('tohoney_script')
+    <script>
+        $(document).ready(function(){
+            $('#apply_add_btn').click(function(){
+                var cupon_name = $('#apply_add_input').val();
+                var link_to_go = "{{ route('cart') }}/" + cupon_name;
+                window.location.href = link_to_go;
+            });
+        });
+    </script>
 @endsection

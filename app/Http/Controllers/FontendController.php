@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 session_start();
 
 use Illuminate\Http\Request;
-Use App\Models\Product;
+Use App\Models\Product , App\Models\User;
 Use App\Models\Category;
 use App\Models\Faq;
 use App\Models\Header;
@@ -14,6 +14,7 @@ use App\Mail\SendContactMessage;
 use App\Models\Contact;
 use App\Models\Cupon;
 use Carbon\Carbon;
+use Hash;
 
 class FontendController extends Controller
 {
@@ -66,9 +67,9 @@ class FontendController extends Controller
         $products = Product::where('category_id', $category_id)->get();
         return view('categorywiseshop', compact('products', 'one_category'));
     }
-    function cart($cupon_name="cupon nai"){
+    function cart($cupon_name=""){
         $cupon_discount = 0;
-        if($cupon_name == "cupon nai"){
+        if($cupon_name == ""){
             $cupon_discount = 0;
         }
         else{
@@ -82,16 +83,18 @@ class FontendController extends Controller
                     }
                 }
                 else {
-                    return back()->with('expire', 'The date has passed');
+                    return back()->with('expire', 'The date has Expired');
                 }
             }
             else {
                 return back()->with('invalid', 'Invalid cupon name');
+                // return back()->with(compact('cupon_name'))->with('invalid', 'Invalid cupon name');
             }
         }
         return view('cart',[
         'carts' => Cart::where('ip_address', request()->ip())->get(),
         'cupon_discount' => $cupon_discount,
+        'cupon_name' => $cupon_name,
         ]);
     }
     function update_cart(Request $req){
@@ -106,5 +109,33 @@ class FontendController extends Controller
             }
         }
         return back();
+    }
+    function checkout(){
+        return view('checkout');
+    }
+
+    function customer_register(){
+        return view('customer_register');
+    }
+    function customer_register_post(Request $request){
+        $encrypt_password = bcrypt($request->password);
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        // if(Hash::check($request->password_confirmation, $encrypt_password)){
+            User::insert([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $encrypt_password,
+                'role' => 2,
+                'created_at' => Carbon::now(),
+            ]);
+            return back();
+        // }
+        // else{
+        //     return back()->with('password_error', 'Your (password & confirm password) not the same. please provide the same password.');
+        // }
     }
 }

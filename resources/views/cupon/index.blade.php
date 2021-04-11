@@ -57,7 +57,7 @@
                                 <tr>
                                     <td> {{$loop->index+1}} </td>
                                     <td> {{Str::title($cupon->cupon_name)}} </td>
-                                    <td> {{ $cupon->discount_amount }} </td>
+                                    <td> {{ $cupon->discount_amount }} %</td>
                                     <td> {{ $cupon->expire_date }} </td>
                                     <td> {{ $cupon->uses_limit }} </td>
                                     <td>

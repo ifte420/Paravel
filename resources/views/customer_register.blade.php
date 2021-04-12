@@ -30,11 +30,6 @@
                     <div class="account-form form-style">
                         <form method="POST" action="{{ route('customer_register_post') }}">
                             @csrf
-                            {{-- @if (session('password_error'))
-                                <div class="alert alert-danger">
-                                    {{ session('password_error') }}
-                                </div>
-                            @endif --}}
                             <div class="form-group">
                                 <label for="name" class="col-md-4 col-form-label">{{ __('Full Name') }}</label>
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -75,7 +70,7 @@
                             <div class="form-group mb-0">
                                 <button>Register</button>
                                 <div class="text-center">
-                                    <a href="">Or Login</a>
+                                    <a href="{{ route('customer_login') }}">Or Login</a>
                                 </div>
                             </div>
                         </form>

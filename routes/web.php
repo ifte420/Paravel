@@ -30,6 +30,8 @@ Route::post('update/cart', [FontendController::class, 'update_cart'])->name('upd
 Route::get('checkout', [FontendController::class, 'checkout'])->name('checkout');
 Route::get('customer/register', [FontendController::class, 'customer_register'])->name('customer_register');
 Route::post('customer/register/post', [FontendController::class, 'customer_register_post'])->name('customer_register_post');
+Route::get('customer/login', [FontendController::class, 'customer_login'])->name('customer_login');
+Route::post('customer/login/post', [FontendController::class, 'customer_login_post'])->name('customer_login_post');
 
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home');

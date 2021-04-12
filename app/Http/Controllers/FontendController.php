@@ -14,7 +14,7 @@ use App\Mail\SendContactMessage;
 use App\Models\Contact;
 use App\Models\Cupon;
 use Carbon\Carbon;
-use Hash;
+use Hash, Auth;
 
 class FontendController extends Controller
 {
@@ -111,7 +111,12 @@ class FontendController extends Controller
         return back();
     }
     function checkout(){
-        return view('checkout');
+        if(Auth::id()){
+            return view('checkout');
+        }
+        else{
+            return view('customer_login');
+        }
     }
 
     function customer_register(){
@@ -124,18 +129,32 @@ class FontendController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-        // if(Hash::check($request->password_confirmation, $encrypt_password)){
-            User::insert([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => $encrypt_password,
-                'role' => 2,
-                'created_at' => Carbon::now(),
-            ]);
-            return back();
-        // }
-        // else{
-        //     return back()->with('password_error', 'Your (password & confirm password) not the same. please provide the same password.');
-        // }
+        User::insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $encrypt_password,
+            'role' => 2,
+            'created_at' => Carbon::now(),
+        ]);
+        return back();
+    }
+    function customer_login(){
+        return view('customer_login');
+    }
+    function customer_login_post(Request $request){
+        if(User::where('email', $request->email)->exists()){
+            $db_passowrd = User::where('email', $request->email)->first()->password;
+            if(Hash::check($request->password, $db_passowrd)){
+                if(Auth::attempt($request->except('_token'))){
+                    return redirect()->intended('home');
+                }
+            }
+            else {
+                return back()->with('pass_err', 'Your password is incorrect');
+            }
+        }
+        else{
+            return back()->with('log_error', 'These credentials do not match our records.');
+        }
     }
 }

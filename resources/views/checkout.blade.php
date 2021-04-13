@@ -6,6 +6,7 @@
 
 @section('body')
 <!-- checkout-area start -->
+@if (Auth::user()->role == 2)
 <div class="checkout-area ptb-100">
     <div class="container">
         <div class="row">
@@ -28,8 +29,11 @@
                             </div>
                             <div class="col-sm-6 col-12">
                                 <p>Country *</p>
-                                <select>
-                                    <option value="">Bangladesh</option>
+                                <select id="select_id">
+                                    <option value="">-Select-</option>
+                                    @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-sm-6 col-12">
@@ -37,7 +41,7 @@
                                 <select>
                                     <option value="">Dhaka</option>
                                 </select>
-                            </div>                                
+                            </div>
                             <div class="col-12">
                                 <p>Your Address *</p>
                                 <input type="text">
@@ -83,6 +87,26 @@
         </div>
     </div>
 </div>
+@else
+<div class="checkout-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="alert alert-danger">
+                    You are an admin, You Can not Checkout!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <!-- checkout-area end -->
 @endsection
 
+@section('tohoney_script')
+    <script>
+    $(document).ready(function() {
+        $('#select_id').select2();
+    });
+    </script>
+@endsection

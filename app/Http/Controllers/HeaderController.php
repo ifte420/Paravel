@@ -9,8 +9,9 @@ use Image;
 
 class HeaderController extends Controller
 {
-    public function __construct(){
+    public function __construct() {
         $this->middleware('auth');
+        $this->middleware('checkrole');
     }
     function header(){
         $headers_normal = Header::all();

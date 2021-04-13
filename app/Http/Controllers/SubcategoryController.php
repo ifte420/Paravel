@@ -11,6 +11,10 @@ use Image;
 
 class SubcategoryController extends Controller 
 {
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('checkrole');
+    }
     function subcategory(){
         $categorys = Category::all();
         $subcategorys = Subcategory::all();

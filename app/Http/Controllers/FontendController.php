@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SendContactMessage;
 use App\Models\Contact;
 use App\Models\Cupon;
+use App\Models\Country;
 use Carbon\Carbon;
 use Hash, Auth;
 
@@ -112,11 +113,13 @@ class FontendController extends Controller
     }
     function checkout(){
         if(Auth::id()){
-            return view('checkout');
+            return view('checkout',[
+                'countries' => Country::select('id', 'name')->get(),
+            ]);
         }
-        else{
-            return view('customer_login');
-        }
+        // else{
+        //     return view('customer_login');
+        // }
     }
 
     function customer_register(){

@@ -28,6 +28,7 @@
             <span class="menu-item-label">Dashboard</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        @if (Auth::user()->role == 1)
         <a href="{{route('category')}}" class="sl-menu-link @yield('category')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-image tx-22"></i>
@@ -76,6 +77,7 @@
             <span class="menu-item-label">Cupon</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        @endif
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>

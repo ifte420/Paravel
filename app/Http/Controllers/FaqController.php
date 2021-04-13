@@ -8,6 +8,10 @@ use carbon\carbon;
 
 class FaqController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('checkrole');
+    }
     function faq(){
         $faqs = faq::all();
         $faqs_trashed = faq::onlyTrashed()->get();

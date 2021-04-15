@@ -14,8 +14,10 @@ use App\Mail\SendContactMessage;
 use App\Models\Contact;
 use App\Models\Cupon;
 use App\Models\Country;
+use App\Models\City;
 use Carbon\Carbon;
-use Hash, Auth;
+use Hash;
+use Auth;
 
 class FontendController extends Controller
 {
@@ -112,14 +114,15 @@ class FontendController extends Controller
         return back();
     }
     function checkout(){
+        // echo City::select('id', 'name')->take(10)->get();
         if(Auth::id()){
             return view('checkout',[
                 'countries' => Country::select('id', 'name')->get(),
             ]);
         }
-        // else{
-        //     return view('customer_login');
-        // }
+        else{
+            return view('customer_login');
+        }
     }
 
     function customer_register(){
@@ -144,6 +147,7 @@ class FontendController extends Controller
     function customer_login(){
         return view('customer_login');
     }
+
     function customer_login_post(Request $request){
         if(User::where('email', $request->email)->exists()){
             $db_passowrd = User::where('email', $request->email)->first()->password;
@@ -160,4 +164,25 @@ class FontendController extends Controller
             return back()->with('log_error', 'These credentials do not match our records.');
         }
     }
+
+    function getcitylist(Request $request){
+        $str_to_send = "";
+        foreach (City::where('country_id', $request->country_id)->select('id', 'name')->get() as $city) {
+            // echo $city->name;
+            // echo $city->id;
+            $str_to_send = $str_to_send."<option value='$city->id'>$city->name</option>";
+        }
+        echo $str_to_send;
+    }
+
+    function checkout_post(Request $request){
+        return $request;
+        if($request->payment_option == 1){
+            echo "Online Payment";
+        }
+        else {
+            echo "Cash on Delivery";
+        }
+    }
+
 }

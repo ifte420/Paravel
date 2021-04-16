@@ -61,6 +61,7 @@
                 Hello world
             </div>
         </div>
+        {{-- @include('cupon.index') --}}
         @endif
     </div>
 </div>

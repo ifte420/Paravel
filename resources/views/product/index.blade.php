@@ -31,7 +31,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Category Name</label>
-                            <select class="form-control" name="category_id">
+                            <select class="form-control" name="category_id" id="category_select">
                                 <option value="">-Choose One-</option>
                                 @foreach ($categorys as $category)
                                     <option value="{{$category->id}}">{{$category->category_name}}</option>
@@ -43,11 +43,11 @@
                         </div>
                         <div class="form-group">
                             <label>Sub Category Name</label>
-                            <select class="form-control" name="subcategory_id">
+                            <select class="form-control" name="subcategory_id" id="subcategory_list">
                                 <option value="">-Choose One-</option>
-                                @foreach ($subcategorys as $subcategory)
+                                {{-- @foreach ($subcategorys as $subcategory)
                                     <option value="{{$subcategory->id}}"> {{ App\Models\Category::find($subcategory->category_id)->category_name }} > {{$subcategory->subcategory_name}}</option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             @error('category_id')
                             <span class="text-danger"> {{$message}} </span>
@@ -375,6 +375,25 @@
 
             $('#all_unchecked').click(function(){
                 $('.checked_button').removeAttr('checked');
+            });
+            // Select 2
+            $('#category_select').select2();
+            $('#subcategory_list').select2();
+            $('#category_select').change(function(){
+                var category_id = $(this).val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: 'get/subcategory/list',
+                    data: {category_id:category_id},
+                    success: function(data){
+                        $('#subcategory_list').html(data);
+                    }
+                });
             });
         });
     </script>

@@ -26,6 +26,13 @@ class ProductController extends Controller {
         $product_trashed = Product::onlyTrashed()->get();
         return view('product.index', compact('categorys', 'products', 'product_trashed', 'subcategorys'));
     }
+    function get_sub_category_list(Request $request){
+        $send_subcategory = "";
+        foreach(Subcategory::where('category_id', $request->category_id)->select('id','subcategory_name')->get() as $subcategory){
+            $send_subcategory = $send_subcategory."<option value='$subcategory->id'>$subcategory->subcategory_name</option>";
+        }
+        echo $send_subcategory;
+    }
     function productpost(Request $request){
         $request->validate([
             'category_id' => 'integer',

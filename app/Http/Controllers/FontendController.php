@@ -15,6 +15,8 @@ use App\Models\Contact;
 use App\Models\Cupon;
 use App\Models\Country;
 use App\Models\City;
+use App\Models\Order;
+use App\Models\Order_details;
 use Carbon\Carbon;
 use Hash;
 use Auth;
@@ -168,20 +170,47 @@ class FontendController extends Controller
     function getcitylist(Request $request){
         $str_to_send = "";
         foreach (City::where('country_id', $request->country_id)->select('id', 'name')->get() as $city) {
-            // echo $city->name;
-            // echo $city->id;
             $str_to_send = $str_to_send."<option value='$city->id'>$city->name</option>";
         }
         echo $str_to_send;
     }
 
     function checkout_post(Request $request){
-        return $request;
+        $request->validate([
+            'customer_name' => 'required | string | max:255',
+            'customer_email' => 'required | string | email | max:255',
+            'customer_phone_number' => 'required | string',
+            'customer_country_id' => 'required | integer',
+            'customer_city_id' => 'required | integer',
+            'customer_address' => 'required | string | max:250',
+            'customer_postcode' => 'required | string',
+            'customer_message' => 'required | string | max:500',
+            'payment_option' => 'required | integer',
+        ]);
         if($request->payment_option == 1){
             echo "Online Payment";
         }
         else {
-            echo "Cash on Delivery";
+            $ordr_id = Order::insertGetId($request->except('_token') + [
+                'user_id' => Auth::id(),
+                'payment_status' => 2,
+                'subtotal' => session('session_sub_total'),
+                'discount' => session('session_cupon_discount'),
+                'total' => session('session_total'),
+                'created_at' => Carbon::now(),
+            ]);
+            $carts = Cart::where('ip_address', request()->ip())->select('id', 'product_id', 'quantity')->get();
+            foreach($carts as $cart){
+                Order_details::insert([
+                    'order_id' => $ordr_id,
+                    'product_id' => $cart->product_id,
+                    'quantity' => $cart->quantity,
+                    'created_at' => Carbon::now(),
+                ]);
+                Product::find($cart->product_id)->decrement('product_quantity', $cart->quantity);
+                Cart::find($cart->id)->delete();
+            }
+            return back();
         }
     }
 

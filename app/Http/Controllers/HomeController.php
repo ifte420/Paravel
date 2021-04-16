@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Cupon;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::latest()->get();
-        return view('home', compact('users'));
+        $cupons = Cupon::all();
+        return view('home', compact('users', 'cupons'));
     }
 }

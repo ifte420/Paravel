@@ -67,6 +67,7 @@ Route::get('subcategory/delete/all/force', [SubcategoryController::class, 'subca
 // Product Controller
 Route::get('product', [ProductController::class, 'product'])->name('product');
 Route::post('product/post', [ProductController::class, 'productpost'])->name('productpost');
+Route::post('get/subcategory/list', [ProductController::class, 'get_sub_category_list'])->name('get_sub_category_list');
 Route::get('product/edit/{product_id}', [ProductController::class, 'product_edit'])->name('product_edit');
 Route::post('product/update/edit/{product_id}', [ProductController::class, 'producteditpost'])->name('producteditpost');
 Route::get('product/soft/delete/{product_id}', [ProductController::class, 'productsoftdelete'])->name('productsoftdelete');

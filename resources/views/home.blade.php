@@ -25,7 +25,7 @@
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
-                            @endif
+                        @endif
                         <div class="alert alert-success text-center">
                             Total Users: {{$users->count()}}
                         </div>
@@ -53,15 +53,7 @@
                 </div>
             </div>
         @else
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">I am Customer</div>
-            </div>
-            <div class="card-body">
-                Hello world
-            </div>
-        </div>
-        {{-- @include('cupon.index') --}}
+            @include('customer.dashbroad')
         @endif
     </div>
 </div>

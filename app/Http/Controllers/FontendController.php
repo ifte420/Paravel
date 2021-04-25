@@ -116,15 +116,15 @@ class FontendController extends Controller
         return back();
     }
     function checkout(){
-        // echo City::select('id', 'name')->take(10)->get();
         if(Auth::id()){
-            return view('checkout',[
-                'countries' => Country::select('id', 'name')->get(),
-            ]);
+            if(!is_null(session('session_sub_total'))){
+                return view('checkout',[
+                    'countries' => Country::select('id', 'name')->get(),
+                ]);
+            }
+            return redirect('cart/page');
         }
-        else{
-            return view('customer_login');
-        }
+        return view('customer_login');
     }
 
     function customer_register(){
@@ -144,7 +144,7 @@ class FontendController extends Controller
             'role' => 2,
             'created_at' => Carbon::now(),
         ]);
-        return back();
+        return view('customer_login');
     }
     function customer_login(){
         return view('customer_login');
@@ -155,7 +155,7 @@ class FontendController extends Controller
             $db_passowrd = User::where('email', $request->email)->first()->password;
             if(Hash::check($request->password, $db_passowrd)){
                 if(Auth::attempt($request->except('_token'))){
-                    return redirect()->intended('home');
+                    return redirect()->intended('/');
                 }
             }
             else {
@@ -210,7 +210,7 @@ class FontendController extends Controller
                 Product::find($cart->product_id)->decrement('product_quantity', $cart->quantity);
                 Cart::find($cart->id)->delete();
             }
-            return back();
+            return redirect('home');
         }
     }
 

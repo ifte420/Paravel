@@ -15,7 +15,11 @@ use App\Http\Controllers\CuponController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
-  
+
+// Home Controller Routes
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('download/invoice/{order_id}', [HomeController::class, 'download_invoice'])->name('download_invoice');
+
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
 Route::get('about', [FontendController::class, 'about'])->name('about');
@@ -34,9 +38,6 @@ Route::post('customer/register/post', [FontendController::class, 'customer_regis
 Route::get('customer/login', [FontendController::class, 'customer_login'])->name('customer_login')->middleware('guest');
 Route::post('customer/login/post', [FontendController::class, 'customer_login_post'])->name('customer_login_post');
 Route::post('get/city/list', [FontendController::class, 'getcitylist']);
-
-// Home Controller Routes
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // categroy Controller Routes
 Route::get('category', [CategoryController::class, 'category'])->name('category');

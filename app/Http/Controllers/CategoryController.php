@@ -109,7 +109,7 @@ class CategoryController extends Controller
     function category_check_delete(Request $request){
         if(isset($request->category_id)){
             foreach($request->category_id as $category_id){
-            Category::findOrFail($category_id)->delete();
+                Category::findOrFail($category_id)->delete();
             }
             return back()->with('check_soft_delete','Check Delete Successfully');
         }

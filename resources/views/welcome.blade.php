@@ -213,7 +213,7 @@
             </div>
             <ul class="row">
                 @foreach ($products as $product)
-                @include('little_part.product')
+                    @include('little_part.product')
                 @endforeach
                 <li class="col-12 text-center">
                     <a class="loadmore-btn" href="javascript:void(0);">Load More</a>

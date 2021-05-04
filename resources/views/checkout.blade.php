@@ -13,7 +13,7 @@
             <div class="col-lg-8">
                 <div class="checkout-form form-style">
                     <h3>Billing Details (Logged in as: {{ Auth::user()->name }})</h3>
-                    <form action="{{ route('checkout_post') }}" method="POST">
+                    <form id="main_form" action="" method="POST">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -107,7 +107,7 @@
                                 @enderror
                             </li>
                         </ul>
-                        <button type="submit">Place Order</button>
+                        <button type="button" id="place_order_btn">Place Order</button>
                     </form>
                 </div>
             </div>
@@ -152,6 +152,17 @@
                     $('#city_list').html(data);
                 }
             });
+        });
+        $('#place_order_btn').click(function(){
+            if($("input[name='payment_option']:checked").val() == 1){
+                var link = "{{ route('pay') }}";
+                $('#main_form').attr('action', link);
+            }
+            else{
+                var link = "{{ route('checkout_post') }}";
+                $('#main_form').attr('action', link);
+            }
+            $('#main_form').submit();
         });
     });
     </script>

@@ -105,7 +105,7 @@
                 <div class="row">
                     @foreach ($feature_photos as $feature_photo)
                     <div class="col-lg-6">
-                        <form action="{{ route('update_feature_photo', $feature_photo->id) }}" method="post" enctype="multipart/form-data" >
+                        <form action="{{ route('update_feature_photo', $feature_photo->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group d-inline">
                                 <p>Currant Photo</p>

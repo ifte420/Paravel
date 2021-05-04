@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Cartcontroller;
 use App\Http\Controllers\CuponController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 // Generate Laravel Auth Routes
 Auth::routes();
@@ -112,3 +113,17 @@ Route::get('cart/delete/{cart_id}', [Cartcontroller::class, 'cartdelete'])->name
 // Cupon Controller
 Route::resource('cupon', CuponController::class);
 Route::get('cupon/delete/all', [CuponController::class, 'delete_all'])->name('cart.delete.all');
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('online/payment', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index'])->name('pay');
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END

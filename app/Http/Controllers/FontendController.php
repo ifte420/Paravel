@@ -15,7 +15,7 @@ use App\Models\Contact;
 use App\Models\Cupon;
 use App\Models\Country;
 use App\Models\City;
-use App\Models\Order;
+use App\Models\Customerorder;
 use App\Models\Order_details;
 use Carbon\Carbon;
 use Hash;
@@ -188,10 +188,10 @@ class FontendController extends Controller
             'payment_option' => 'required | integer',
         ]);
         if($request->payment_option == 1){
-            echo "Online Payment";
+            return redirect('online/payment');
         }
         else {
-            $ordr_id = Order::insertGetId($request->except('_token') + [
+            $ordr_id = Customerorder::insertGetId($request->except('_token') + [
                 'user_id' => Auth::id(),
                 'payment_status' => 2,
                 'subtotal' => session('session_sub_total'),

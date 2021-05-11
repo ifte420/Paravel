@@ -33,7 +33,9 @@ class HomeController extends Controller
         $users = User::latest()->get();
         $cupons = Cupon::all();
         $orders = Customerorder::where('user_id', Auth::id())->latest()->get();
-        return view('home', compact('users', 'cupons', 'orders'));
+        $credit_card = Customerorder::where('payment_status', 1)->count();
+        $cod = Customerorder::where('payment_status', 2)->count();
+        return view('home', compact('users', 'cupons', 'orders', 'credit_card', 'cod'));
     }
     public function download_invoice($order_id){
         $order_data = Customerorder::find($order_id);

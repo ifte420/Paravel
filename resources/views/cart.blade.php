@@ -170,6 +170,13 @@
                         </div>
                     </div>
                 </form>
+                @if (session('double_error'))
+                <div class="col-lg-6 col-sm-6 col-6 text-center mt-3 m-auto" style="background: #EF4836; color:#ffffff; height:50px;">
+                    <div class="alert">
+                        {{ session('double_error') }}
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

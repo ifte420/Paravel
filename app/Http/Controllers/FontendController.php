@@ -187,6 +187,9 @@ class FontendController extends Controller
             'customer_message' => 'required | string | max:500',
             'payment_option' => 'required | integer',
         ]);
+        if(session('session_total') == 0){
+            return redirect('cart/page')->with('double_error', "Your Order Already Submited, or And you didn't buy anything");
+        }
         if($request->payment_option == 1){
             return redirect('online/payment');
         }
@@ -210,6 +213,7 @@ class FontendController extends Controller
                 Product::find($cart->product_id)->decrement('product_quantity', $cart->quantity);
                 Cart::find($cart->id)->delete();
             }
+            session()->forget('session_total');
             return redirect('home');
         }
     }

@@ -15,7 +15,10 @@ class Cartcontroller extends Controller
         $request->validate([
             'quantity' => 'required | integer',
         ]);
-
+        
+        if($request->quantity < 1){
+            return back()->with('quantity_error', 'Please Select At least One Product');
+        }
         if($request->quantity > Product::find($product_id)->product_quantity){
             return back()->with('stock_not', 'Stock Not Available');
         }

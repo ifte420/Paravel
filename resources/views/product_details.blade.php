@@ -79,9 +79,6 @@
                             @enderror
                         </ul>
                     </form>
-                    @if (session('stock_not'))
-                        <small class="alert text-danger">{{ session('stock_not') }}</small>
-                    @endif
                     <ul class="cetagory">
                         <li>Categories:</li>
                         <li><a href="#">{{App\Models\Category::find($products->category_id)->category_name}}</a></li>
@@ -94,6 +91,16 @@
                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                     </ul>
+                    @if (session('stock_not'))
+                        <small class="text-danger">
+                            {{ session('stock_not') }}
+                        </small>
+                    @endif
+                    @if (session('quantity_error'))
+                        <div class="alert alert-danger">
+                            {{ session('quantity_error') }}
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -48,17 +48,28 @@
                                 <li>(05 Customar Review)</li>
                             </ul>
                         </div>
-                        <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire denounce with righteous indignation</p>
-                        <ul class="input-style">
-                            <li class="quantity cart-plus-minus">
-                                <input type="text" value="1" />
-                            </li>
-                            <li><a href="cart.html">Add to Cart</a></li>
-                        </ul>
+                        <p>{{$product->product_short_description}}</p>
+                        <div class="badge badge-success">Avaliable Stock: {{$product->product_quantity}}</div>
+                        <form action="{{ route('cartpost', $product->id) }}" method="POST">
+                            @csrf
+                            <ul class="input-style">
+                                <li class="quantity cart-plus-minus">
+                                    <input type="text" value="1" name="quantity"/>
+                                </li>
+                                <li>
+                                  <input type="submit" class="text-white bg-danger border-0 addtocart" style="padding: 5.5px 10px; cursor: pointer;" value="Add to Cart" min="1" onclick="ShowDiv()">
+                                    {{-- <button id="product_id" value="1" style="visibility: hidden"></button> --}}
+                                </li>
+                                @error('quantity')
+                                <small class="alert text-danger">{{ $message }}</small>
+                                @enderror
+                            </ul>
+                        </form>
                         <ul class="cetagory">
                             <li>Categories:</li>
-                            <li><a href="#">Honey,</a></li>
-                            <li><a href="#">Olive Oil</a></li>
+                            <li>
+                                <a href="{{ route('category_wise_shop',$product->category_id) }}">{{ App\Models\Category::find($product->category_id)->category_name }}</a>
+                            </li>
                         </ul>
                         <ul class="socil-icon">
                             <li>Share :</li>

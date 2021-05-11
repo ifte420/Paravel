@@ -14,6 +14,22 @@
 
 @section('content')
 <div class="container">
+    @if (Auth::user()->role == 1)
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        Payment Chart
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="row justify-content-center">
         @if (Auth::user()->role == 1)
             <div class="col-md-12">
@@ -57,4 +73,38 @@
         @endif
     </div>
 </div>
+@endsection
+
+@section('footer_script')
+<script>
+  // === include 'setup' then 'config' above ===
+    const labels = [
+    'Cash On Delivery',
+    'Credit Card',
+
+    ];
+    const data = {
+    labels: labels,
+    datasets: [{
+        label: 'Total number of payments',
+        backgroundColor:[
+            '#ff7979',
+            '#30336b'
+        ],
+        borderColor: '#ecf0f1',
+        data: [{{ $credit_card }}, {{ $cod }}],
+    }]
+    };
+
+    const config = {
+    type: 'doughnut',
+    data,
+    options: {}
+    };
+
+  var myChart = new Chart(
+    document.getElementById('myChart'),
+    config
+  );
+</script>
 @endsection

@@ -8,7 +8,7 @@ use App\Models\Setting;
 class SettingController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth');
+        $this->middleware('verified');
         $this->middleware('checkrole');
     }
     function setting(){

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FontendController;
@@ -13,12 +13,29 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Cartcontroller;
 use App\Http\Controllers\CuponController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use Illuminate\Http\Request;
 
-// Generate Laravel Auth Routes
+// Generate Laravel Auth Routes & Email Verification
 Auth::routes();
 
+Route::get('/email/verify', function () {
+    return view('auth.verify');
+})->middleware('auth')->name('verification.notice');
+
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill();
+
+    return redirect('/home');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 // Home Controller Routes
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('download/invoice/{order_id}', [HomeController::class, 'download_invoice'])->name('download_invoice');
 
 // Fontend Controller Routes

@@ -119,7 +119,9 @@
                     <div class="col-lg-3 col-md-7 col-sm-6 col-6">
                         <div class="logo">
                             <a href="{{route('tohoney_home')}}">
-                        <img src="{{asset('tohoney_assets')}}/images/logo.png" alt="logo">
+                            @if (App\Models\Setting::where('setting_name','website_logo')->first()->setting_value)
+                                <img src="{{asset('uploads/setting_photo/'.App\Models\Setting::where('setting_name','website_logo')->first()->setting_value )}}" alt="logo">
+                            @endif
                         </a>
                         </div>
                     </div>
@@ -140,13 +142,13 @@
                                         <li><a href="faq.html">FAQ</a></li>
                                     </ul>
                                 </li> --}}
-                                <li>
+                                {{-- <li>
                                     <a href="javascript:void(0);">Blog <i class="fa fa-angle-down"></i></a>
                                     <ul class="dropdown_style">
                                         <li><a href="blog.html">blog Page</a></li>
                                         <li><a href="blog-details.html">blog Details</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                                 <li><a href="{{route('contact')}}">Contact</a></li>
                             </ul>
                         </nav>
@@ -293,7 +295,7 @@
     @yield('body')
 
 
-    <!-- start social-newsletter-section -->
+    {{-- <!-- start social-newsletter-section -->
     <section class="social-newsletter-section">
         <div class="container">
             <div class="row">
@@ -312,7 +314,7 @@
         </div>
         <!-- end container -->
     </section>
-    <!-- end social-newsletter-section -->
+    <!-- end social-newsletter-section --> --}}
     <!-- .footer-area start -->
     <div class="footer-area">
         <div class="footer-top">
@@ -323,9 +325,8 @@
                             <div class="footer-top-text text-center">
                                 <ul>
                                     <li><a href="{{ route('tohoney_home') }}">home</a></li>
-                                    <li><a href="#">our story</a></li>
-                                    <li><a href="#">feed shop</a></li>
-                                    <li><a href="blog.html">how to eat blog</a></li>
+                                    <li><a href="{{ route('shop') }}">Shop</a></li>
+                                    <li><a href="{{ route('cart') }}">Cart</a></li>
                                     <li><a href="{{route('contact')}}">contact</a></li>
                                 </ul>
                             </div>

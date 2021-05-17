@@ -29,7 +29,15 @@
                     <form action=" {{route('settingpost')}} " method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Header Title</label>
+                            <label for="exampleInputPassword0">Website Logo</label>
+                            <input type="file" class="form-control" id="exampleInputPassword0" value="" name="website_logo">
+                            @error('website_logo')
+                            <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <img src="{{asset('uploads/setting_photo/'.App\Models\Setting::where('setting_name','website_logo')->first()->setting_value )}}" alt="logo" class="mb-2">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Phone Number</label>
                             <input type="text" class="form-control" id="exampleInputPassword1" value="{{$setting->where('setting_name', 'phone_number')->first()->setting_value }}" name="phone_number">
                             @error('phone_number')
                             <span class="text-danger"> {{$message}} </span>
@@ -82,6 +90,14 @@
                             <input type="date" class="form-control" id="exampleInputPassword7" value="{{ $setting->where('setting_name', 'offer_date')->first()->setting_value }}" name="offer_date">
                             @error('offer_date')
                             <span class="text-danger"> {{$message}} </span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword7">About Our Website</label>
+                            {{-- <input type="text" class="form-control" id="exampleInputPassword7" value="" name="offer_date"> --}}
+                            <textarea name="about_website" id="" cols="80" rows="10" class="form-control">{{ $setting->where('setting_name', 'about_website')->first()->setting_value }}</textarea>
+                            @error('about_website')
+                                <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Update Setting</button>

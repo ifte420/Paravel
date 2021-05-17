@@ -15,6 +15,10 @@ class SettingSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
+            'setting_name' => 'website_logo',
+            'setting_value' => 'https://i.ibb.co/kBk71Ky/logo.png',
+        ]);
+        DB::table('settings')->insert([
             'setting_name' => 'phone_number',
             'setting_value' => '12345456485',
         ]);
@@ -45,6 +49,10 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert([
             'setting_name' => 'offer_date',
             'setting_value' => '2031/12/25',
+        ]);
+        DB::table('settings')->insert([
+            'setting_name' => 'about_website',
+            'setting_value' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt rerum tenetur illum explicabo pariatur beatae minima nam ipsa. Maiores molestiae molestias, nemo odio impedit cumque nobis nesciunt alias in numquam magni eos excepturi libero fuga temporibus fugiat! Quasi, quod sed dolores non dolorem dolor sint similique. Quaerat reiciendis neque aliquam!',
         ]);
     }
 }

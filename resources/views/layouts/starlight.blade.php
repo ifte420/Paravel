@@ -80,6 +80,12 @@
             <span class="menu-item-label">Cupon</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{ route('client.index') }}" class="sl-menu-link @yield('client')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <span class="menu-item-label">Client Says</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         @endif
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">

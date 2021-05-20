@@ -26,7 +26,7 @@ class CategoryController extends Controller
             'category_name' => 'required | max:50 | min:3 | unique:categories,category_name',
             'category_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
             'subcategory_name' => 'required | max:50 | min:3 | unique:subcategories,subcategory_name',
-            'subcategory_image' => 'required| mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'subcategory_image' => 'required| mimes:jpg,jpeg,png,bmp,gif,svg,webp',
         ],
         [
             'category_name.required' => "Pleace Fill Up The Input File",

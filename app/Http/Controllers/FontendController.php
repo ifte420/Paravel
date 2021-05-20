@@ -17,6 +17,7 @@ use App\Models\Country;
 use App\Models\City;
 use App\Models\Customerorder;
 use App\Models\Order_details;
+use App\Models\client;
 use Carbon\Carbon;
 use Hash;
 use Auth;
@@ -26,8 +27,9 @@ class FontendController extends Controller
     function index(){
         $headers = Header::all();
         $categories = Category::all();
+        $clients = client::all();
         $products = Product::latest()->get();
-        return view('welcome', compact('categories', 'products', 'headers'));
+        return view('welcome', compact('categories', 'products', 'headers', 'clients'));
     }
     function about(){
         return view('about');

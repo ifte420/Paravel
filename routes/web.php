@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\Cartcontroller;
 use App\Http\Controllers\CuponController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Http\Request;
 
@@ -130,6 +131,11 @@ Route::get('cart/delete/{cart_id}', [Cartcontroller::class, 'cartdelete'])->name
 // Cupon Controller
 Route::resource('cupon', CuponController::class);
 Route::get('cupon/delete/all', [CuponController::class, 'delete_all'])->name('cart.delete.all');
+
+// Clientsay Controller
+Route::resource('client', ClientController::class);
+
+
 
 // SSLCOMMERZ Start
 Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);

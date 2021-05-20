@@ -235,36 +235,18 @@
             <div class="row">
                 <div class="col-md-10 offset-md-1 col-12">
                     <div class="testmonial-active owl-carousel">
+                        @foreach ($clients as $client)
                         <div class="test-items test-items2">
                             <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
+                                <p>{{ $client->client_says }}</p>
+                                <h2>{{ $client->client_name }}</h2>
+                                <p>{{ $client->client_title }}</p>
                             </div>
                             <div class="test-img2">
-                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
+                                <img src="{{asset('uploads/client/'.$client->client_image)}}" alt="not found" class="rounded-circle">
                             </div>
                         </div>
-                        <div class="test-items test-items2">
-                            <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
-                            </div>
-                            <div class="test-img2">
-                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
-                            </div>
-                        </div>
-                        <div class="test-items test-items2">
-                            <div class="test-content">
-                                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical LatinContrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin</p>
-                                <h2>Elizabeth Ayna</h2>
-                                <p>CEO of Woman Fedaration</p>
-                            </div>
-                            <div class="test-img2">
-                                <img src="{{asset('tohoney_assets')}}/images/test/1.png" alt="">
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

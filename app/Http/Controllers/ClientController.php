@@ -6,6 +6,8 @@ use App\Models\client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Image;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 class ClientController extends Controller
 {
     /**
@@ -15,7 +17,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('client.index');
+        return view('client.index', [
+            'clients' => client::all(),
+        ]);
     }
 
     /**
@@ -36,6 +40,8 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        print_r($request->all());
+        die();
         $request->validate([
             'client_says' => 'required',
             'client_name' => 'required',
@@ -52,7 +58,8 @@ class ClientController extends Controller
         client::insert($request->except('_token', 'client_image')+[
             'client_image' => $random_name,
         ]);
-    return back()->with('insert_success','Your Data Insert Successfully');
+
+        return back()->with('insert_success','Your Data Insert Successfully');
     }
 
     /**
@@ -74,7 +81,13 @@ class ClientController extends Controller
      */
     public function edit(client $client)
     {
-        //
+        return view('client.edit',[
+            'client' => $client,
+        ]);
+    }
+
+    function client_edit($client_id){
+        echo $client = Crypt::decryptString($client_id);
     }
 
     /**
@@ -86,7 +99,29 @@ class ClientController extends Controller
      */
     public function update(Request $request, client $client)
     {
-        //
+        $request->validate([
+            'client_says' => 'required',
+            'client_name' => 'required',
+            'client_title' => 'required',
+            'client_image' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+        ]);
+        if($request->client_image){
+            $path = Public_path('uploads/client/').$client->client_image;
+            unlink($path);
+            // catch file
+            $photo_select = $request->file('client_image');
+            // random name
+            $random_name = str::random(10).time().'.'.$request->client_image->getClientOriginalExtension();
+            // upload your file
+            Image::make($photo_select)->resize(135, 105)->save(public_path('uploads/client/').$random_name, 80);
+
+            $client->update($request->except('_token', 'client_image')+[
+                'client_image' => $random_name,
+            ]);
+            return redirect('client')->with('update','Update Successfully');
+        }
+            $client->update($request->except('_token', 'client_image'));
+            return redirect('client')->with('update','Update Successfully');
     }
 
     /**
@@ -97,6 +132,18 @@ class ClientController extends Controller
      */
     public function destroy(client $client)
     {
-        //
+        $client->delete();
+        return back()->with('soft_delete', 'Single Soft Delete Successfully');
     }
+
+
+    function soft_delete_all(){
+        client::whereNull('deleted_at')->delete();
+        return back()->with('soft_all', 'All Client Says Deleted Successfully');
+    }
+
+    function check_soft_delete(Request $request){
+        print_r($request->all());
+    }
+
 }

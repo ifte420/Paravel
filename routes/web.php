@@ -38,6 +38,9 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('download/invoice/{order_id}', [HomeController::class, 'download_invoice'])->name('download_invoice');
+Route::get('edit/your/profile', [HomeController::class, 'edit_profile'])->name('edit_profile');
+Route::post('update/your/name', [HomeController::class, 'name_update'])->name('name_update');
+Route::post('your/update/password', [HomeController::class, 'password_update'])->name('password_update');
 
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
@@ -134,6 +137,9 @@ Route::get('cupon/delete/all', [CuponController::class, 'delete_all'])->name('ca
 
 // Clientsay Controller
 Route::resource('client', ClientController::class);
+Route::get('client/edit/{client_id}', [ClientController::class, 'client_edit'])->name('client_edit');
+Route::get('client/soft/delete/all', [ClientController::class, 'soft_delete_all'])->name('client.soft');
+Route::post('check/soft/delete', [ClientController::class, 'check_soft_delete'])->name('check_soft_delete');
 
 
 

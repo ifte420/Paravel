@@ -51,7 +51,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <form action=" {{route('category_check_delete')}} " method="POST">
                                 @csrf
                                 @forelse ($cupons as $cupon)
                                 <tr>
@@ -80,8 +79,7 @@
                                 @endforelse
                             </tbody>
                         </table>
-                    </form>
-                </div>
+                    </div>
             </div>
         </div>
         <div class="col-lg-4">

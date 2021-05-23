@@ -9,6 +9,7 @@ use App\Models\Customerorder;
 use App\Models\Order_details;
 use Auth;
 Use PDF;
+Use Hash;
 Use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -43,4 +44,34 @@ class HomeController extends Controller
         $pdf = PDF::loadView('pdf.invoice', compact('order_data', 'order_details'));
         return $pdf->stream('invoice'.Carbon::now().'.pdf');
     }
+    function edit_profile(){
+        return view('edit_profile');
+    }
+    function name_update(Request $request){
+        // print_r($request->all());
+        // Auth::find();
+        Auth::user()->where('id', Auth::user()->id)->update([
+            'name' => $request->name,
+        ]);
+        return back()->with('name_succ', 'Your Name Update Successfully');
+    }
+
+    function password_update(Request $request){
+        $request->validate([
+            'current_password' => 'required',
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password_confirmation' => 'required',
+        ]);
+        $database_pass = Auth::user()->where('id', Auth::user()->id)->first()->password;
+        if(Hash::check($request->current_password, $database_pass)){
+            Auth::user()->where('id', Auth::user()->id)->update([
+                'password' => bcrypt($request->password),
+            ]);
+            return back()->with('pass_succ', 'Your Password Change Successfully');
+        }
+        else {
+            return back()->with('pass_wrg', 'Your Currant Password Wrong');
+        }
+    }
+
 }

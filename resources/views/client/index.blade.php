@@ -15,58 +15,77 @@
 
 @section('content')
 <div class="row">
-    {{-- <div class="col-lg-8">
+    <div class="col-lg-8">
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-lg-6 pt-1">Category List</div>
+                    <div class="col-lg-6 pt-1">Client Says List</div>
                     <div class="col-lg-6 text-right">
-                        @if ($cupons->count() != 0)
-                            <a href="{{ route('cart.delete.all') }}" class="btn btn-danger">Delete All</a>
+                        @if ($clients->count() != 0)
+                            <a href="{{ route('client.soft') }}" class="btn btn-danger">Delete All</a>
                         @endif
                     </div>
                 </div>
             </div>
             <div class="card-body">
                 <table class="table table-bordered">
-                    @if (session('category_delete_status'))
+                    @if (session('soft_delete'))
                         <div class="alert alert-danger">
-                            {{session('category_delete_status')}}
+                            {{session('soft_delete')}}
+                        </div>
+                    @endif
+                    @if (session('update'))
+                        <div class="alert alert-success">
+                            {{session('update')}}
+                        </div>
+                    @endif
+                    @if (session('soft_all'))
+                        <div class="alert alert-danger">
+                            {{session('soft_all')}}
                         </div>
                     @endif
                     <div class="alert alert-success text-center">
-                        Total Category {{ $cupons->count() }}
+                        Total Client {{ $clients->count() }}
                     </div>
                     <thead>
                         <tr>
+                            <th>
+                                <input type="checkbox" id="select_all">
+                            </th>
                             <th>Serial No</th>
-                            <th>Cupon Name</th>
-                            <th>Discount Amount</th>
-                            <th>Expire Date</th>
-                            <th>Uses</th>
+                            <th>Name</th>
+                            <th>Title</th>
+                            <th>Client Says</th>
+                            <th>Image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <form action=" {{route('category_check_delete')}} " method="POST">
+                        <form action="{{ route('check_soft_delete') }}" method="POST">
                             @csrf
-                            @forelse ($cupons as $cupon)
+                            @forelse ($clients as $client)
                             <tr>
+                                <td>
+                                    <input type="checkbox" name="delete_checked_id[]" value="{{ $client->id }}">
+                                </td>
                                 <td> {{$loop->index+1}} </td>
-                                <td> {{Str::title($cupon->cupon_name)}} </td>
-                                <td> {{ $cupon->discount_amount }} %</td>
-                                <td> {{ $cupon->expire_date }} </td>
-                                <td> {{ $cupon->uses_limit }} </td>
+                                <td> {{Str::title($client->client_name)}} </td>
+                                <td> {{ $client->client_title }} </td>
+                                <td> {{ $client->client_says }}</td>
+                                <td> <img src="{{ asset('uploads/client/'.$client->client_image) }}" alt="not found" class="rounded-circle"></td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('cupon.edit', $cupon->id) }}" type="button" class="btn btn-info text-white">Edit</a>
-                                        <form action="{{ route('cupon.destroy', $cupon->id) }}" method="POST">
+                                        @php
+                                            $crypt = Crypt::encryptString($client->id);
+                                        @endphp
+                                        <a href="{{ route('client.edit',$client->id) }}" type="button" class="btn btn-info text-white">Edit</a>
+                                        {{-- <form action="{{ route('client.destroy', $client->id) }}" method="POST" id="from2">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger">
+                                            <button class="btn btn-danger" form="from2">
                                                 Delete
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </div>
                                 </td>
                             </tr>
@@ -75,15 +94,20 @@
                                 <td colspan="9" class="text-center text-danger">No Data To Show</td>
                             </tr>
                             @endforelse
-                        </tbody>
-                    </table>
-                </form>
+                    </tbody>
+                </table>
+                    @if ($clients->count() != 0)
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            Check Delete
+                        </button>
+                    @endif
+                </from>
             </div>
         </div>
-    </div> --}}
+    </div>
     <div class="col-lg-4">
         <div class="card">
-            <div class="card-header">Add Cupon</div>
+            <div class="card-header">Add Client Says</div>
             <div class="card-body">
                 @if (session('insert_success'))
                     <div class="alert alert-success">
@@ -126,3 +150,15 @@
 </div>
 @endsection
 
+@section('footer_script')
+<script>
+    $(document).ready(function(){
+        document.getElementById('select_all').onclick = function() {
+            var checkboxes = document.getElementsByName('delete_checked_id[]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
+    });
+</script>
+@endsection

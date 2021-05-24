@@ -10,6 +10,8 @@ use App\Models\Order_details;
 use Auth;
 Use PDF;
 Use Hash;
+Use Image;
+use Illuminate\Support\Str;
 Use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -72,6 +74,23 @@ class HomeController extends Controller
         else {
             return back()->with('pass_wrg', 'Your Currant Password Wrong');
         }
+    }
+
+    function profile_image(Request $request){
+        $request->validate([
+            'profile_image' => 'required| mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+        ]);
+         // Catch The Photo
+        $photo_select = $request->file('profile_image');
+        // Randomly Ganerate Name
+        $random_photo_name = str::random(10) . time() . '.' . $request->profile_image->getClientOriginalExtension();
+        // Upload The photo
+        Image::make($photo_select)->save(base_path('public/uploads/profile/') . $random_photo_name, 80 );
+
+        Auth::user()->where('id', Auth::user()->id)->update([
+            'profile_image' => $random_photo_name,
+        ]);
+        return back()->with('picture_update', 'Your profile Picture update Succssfully');
     }
 
 }

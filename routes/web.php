@@ -41,6 +41,7 @@ Route::get('download/invoice/{order_id}', [HomeController::class, 'download_invo
 Route::get('edit/your/profile', [HomeController::class, 'edit_profile'])->name('edit_profile');
 Route::post('update/your/name', [HomeController::class, 'name_update'])->name('name_update');
 Route::post('your/update/password', [HomeController::class, 'password_update'])->name('password_update');
+Route::post('profile/your/image/update', [HomeController::class, 'profile_image'])->name('profile_image');
 
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');

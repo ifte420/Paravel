@@ -113,7 +113,7 @@
           <div class="dropdown">
             <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
               <span class="logged-name">{{Auth::user()->name}}</span></span>
-              <img src="{{asset('starlight_asset/img/img5.jpg')}}" class="wd-32 rounded-circle" alt="">
+              <img src="{{asset('uploads/profile/'.Auth::user()->profile_image)}}" class="wd-32 rounded-circle" alt="">
             </a>
             <div class="dropdown-menu dropdown-menu-header wd-200">
               <ul class="list-unstyled user-profile-nav">
@@ -170,7 +170,5 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @yield('footer_script')
-  </body>
-
   </body>
 </html>

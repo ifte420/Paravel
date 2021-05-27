@@ -87,6 +87,10 @@ class HomeController extends Controller
         // Upload The photo
         Image::make($photo_select)->save(base_path('public/uploads/profile/') . $random_photo_name, 80 );
 
+        if(Auth::user()->profile_image != "default.png"){
+            $image_path = base_path('public/uploads/profile/') . Auth::user()->profile_image;
+            unlink($image_path);
+        }
         Auth::user()->where('id', Auth::user()->id)->update([
             'profile_image' => $random_photo_name,
         ]);

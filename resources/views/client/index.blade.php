@@ -78,6 +78,7 @@
                                         @php
                                             $crypt = Crypt::encryptString($client->id);
                                         @endphp
+                                        <!-- <a href="{{ route('client_edit',$client->id) }}" type="button" class="btn btn-info text-white">Edit</a> -->
                                         <a href="{{ route('client.edit',$client->id) }}" type="button" class="btn btn-info text-white">Edit</a>
                                         {{-- <form action="{{ route('client.destroy', $client->id) }}" method="POST" id="from2">
                                             @csrf
@@ -101,7 +102,7 @@
                             Check Delete
                         </button>
                     @endif
-                </from>
+                    </form>
             </div>
         </div>
     </div>
@@ -128,7 +129,7 @@
                         @error('client_name')
                         <span class="text-danger d-block"> {{$message}} </span>
                         @enderror
-                        
+
                         <label>Client Title</label>
                         <input type="text" class="form-control" name="client_title" value="{{ old('client_title') }}">
                         @error('client_title')

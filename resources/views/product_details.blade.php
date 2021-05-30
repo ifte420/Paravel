@@ -85,11 +85,12 @@
                     </ul>
                     <ul class="socil-icon">
                         <li>Share :</li>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li>
+                            <a href="http://www.facebook.com/sharer.php?u={{ url()->full() }}" target="_blank"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/share?url={{ url()->full() }} Share Buttons&hashtags=simplesharebuttons" target="_blank"><i class="fa fa-twitter"></i></a>
+                        </li>
                     </ul>
                     @if (session('stock_not'))
                         <small class="text-danger">

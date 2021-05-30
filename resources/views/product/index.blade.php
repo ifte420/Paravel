@@ -44,12 +44,13 @@
                         <div class="form-group">
                             <label>Sub Category Name</label>
                             <select class="form-control" name="subcategory_id" id="subcategory_list">
-                                <option value="">-Choose One-</option>
+                                {{-- <option value="">-Choose One-</option> --}}
                                 {{-- @foreach ($subcategorys as $subcategory)
                                     <option value="{{$subcategory->id}}"> {{ App\Models\Category::find($subcategory->category_id)->category_name }} > {{$subcategory->subcategory_name}}</option>
                                 @endforeach --}}
+                                <option value="{{ old('customer_city_id') }}">-Select-</option>
                             </select>
-                            @error('category_id')
+                            @error('subcategory_id')
                             <span class="text-danger"> {{$message}} </span>
                             @enderror
                         </div>

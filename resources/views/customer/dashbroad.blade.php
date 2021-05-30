@@ -24,7 +24,12 @@
                             <td>{{ $order->discount }}</td>
                             <td>{{ $order->total }}</td>
                             <td>
-                                <a href="{{ route('download_invoice', $order->id) }}"><i class="fa fa-download"></i>Download Invoice</a>
+                                <a href="{{ route('download_invoice', $order->id) }}">
+                                    <i class="fa fa-download"></i>Download Invoice
+                                </a>
+                                <a href="{{ route('review', $order->id) }}" class="d-block pt-2">
+                                    <i class="fa fa-star"></i>Give Review
+                                </a>
                             </td>
                         </tr>
                     @endforeach

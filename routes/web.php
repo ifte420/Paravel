@@ -38,13 +38,17 @@ Route::post('/email/verification-notification', function (Request $request) {
 // Home Controller Routes
 Route::get('/home', [HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('download/invoice/{order_id}', [HomeController::class, 'download_invoice'])->name('download_invoice');
+Route::get('product/review/{order_id}', [HomeController::class, 'review'])->name('review');
+Route::post('post/your/review/{order_details_id}', [HomeController::class, 'review_post'])->name('review_post');
 Route::get('edit/your/profile', [HomeController::class, 'edit_profile'])->name('edit_profile');
 Route::post('update/your/name', [HomeController::class, 'name_update'])->name('name_update');
 Route::post('your/update/password', [HomeController::class, 'password_update'])->name('password_update');
 Route::post('profile/your/image/update', [HomeController::class, 'profile_image'])->name('profile_image');
+Route::post('send/bulk/sms', [HomeController::class, 'sendsms'])->name('sendsms');
 
 // Fontend Controller Routes
 Route::get('/', [FontendController::class, 'index'])->name('tohoney_home');
+Route::get('your/search', [FontendController::class, 'search'])->name('search');
 Route::get('about', [FontendController::class, 'about'])->name('about');
 Route::get('contact', [FontendController::class, 'frontend_contact'])->name('contact');
 Route::get('product/details/{product_id}', [FontendController::class, 'product_details'])->name('product_details');

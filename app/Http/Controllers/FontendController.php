@@ -220,4 +220,10 @@ class FontendController extends Controller
         }
     }
 
+    function search(){
+        $serct_str = "%" . $_GET['s'] . "%";
+        $products = Product::where('product_name', 'LIKE', $serct_str)->get();
+        return view('search', compact('products'));
+    }
+
 }

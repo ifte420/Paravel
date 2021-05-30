@@ -52,7 +52,7 @@ class SubcategoryController extends Controller
         $request->validate([
             'category_id' => 'required | integer',
             'subcategory_name' => 'required | max:50 | min:3 | unique:subcategories,subcategory_name',
-            'subcategory_image' => 'mimes:jpg, jpeg, png, bmp, gif, svg, webp',
+            'subcategory_image' => 'mimes:jpg,jpeg, png,bmp,gif,svg,webp',
         ]);
         if($request->hasfile('subcategory_image')){
             // Delete Old Photo

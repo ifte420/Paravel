@@ -97,4 +97,33 @@ class HomeController extends Controller
         return back()->with('picture_update', 'Your profile Picture update Succssfully');
     }
 
+    function sendsms(Request $request){
+            $url = "http://66.45.237.70/api.php";
+            $number="$request->numbers";
+            $text="$request->message";
+            $data= array(
+                'username'=>"",
+                'password'=>"",
+                'number'=>"$number",
+                'message'=>"$text"
+            );
+            $ch = curl_init(); // Initialize cURL
+            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $smsresult = curl_exec($ch);
+            $p = explode("|",$smsresult);
+            echo $sendstatus = $p[0];
+            echo "done";
+   }
+   function review($order_id){
+       return view('customer.review',[
+           'order_details' => Order_details::where('order_id', $order_id)->get(),
+       ]);
+   }
+
+   function review_post(Request $request, $order_details_id){
+        echo $order_details_id;
+   }
+
 }

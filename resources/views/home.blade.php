@@ -15,8 +15,28 @@
 @section('content')
 <div class="container">
     @if (Auth::user()->role == 1)
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-10">
+        <div class="row mb-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Bluk SMS</div>
+                    <div class="card-body">
+                        @if (session('send_sms'))
+                            <div class="alert alert-success">
+                                {{ session('send_sms') }}
+                            </div>
+                        @endif
+                        <form action="{{ route('sendsms') }}" method="POST">
+                            @csrf
+                            <label>Number (Seperate By coma)</label>
+                            <input type="text" name="numbers" class="form-control mb-2">
+                            <label>message</label>
+                            <textarea name="message" class="form-control" rows="4"></textarea>
+                            <button class="btn btn-success mt-2">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         Payment Chart

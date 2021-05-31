@@ -156,7 +156,7 @@
                     <div class="col-md-4 col-lg-2 col-sm-5 col-4">
                         <ul class="search-cart-wrapper d-flex">
                             <li class="search-tigger"><a href="javascript:void(0);"><i class="flaticon-search"></i></a></li>
-                            <li>
+                            {{-- <li>
                                 <a href="javascript:void(0);"><i class="flaticon-like"></i> <span>2</span></a>
                                 <ul class="cart-wrap dropdown_style">
                                     <li class="cart-items">
@@ -186,7 +186,7 @@
                                         <button>Check Out</button>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li>
                                 @php
                                     $carts = App\Models\Cart::where('ip_address', request()->ip())->get();

@@ -18,18 +18,27 @@ use App\Models\City;
 use App\Models\Customerorder;
 use App\Models\Order_details;
 use App\Models\client;
+use App\Models\Review;
 use Carbon\Carbon;
 use Hash;
 use Auth;
+use DB;
 
 class FontendController extends Controller
 {
     function index(){
+        $raw_val = Order_details::select('product_id', DB::raw('count(*) as total'))
+                 ->groupBy('product_id')
+                 ->get();
+        $collection = collect($raw_val);
+
+        $sorted_bestseller = $collection->sortByDesc('total')->take(2);
+
         $headers = Header::all();
         $categories = Category::all();
         $clients = client::all();
         $products = Product::latest()->get();
-        return view('welcome', compact('categories', 'products', 'headers', 'clients'));
+        return view('welcome', compact('categories', 'products', 'headers', 'clients', 'sorted_bestseller'));
     }
     function about(){
         return view('about');
@@ -62,7 +71,14 @@ class FontendController extends Controller
         $product_category_id = Product::findOrFail($product_id)->category_id;
         $related_product = Product::where('category_id', $product_category_id)->where('id', '!=', $product_id)->get();
         $products = Product::find($product_id);
-        return view('product_details', compact('products', 'faqs', 'related_product'));
+        $reviews = Review::where('product_id', $product_id)->get();
+        if(Review::where('product_id', $product_id)->exists()){
+            $overall_review = Review::where('product_id', $product_id)->sum('stars') / Review::where('product_id', $product_id)->count();
+        }
+        else{
+            $overall_review = 0;
+        }
+        return view('product_details', compact('products', 'faqs', 'related_product', 'reviews', 'overall_review'));
     }
     function shop(){
         $products = Product::inRandomOrder()->get();

@@ -143,6 +143,7 @@ Route::get('cupon/delete/all', [CuponController::class, 'delete_all'])->name('ca
 // Clientsay Controller
 Route::resource('client', ClientController::class);
 Route::get('client/edit/{client_id}', [ClientController::class, 'client_edit'])->name('client_edit');
+Route::get('client/delete/{client_id}', [ClientController::class, 'client_delete'])->name('client_delete');
 Route::get('client/soft/delete/all', [ClientController::class, 'soft_delete_all'])->name('client.soft');
 Route::post('check/soft/delete', [ClientController::class, 'check_soft_delete'])->name('check_soft_delete');
 

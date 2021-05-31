@@ -61,6 +61,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @error('delete_checked_id')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <form action="{{ route('check_soft_delete') }}" method="POST">
                             @csrf
                             @forelse ($clients as $client)
@@ -78,8 +81,8 @@
                                         @php
                                             $crypt = Crypt::encryptString($client->id);
                                         @endphp
-                                        <!-- <a href="{{ route('client_edit',$client->id) }}" type="button" class="btn btn-info text-white">Edit</a> -->
                                         <a href="{{ route('client.edit',$client->id) }}" type="button" class="btn btn-info text-white">Edit</a>
+                                        <a href="{{ route('client_delete',$client->id) }}" type="button" class="btn btn-danger text-white">Delete</a> 
                                         {{-- <form action="{{ route('client.destroy', $client->id) }}" method="POST" id="from2">
                                             @csrf
                                             @method('DELETE')

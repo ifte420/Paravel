@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Cupon;
+use App\Models\Review;
 use App\Models\Customerorder;
 use App\Models\Order_details;
 use Auth;
@@ -123,7 +124,17 @@ class HomeController extends Controller
    }
 
    function review_post(Request $request, $order_details_id){
-        echo $order_details_id;
+        // echo $order_details_id;
+        // print_r($request->all());
+        Review::insert([
+            'product_id' => Order_details::find($order_details_id)->product_id ,
+            'user_id' => Auth::id() ,
+            'order_details_id' => $order_details_id ,
+            'review_text' => $request->review_text ,
+            'stars' => $request->star ,
+            'created_at' => Carbon::now(),
+        ]);
+        return back();
    }
 
 }

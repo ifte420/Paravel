@@ -40,8 +40,6 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        print_r($request->all());
-        die();
         $request->validate([
             'client_says' => 'required',
             'client_name' => 'required',
@@ -132,10 +130,16 @@ class ClientController extends Controller
      */
     public function destroy(client $client)
     {
-        $client->delete();
-        return back()->with('soft_delete', 'Single Soft Delete Successfully');
+        // $client->delete();
+        // return back()->with('soft_delete', 'Single Soft Delete Successfully');
     }
 
+    function client_delete($client_id){
+        return $path = Public_path('uploads/client/').client::find($client_id)->client_image;
+        unlink($path);
+        client::findOrFail($client_id)->delete();
+        return back()->with('soft_delete', 'Single Soft Delete Successfully');
+    }
 
     function soft_delete_all(){
         client::whereNull('deleted_at')->delete();
@@ -143,7 +147,15 @@ class ClientController extends Controller
     }
 
     function check_soft_delete(Request $request){
-        print_r($request->all());
+        $request->validate([
+            'delete_checked_id' => 'required',
+        ]);
+        foreach($request->delete_checked_id as $single_id){
+            $path = Public_path('uploads/client/').client::find($single_id)->client_image;
+            unlink($path);
+            client::findOrFail($single_id)->delete();
+        }
+        return back()->with('soft_all', 'All Client Says Deleted Successfully');
     }
 
 }

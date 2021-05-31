@@ -3,7 +3,7 @@
 @section('title')
     Edit Profile
 @endsection
-@section('dashboard')
+@section('profile')
     active
 @endsection
 @section('breadcrumb')

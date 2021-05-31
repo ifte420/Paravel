@@ -31,7 +31,19 @@
             <span class="menu-item-label">Dashboard</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
+        <a href="{{route('edit_profile')}}" class="sl-menu-link @yield('profile')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-compose tx-22"></i>
+            <span class="menu-item-label">Edit Profile</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         @if (Auth::user()->role == 1)
+        <a href="{{ route('header') }}" class="sl-menu-link @yield('header')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-information-circled tx-22"></i>
+            <span class="menu-item-label">Header</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
         <a href="{{route('category')}}" class="sl-menu-link @yield('category')">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-image tx-22"></i>
@@ -40,63 +52,47 @@
         </a><!-- sl-menu-link -->
         <a href="{{route('subcategory')}}" class="sl-menu-link @yield('subcategory')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-image tx-22"></i>
+            <i class="menu-item-icon icon ion-images tx-22"></i>
             <span class="menu-item-label">Sub Category</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="{{route('product')}}" class="sl-menu-link @yield('product')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <i class="menu-item-icon icon ion-wand tx-22"></i>
             <span class="menu-item-label">Product</span>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <a href="{{ route('setting') }}" class="sl-menu-link @yield('setting')">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-settings tx-22"></i>
+            <span class="menu-item-label">Setting</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="{{route('contact_backend')}}" class="sl-menu-link @yield('contact')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <i class="menu-item-icon icon ion-chatboxes tx-22"></i>
             <span class="menu-item-label">Contact (Message)</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="{{route('faq')}}" class="sl-menu-link @yield('faq')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <i class="menu-item-icon icon ion-help-circled tx-22"></i>
             <span class="menu-item-label">FAQ</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href="{{ route('header') }}" class="sl-menu-link @yield('header')">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
-            <span class="menu-item-label">Header</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <a href="{{ route('setting') }}" class="sl-menu-link @yield('setting')">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
-            <span class="menu-item-label">Setting</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="{{ route('cupon.index') }}" class="sl-menu-link @yield('cupon')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <i class="menu-item-icon icon ion-scissors tx-22"></i>
             <span class="menu-item-label">Cupon</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <a href="{{ route('client.index') }}" class="sl-menu-link @yield('client')">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-grid tx-22"></i>
+            <i class="menu-item-icon icon ion-person-stalker tx-22"></i>
             <span class="menu-item-label">Client Says</span>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         @endif
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-            <span class="menu-item-label">Pages</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="blank.html" class="nav-link">Blank Page</a></li>
-        </ul>
       </div><!-- sl-sideleft-menu -->
       <br>
     </div><!-- sl-sideleft -->

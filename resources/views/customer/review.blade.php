@@ -23,19 +23,21 @@
                 <div class="card-header">Give Review</div>
                 <div class="card-body">
                     @foreach ($order_details as $order_detail)
-                        <div class="card">
-                            <div class="card-header">
-                                {{ App\Models\Product::find($order_detail->product_id)->product_name }}
+                        @if (!App\Models\Review::where('order_details_id', $order_detail->id)->exists())
+                            <div class="card">
+                                <div class="card-header">
+                                    {{ App\Models\Product::find($order_detail->product_id)->product_name }}
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ route('review_post', $order_detail->id) }}" method="POST">
+                                        @csrf
+                                        <input type="text" class="form-control" name="review_text">
+                                        <input type="range" id="points" name="star" min="1" max="5" value="1">
+                                        <button class="btn btn-info d-block">Give Review</button>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <form action="{{ route('review_post', $order_detail->id) }}" method="POST">
-                                    @csrf
-                                    <input type="text" class="form-control" name="review_text">
-                                    <input type="range" id="points" name="star" min="1" max="5" value="1">
-                                    <button class="btn btn-info d-block">Give Review</button>
-                                </form>
-                            </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>

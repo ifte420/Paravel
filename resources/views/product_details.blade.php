@@ -58,9 +58,9 @@
                             @for ($i = 1; $i <= floor($overall_review); $i++)
                                 <li><i class="fa fa-star"></i></li>
                             @endfor
-                                @if (is_float($overall_review))
-                                    <li><i class="fa fa-star-half-o"></i></li>
-                                @endif
+                            @if (is_float($overall_review))
+                                <li><i class="fa fa-star-half-o"></i></li>
+                            @endif
                             <li>({{ $reviews->count() }} Customar Review)</li>
                         </ul>
                     </div>

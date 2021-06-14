@@ -14,11 +14,21 @@
             <h3><a href="{{route('product_details', $product->id)}}">{{$product->product_name}}</a></h3>
             <p class="pull-left">${{$product->product_price}}</p>
             <ul class="pull-right d-flex">
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star"></i></li>
-                <li><i class="fa fa-star-half-o"></i></li>
+                @php
+                    use App\Models\Review;
+                    if(Review::where('product_id', $product->id)->exists()){
+                        $overall_review = Review::where('product_id', $product->id)->sum('stars') / Review::where('product_id', $product->id)->count();
+                    }
+                    else{
+                        $overall_review = 0;
+                    }
+                @endphp
+                @for ($i = 1; $i <= floor($overall_review); $i++)
+                    <li><i class="fa fa-star"></i></li>
+                @endfor
+                @if (is_float($overall_review))
+                    <li><i class="fa fa-star-half-o"></i></li>
+                @endif
             </ul>
         </div>
     </div>

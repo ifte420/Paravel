@@ -43,6 +43,7 @@ class ProductController extends Controller {
             'product_long_description' => 'required | min:10 | max: 3000',
             'product_alert_quantity' => 'required | integer',
             'product_image' => 'required | mimes:jpg,jpeg,png,bmp,gif,svg,webp',
+            'feature_image' => 'required',
             'feature_image.*' => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp',
         ]);
         // Catch Image
@@ -205,6 +206,7 @@ class ProductController extends Controller {
 
     function add_feature_photo(Request $request, $product_id){
         $request->validate([
+            'add_feature_image' => 'required',
             'add_feature_image.*' => 'mimes:jpg,jpeg,png,bmp,gif,svg,webp',
         ]);
         // Feature Upload and insert code
